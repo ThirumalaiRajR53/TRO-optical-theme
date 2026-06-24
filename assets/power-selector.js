@@ -54,7 +54,8 @@
     sphValues.forEach(val => {
       const opt = document.createElement('option');
       opt.value = val;
-      opt.textContent = Number(val).toFixed(2);
+      var n = Number(val);
+      opt.textContent = (n > 0 ? '+' : '') + n.toFixed(2);
       select.appendChild(opt);
     });
   }
