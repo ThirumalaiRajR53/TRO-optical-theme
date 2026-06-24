@@ -12,7 +12,32 @@
   const errorEl = document.getElementById('PowerSelectorError');
   const errorTextEl = document.getElementById('PowerSelectorErrorText');
 
-  const AXIS_VALUES = ['', '10', '20', '60', '70', '80', '90', '100', '110', '120', '160', '170', '180'];
+  // ponytail: per-product config from metafield JSON, hardcoded fallback for products without it
+  const DEFAULT_CONFIG = {
+    sph: { min: -9, max: 0, step: 0.25 },
+    cyl: ['-0.75', '-1.25', '-1.75'],
+    cylForZeroSph: ['-2.25'],
+    axis: ['10', '20', '60', '70', '80', '90', '100', '110', '120', '160', '170', '180']
+  };
+
+  let powerConfig = DEFAULT_CONFIG;
+  try {
+    const raw = container.dataset.powerValues;
+    if (raw) powerConfig = Object.assign({}, DEFAULT_CONFIG, JSON.parse(raw));
+  } catch (_) { /* bad JSON — use defaults */ }
+
+  function resolveSphValues(sph) {
+    if (Array.isArray(sph)) return sph.map(String);
+    var min = Number(sph.min), max = Number(sph.max), step = Math.abs(Number(sph.step)) || 0.25;
+    var vals = [];
+    // ponytail: iterate from max (least negative / most positive) down to min
+    for (var v = max; v >= min - step / 2; v -= step) {
+      vals.push(Number(v.toFixed(2)));
+    }
+    return vals.map(String);
+  }
+
+  var sphValues = resolveSphValues(powerConfig.sph);
 
   function getSelect(eye, field) {
     return document.getElementById(`power-${field}-${eye}`);
@@ -22,11 +47,23 @@
     return document.getElementById(`prop-${eye}-${field}`);
   }
 
-  function populateCylOptions(sphValue) {
-    if (sphValue === '0') {
-      return ['', '-2.25'];
+  function populateSph(eye) {
+    const select = getSelect(eye, 'sph');
+    if (!select) return;
+    // Keep "Select" and optional "No Power" that Liquid already rendered
+    sphValues.forEach(val => {
+      const opt = document.createElement('option');
+      opt.value = val;
+      opt.textContent = Number(val).toFixed(2);
+      select.appendChild(opt);
+    });
+  }
+
+  function getCylOptions(sphValue) {
+    if (sphValue === '0' || sphValue === '0.00') {
+      return powerConfig.cylForZeroSph || powerConfig.cyl || [];
     }
-    return ['', '-0.75', '-1.25', '-1.75'];
+    return powerConfig.cyl || [];
   }
 
   function updateCyl(eye) {
@@ -55,8 +92,10 @@
     }
 
     cylSelect.disabled = false;
-    const options = populateCylOptions(sphValue);
-    options.forEach(val => {
+    var opts = getCylOptions(sphValue);
+    // Prepend empty "Select" placeholder
+    var all = [''].concat(opts);
+    all.forEach(val => {
       const opt = document.createElement('option');
       opt.value = val;
       opt.textContent = val === '' ? 'Select' : val;
@@ -75,9 +114,9 @@
 
     axisSelect.innerHTML = '';
 
-    if (!cylValue || cylValue === '-2.25' || cylValue === 'N/A') {
+    if (!cylValue || cylValue === 'N/A') {
       axisSelect.disabled = true;
-      if (cylValue === '-2.25' || cylValue === 'N/A') {
+      if (cylValue === 'N/A') {
         axisSelect.innerHTML = '<option value="N/A">N/A</option>';
         const hidden = getHiddenInput(eye, 'axis');
         if (hidden) hidden.value = 'N/A';
@@ -88,7 +127,8 @@
     }
 
     axisSelect.disabled = false;
-    AXIS_VALUES.forEach(val => {
+    var axisVals = powerConfig.axis || [];
+    [''].concat(axisVals).forEach(val => {
       const opt = document.createElement('option');
       opt.value = val;
       opt.textContent = val === '' ? 'Select' : val + '\u00B0';
@@ -246,6 +286,8 @@
 
   function init() {
     ['left', 'right'].forEach(eye => {
+      populateSph(eye);
+
       const sphSelect = getSelect(eye, 'sph');
       if (sphSelect) {
         sphSelect.addEventListener('change', () => {
