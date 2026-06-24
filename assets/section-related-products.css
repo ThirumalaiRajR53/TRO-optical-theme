@@ -1,0 +1,10 @@
+.related-products {
+  display: block;
+}
+
+.related-products__heading {
+  margin: 0 0 1.875rem;
+  font-size: 1.875rem;
+  font-weight: 600;
+  line-height: 2.625rem;
+}

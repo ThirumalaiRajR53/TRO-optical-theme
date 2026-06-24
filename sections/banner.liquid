@@ -1,0 +1,170 @@
+{{ 'section-banner.css' | asset_url | stylesheet_tag }}
+
+<section id="Banner-{{ section.id }}" class="banner-wrapper">
+  <div class="twcss-flex  twcss-flex-col twcss-gap-6 md:twcss-flex-row">
+    <div class="twcss-flex-col twcss-justify-center twcss-px-[0.625rem]  twcss-pt-4 md:twcss-flex md:twcss-w-1/2 md:twcss-pe-0 md:twcss-ps-[3.2rem] md:twcss-pt-0 lg:twcss-ps-36">
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          {%- when 'heading' -%}
+            <h1
+              class="twcss-text-navy-blue-900 twcss-mb-2 twcss-text-[2.25rem] twcss-font-bold md:twcss-mb-3 md:twcss-text-5xl md:twcss-leading-[3.75rem] lg:twcss-mb-4 lg:twcss-text-6xl lg:twcss-leading-[4.75rem]"
+              {{ block.shopify_attributes }}
+            >
+              {{ block.settings.heading }}
+            </h1>
+          {%- when 'text' -%}
+            <h2
+              class="text-color-opacity-80 twcss-mb-6 twcss-text-[1.25rem] twcss-font-light md:twcss-mb-12 md:twcss-text-[1.625rem] md:twcss-leading-[2.125rem]"
+              {{ block.shopify_attributes }}
+            >
+              {{ block.settings.text }}
+            </h2>
+          {%- when 'text_2' -%}
+            <h5
+              class="text-color-opacity-80 twcss-mb-3 twcss-text-[1rem] twcss-font-medium md:twcss-mb-5 md:twcss-text-[1.25rem] md:twcss-leading-7"
+              {{ block.shopify_attributes }}
+            >
+              {{ block.settings.text_2 }}
+            </h5>
+          {%- when 'buttons' -%}
+            <div class="twcss-flex twcss-flex-wrap twcss-gap-4 twcss-break-words" {{ block.shopify_attributes }}>
+              {%- if block.settings.button_label_1 != blank -%}
+                <a
+                  {% if block.settings.button_link_1 == blank %}
+                    role="link" aria-disabled="true"
+                  {% else %}
+                    href="{{ block.settings.button_link_1 }}"
+                  {% endif %}
+                  class="button button--secondary twcss-w-full twcss-uppercase md:twcss-w-fit"
+                >
+                  {{- block.settings.button_label_1 | escape -}}
+                </a>
+              {%- endif -%}
+              {%- if block.settings.button_label_2 != blank -%}
+                <a
+                  {% if block.settings.button_link_2 == blank %}
+                    role="link" aria-disabled="true"
+                  {% else %}
+                    href="{{ block.settings.button_link_2 }}"
+                  {% endif %}
+                  class="button button--secondary twcss-w-full twcss-uppercase md:twcss-w-fit"
+                >
+                  {{- block.settings.button_label_2 | escape -}}
+                </a>
+              {%- endif -%}
+            </div>
+        {%- endcase -%}
+      {%- endfor -%}
+    </div>
+    <div class="banner-image-wrapper twcss-flex twcss-justify-center md:twcss-h-[35rem] md:twcss-w-1/2 lg:twcss-h-[42rem]">
+      {% comment %} <img src="images/home-banner-image.jpg" /> {% endcomment %}
+      {%- if section.settings.image == blank -%}
+        {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg' }}
+      {%- else -%}
+        {{ section.settings.image | image_url: width: 750 | image_tag: fetchpriority: 'high' }}
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.banner.name",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "t:sections.banner.settings.image.label"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "heading",
+      "name": "t:sections.banner.blocks.heading.name",
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "heading",
+          "default": "LOOK DIFFERENT",
+          "label": "t:sections.banner.blocks.heading.settings.heading.label"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "t:sections.banner.blocks.text.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "text",
+          "default": "Freedom to Choose",
+          "label": "t:sections.banner.blocks.text.settings.text.label"
+        }
+      ]
+    },
+    {
+      "type": "text_2",
+      "name": "t:sections.banner.blocks.text_2.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "text_2",
+          "default": "Prescription Frames & Sunglasses",
+          "label": "t:sections.banner.blocks.text.settings.text.label"
+        }
+      ]
+    },
+    {
+      "type": "buttons",
+      "name": "t:sections.banner.blocks.buttons.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "button_label_1",
+          "default": "Button label",
+          "label": "t:sections.banner.blocks.buttons.settings.button_label_1.label"
+        },
+        {
+          "type": "url",
+          "id": "button_link_1",
+          "label": "t:sections.banner.blocks.buttons.settings.button_link_1.label"
+        },
+        {
+          "type": "text",
+          "id": "button_label_2",
+          "default": "Button label",
+          "label": "Second button label",
+          "info": "t:sections.banner.blocks.buttons.settings.button_label_2.label"
+        },
+        {
+          "type": "url",
+          "id": "button_link_2",
+          "label": "t:sections.banner.blocks.buttons.settings.button_link_1.label"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.banner.presets.name",
+      "blocks": [
+        {
+          "type": "heading"
+        },
+        {
+          "type": "text"
+        },
+        {
+          "type": "text_2"
+        },
+        {
+          "type": "buttons"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,94 @@
+{{ 'section-main-quiz.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<section
+  class="section-{{ section.id }}-padding quiz quiz-slide-section twcss-flex-1 active-section"
+  id="#section-{{ section.index0 }}"
+>
+  <div class="page-width twcss-w-full twcss-flex twcss-justify-center">
+    <div class="twcss-p-[3.75rem] twcss-flex twcss-flex-col twcss-items-center twcss-bg-[rgb(var(--color-base-background-1))] xl:twcss-w-[66%]">
+      <div class="twcss-uppercase twcss-text-[rgb(var(--color-base-text))] twcss-opacity-50 twcss-font-semibold twcss-text-sm">
+        {{ section.settings.subheading }}
+      </div>
+      <h2 class="twcss-my-4 twcss-font-bold twcss-text-[2rem] twcss-text-center">{{ section.settings.heading }}</h2>
+      <div class="twcss-text-center">{{ section.settings.description }}</div>
+      {%- if section.settings.button_label != blank -%}
+        <a
+          href="#section-{{ section.index0 | plus: 1 }}"
+          class="next-slide button button--primary button--small twcss-uppercase md:twcss-w-fit twcss-mt-10"
+        >
+          {{- section.settings.button_label | escape -}}
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.main_quiz.name",
+  "limit": 1,
+  "enabled_on": {
+    "templates": ["page"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "t:sections.main_quiz.settings.heading.label",
+      "default": "Let's find your perfect pair!"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "t:sections.main_quiz.settings.subheading.label",
+      "default": "Perfect pair finder"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "t:sections.main_quiz.settings.description.label",
+      "default": "<p>Searching for the perfect pair of glasses? Take this quiz and we’ll handpick an exclusive selection of looks to match your taste!<\/p>"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "t:sections.main_quiz.settings.button_label.label",
+      "default": "Get started"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 160,
+      "step": 5,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 130
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 5,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 130
+    }
+  ]
+}
+{% endschema %}

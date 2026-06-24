@@ -1,0 +1,70 @@
+{% comment %}
+  Renders SVG frame shape icons for the filter UI.
+  Matches against filter value labels to show corresponding frame shape.
+
+  Accepts:
+  - shape: {String} The shape name to render (case-insensitive)
+
+  Usage:
+  {% render 'facet-shape-icons', shape: value.label %}
+{% endcomment %}
+
+{%- assign shape_lower = shape | downcase | strip -%}
+
+{%- case shape_lower -%}
+  {%- when 'round' -%}
+    <svg class="facet-shape-icon" viewBox="0 0 48 28" width="48" height="28" fill="none" stroke="currentColor" stroke-width="1.5" aria-label="Round frame shape">
+      <ellipse cx="14" cy="14" rx="12" ry="12"/>
+      <ellipse cx="34" cy="14" rx="12" ry="12"/>
+      <line x1="22" y1="8" x2="26" y2="8"/>
+    </svg>
+
+  {%- when 'square' or 'rectangle' -%}
+    <svg class="facet-shape-icon" viewBox="0 0 48 28" width="48" height="28" fill="none" stroke="currentColor" stroke-width="1.5" aria-label="Square frame shape">
+      <rect x="2" y="4" width="20" height="20" rx="3"/>
+      <rect x="26" y="4" width="20" height="20" rx="3"/>
+      <line x1="22" y1="10" x2="26" y2="10"/>
+    </svg>
+
+  {%- when 'cat-eye' or 'cat eye' or 'cateye' -%}
+    <svg class="facet-shape-icon" viewBox="0 0 48 28" width="48" height="28" fill="none" stroke="currentColor" stroke-width="1.5" aria-label="Cat-eye frame shape">
+      <path d="M2 18 C2 10, 6 3, 14 3 C20 3, 22 8, 22 14 C22 20, 18 25, 14 25 C6 25, 2 22, 2 18Z"/>
+      <path d="M26 14 C26 8, 28 3, 34 3 C42 3, 46 10, 46 18 C46 22, 42 25, 34 25 C30 25, 26 20, 26 14Z"/>
+      <line x1="22" y1="10" x2="26" y2="10"/>
+    </svg>
+
+  {%- when 'aviator' -%}
+    <svg class="facet-shape-icon" viewBox="0 0 48 28" width="48" height="28" fill="none" stroke="currentColor" stroke-width="1.5" aria-label="Aviator frame shape">
+      <path d="M2 8 C4 4, 8 3, 14 4 C20 5, 22 8, 22 12 C22 18, 18 24, 12 25 C6 26, 2 20, 2 14Z"/>
+      <path d="M26 12 C26 8, 28 5, 34 4 C40 3, 44 4, 46 8 C46 14, 46 20, 42 24 C36 26, 26 18, 26 12Z"/>
+      <line x1="22" y1="8" x2="26" y2="8"/>
+    </svg>
+
+  {%- when 'oval' -%}
+    <svg class="facet-shape-icon" viewBox="0 0 48 28" width="48" height="28" fill="none" stroke="currentColor" stroke-width="1.5" aria-label="Oval frame shape">
+      <ellipse cx="12" cy="14" rx="10" ry="11"/>
+      <ellipse cx="36" cy="14" rx="10" ry="11"/>
+      <line x1="22" y1="9" x2="26" y2="9"/>
+    </svg>
+
+  {%- when 'wayfarer' or 'clubmaster' -%}
+    <svg class="facet-shape-icon" viewBox="0 0 48 28" width="48" height="28" fill="none" stroke="currentColor" stroke-width="1.5" aria-label="Wayfarer frame shape">
+      <path d="M2 6 L22 6 L22 22 C22 24, 20 25, 18 25 L6 25 C4 25, 2 24, 2 22Z"/>
+      <path d="M26 6 L46 6 L46 22 C46 24, 44 25, 42 25 L30 25 C28 25, 26 24, 26 22Z"/>
+      <line x1="22" y1="8" x2="26" y2="8"/>
+    </svg>
+
+  {%- when 'geometric' or 'hexagonal' -%}
+    <svg class="facet-shape-icon" viewBox="0 0 48 28" width="48" height="28" fill="none" stroke="currentColor" stroke-width="1.5" aria-label="Geometric frame shape">
+      <polygon points="7,4 19,4 22,14 19,24 7,24 4,14"/>
+      <polygon points="29,4 41,4 44,14 41,24 29,24 26,14"/>
+      <line x1="22" y1="10" x2="26" y2="10"/>
+    </svg>
+
+  {%- else -%}
+    <svg class="facet-shape-icon" viewBox="0 0 48 28" width="48" height="28" fill="none" stroke="currentColor" stroke-width="1.5" aria-label="Frame shape">
+      <ellipse cx="14" cy="14" rx="12" ry="11"/>
+      <ellipse cx="34" cy="14" rx="12" ry="11"/>
+      <line x1="22" y1="9" x2="26" y2="9"/>
+    </svg>
+{%- endcase -%}

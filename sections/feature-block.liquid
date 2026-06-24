@@ -1,0 +1,227 @@
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+    }
+
+    .section-{{ section.id }}-title-lh {
+      line-height: 3.125rem;
+    }
+{%- endstyle -%}
+
+<section class="section-{{ section.id }}-padding">
+  <div class="page-width mx-auto">
+    <div class="twcss-grid twcss-gap-6 lg:twcss-grid-cols-2">
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          {%- when 'column' -%}
+            <div
+              class="
+                twcss-relative
+                {% if section.settings.image_height == "small" %}twcss-h-[15rem] md:twcss-h-[25rem]{% endif %}
+                {% if section.settings.image_height == "medium" %}twcss-h-[20rem] md:twcss-h-[30rem]{% endif %}
+                {% if section.settings.image_height == "large" %}twcss-h-[25rem] md:twcss-h-[36rem]{% endif %}
+              "
+            >
+              {%- if block.settings.block_image == blank -%}
+                {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+              {%- else -%}
+                {% if block.settings.image_width == 'cover' %}
+                  {{
+                    block.settings.block_image
+                    | image_url: width: 600
+                    | image_tag: class: 'twcss-h-full twcss-w-full twcss-object-cover', loading: 'lazy'
+                  }}
+                {% endif %}
+                {% if block.settings.image_width == 'contain' %}
+                  {{
+                    block.settings.block_image
+                    | image_url: width: 600
+                    | image_tag: class: 'twcss-h-full twcss-w-full twcss-object-contain', loading: 'lazy'
+                  }}
+                {% endif %}
+              {%- endif -%}
+              <div
+                class="
+                  blur-background twcss-absolute twcss-min-w-[11.75rem] twcss-py-5 twcss-pl-5 twcss-pr-2
+                  {% if block.settings.block_alignment == "left" %} twcss-bottom-[15%] twcss-left-7 twcss-w-3/4 sm:twcss-bottom-1/4 sm:twcss-w-2/5 md:twcss-bottom-[20%] md:twcss-w-3/4 lg:twcss-w-1/2 xl:twcss-w-1/3 {% endif %}
+                  {% if block.settings.block_alignment == "center" %} twcss-bottom-[10%] twcss-left-1/2 twcss-w-3/4 -twcss-translate-x-1/2 sm:twcss-w-2/5 md:twcss-w-3/4 lg:twcss-w-1/2 {% endif %}
+                  {% if block.settings.block_alignment == "right" %} twcss-bottom-[15%] twcss-right-5 twcss-w-3/4 sm:twcss-bottom-1/4 sm:twcss-w-2/5 md:twcss-bottom-[20%] md:twcss-w-3/4 lg:twcss-w-1/2 xl:twcss-w-1/3 {% endif %}
+                "
+              >
+                {%- if block.settings.announcement_checkbox -%}
+                  <p class="twcss-mb-4 twcss-w-fit twcss-bg-[rgb(var(--color-base-solid-button-labels))] twcss-p-2 twcss-text-sm twcss-font-semibold twcss-text-[rgb(var(--color-base-accent-1))]">
+                    <span>
+                      {{ block.settings.announcement_text | upcase }}
+                    </span>
+                  </p>
+                {% endif %}
+                <a href="product_detail.html">
+                  <h3 class="section-{{ section.id }}-title-lh twcss-mb-5 twcss-text-2xl twcss-font-extrabold twcss-text-[rgb(var(--color-base-solid-button-labels))] md:twcss-text-4xl">
+                    {{ block.settings.title }}
+                  </h3>
+                </a>
+                <a href="{{ block.settings.button_link}}">
+                  <button class="twcss-border twcss-border-[rgb(var(--color-base-solid-button-labels))] twcss-px-8 twcss-py-3 twcss-text-sm twcss-text-[rgb(var(--color-base-solid-button-labels))] twcss-transition-all twcss-duration-500 hover:twcss-bg-[rgb(var(--color-base-solid-button-labels))] hover:twcss-text-[rgb(var(--color-base-accent-1))]">
+                    {{ block.settings.button_label | upcase }}
+                  </button>
+                </a>
+              </div>
+            </div>
+        {%- endcase -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.feature_block.name",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "select",
+      "id": "image_height",
+      "options": [
+        {
+          "value": "small",
+          "label": "t:sections.feature_block.settings.image_width.options__1.label"
+        },
+        {
+          "value": "medium",
+          "label": "t:sections.feature_block.settings.image_width.options__2.label"
+        },
+        {
+          "value": "large",
+          "label": "t:sections.feature_block.settings.image_width.options__3.label"
+        }
+      ],
+      "default": "medium",
+      "label": "t:sections.feature_block.settings.image_width.label",
+      "info": "t:sections.feature_block.settings.image_width.info"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "column",
+      "name": "t:sections.feature_block.blocks.feature.name",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "block_image",
+          "label": "t:sections.feature_block.blocks.feature.settings.image.label"
+        },
+        {
+          "type": "select",
+          "id": "image_width",
+          "options": [
+            {
+              "value": "cover",
+              "label": "t:sections.feature_block.blocks.feature.settings.image_width.options__1.label"
+            },
+            {
+              "value": "contain",
+              "label": "t:sections.feature_block.blocks.feature.settings.image_width.options__2.label"
+            }
+          ],
+          "default": "cover",
+          "label": "t:sections.feature_block.blocks.feature.settings.image_width.default.label",
+          "info": "t:sections.feature_block.blocks.feature.settings.image_width.default.info"
+        },
+        {
+          "type": "select",
+          "id": "block_alignment",
+          "label": "t:sections.feature_block.blocks.feature.settings.block_alignment.title",
+          "options": [
+            {
+              "value": "left",
+              "label": "t:sections.feature_block.blocks.feature.settings.block_alignment.options__1.label"
+            },
+            {
+              "value": "center",
+              "label": "t:sections.feature_block.blocks.feature.settings.block_alignment.options__2.label"
+            },
+            {
+              "value": "right",
+              "label": "t:sections.feature_block.blocks.feature.settings.block_alignment.options__3.label"
+            }
+          ],
+          "default": "left"
+        },
+        {
+          "type": "checkbox",
+          "id": "announcement_checkbox",
+          "label": "t:sections.feature_block.blocks.feature.settings.announcement_checkbox.label",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "announcement_text",
+          "label": "t:sections.feature_block.blocks.feature.settings.announcement_text.label",
+          "default": "Announcement"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "t:sections.feature_block.blocks.feature.settings.title.label",
+          "default": "Feature Title"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "t:sections.feature_block.blocks.feature.settings.button_label.label",
+          "default": "Click Here"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "t:sections.feature_block.blocks.feature.settings.button_link.label"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.feature_block.presets.name",
+      "blocks": [
+        {
+          "type": "column"
+        },
+        {
+          "type": "column"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

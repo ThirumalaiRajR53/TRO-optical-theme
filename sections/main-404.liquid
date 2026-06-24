@@ -1,0 +1,25 @@
+<style type="text/css">
+  .template-404 .title + * {
+    margin-top: 1rem;
+  }
+
+  @media screen and (min-width: 750px) {
+    .template-404 .title + * {
+      margin-top: 2rem;
+    }
+  }
+</style>
+
+<div class="template-404 page-width page-margin center ">
+  <h1 class="visually-hidden">{{ 'templates.404.title' | t }}</h1>
+  <div class="twcss-justify center twcss-flex twcss-flex-col twcss-items-center">
+    {%- render 'icon-404' -%}
+    <h2 class="twcss-mt-[0.625rem] twcss-text-[1.2rem] twcss-font-semibold md:twcss-text-[2.375rem] md:twcss-leading-[3.125rem]">
+      {{ 'templates.404.headline' | t }}
+    </h2>
+    <p class="md:leading-[1.625rem] twcss-mt-2 twcss-text-[0.875rem] twcss-opacity-80 md:twcss-text-[1rem]">
+      {{ 'templates.404.subtext' | t }}
+    </p>
+    <a class="button button--primary twcss-mt-7 twcss-uppercase" href="/">{{ 'templates.404.button_label' | t }}</a>
+  </div>
+</div>

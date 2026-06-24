@@ -1,0 +1,169 @@
+.product-specs {
+  border: 1px solid rgba(15, 23, 42, 0.1);
+  border-radius: 0.5rem;
+  padding: 1.25rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  background: #fff;
+}
+
+.product-specs__header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+}
+
+.product-specs__icon {
+  color: var(--accent-color-1, #3B3989);
+  flex-shrink: 0;
+}
+
+.product-specs__title {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--text-color, #0F172A);
+  letter-spacing: 0.01em;
+}
+
+.product-specs__measurements {
+  margin-bottom: 1rem;
+}
+
+.product-specs__diagram {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+  padding: 0.5rem 0;
+}
+
+.product-specs__frame-diagram {
+  width: 100%;
+  max-width: 220px;
+  height: auto;
+  color: var(--accent-color-1, #3B3989);
+}
+
+.product-specs__diagram-label {
+  font-size: 8px;
+  fill: var(--text-color, #0F172A);
+  font-weight: 500;
+}
+
+.product-specs__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.625rem;
+}
+
+@media screen and (min-width: 750px) {
+  .product-specs__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.product-specs__item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+  padding: 0.5rem 0.75rem;
+  background: rgba(59, 57, 137, 0.04);
+  border-radius: 0.375rem;
+}
+
+.product-specs__label {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: rgba(15, 23, 42, 0.55);
+}
+
+.product-specs__value {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-color, #0F172A);
+}
+
+.product-specs__details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(15, 23, 42, 0.08);
+}
+
+.product-specs__detail-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.product-specs__badge {
+  background: rgba(59, 57, 137, 0.08);
+  padding: 0.25rem 0.625rem;
+  border-radius: 1rem;
+  font-size: 0.8125rem;
+}
+
+.product-specs__tag {
+  display: inline-block;
+  background: rgba(59, 57, 137, 0.06);
+  padding: 0.1875rem 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  margin-right: 0.25rem;
+  margin-bottom: 0.25rem;
+  color: var(--accent-color-1, #3B3989);
+}
+
+.product-specs__tag--positive {
+  background: rgba(16, 185, 129, 0.1);
+  color: #059669;
+}
+
+/* Contact Lens specific styles */
+.product-specs--contact-lens {
+  border-color: rgba(59, 57, 137, 0.15);
+}
+
+.product-specs--contact-lens .product-specs__grid {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+@media screen and (min-width: 750px) {
+  .product-specs--contact-lens .product-specs__grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.product-specs__lens-params {
+  margin-bottom: 1rem;
+}
+
+.product-specs__note {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  padding: 0.75rem;
+  background: rgba(59, 57, 137, 0.03);
+  border-radius: 0.375rem;
+  border-left: 3px solid var(--accent-color-1, #3B3989);
+}
+
+.product-specs__note svg {
+  flex-shrink: 0;
+  color: var(--accent-color-1, #3B3989);
+  margin-top: 0.0625rem;
+}
+
+.product-specs__note span {
+  font-size: 0.75rem;
+  color: rgba(15, 23, 42, 0.7);
+  line-height: 1.4;
+}

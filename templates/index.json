@@ -1,0 +1,278 @@
+{
+  "sections": {
+    "c92d5c5c-03dd-4203-a4eb-bbb13859689b": {
+      "type": "banner",
+      "blocks": {
+        "template--21453178798384__c92d5c5c-03dd-4203-a4eb-bbb13859689b-heading-1": {
+          "type": "heading",
+          "settings": { "heading": "LOOK DIFFERENT" }
+        },
+        "template--21453178798384__c92d5c5c-03dd-4203-a4eb-bbb13859689b-text-1": {
+          "type": "text",
+          "settings": { "text": "Freedom to Choose" }
+        },
+        "template--21453178798384__c92d5c5c-03dd-4203-a4eb-bbb13859689b-text_2-1": {
+          "type": "text_2",
+          "settings": { "text_2": "Prescription Frames & Sunglasses" }
+        },
+        "template--21453178798384__c92d5c5c-03dd-4203-a4eb-bbb13859689b-buttons-1": {
+          "type": "buttons",
+          "settings": {
+            "button_label_1": "Shop Men's",
+            "button_link_1": "shopify:\/\/collections\/mens-eyeglasses",
+            "button_label_2": "Shop Women's",
+            "button_link_2": "shopify:\/\/collections\/womens-eyeglasses"
+          }
+        }
+      },
+      "block_order": [
+        "template--21453178798384__c92d5c5c-03dd-4203-a4eb-bbb13859689b-heading-1",
+        "template--21453178798384__c92d5c5c-03dd-4203-a4eb-bbb13859689b-text-1",
+        "template--21453178798384__c92d5c5c-03dd-4203-a4eb-bbb13859689b-text_2-1",
+        "template--21453178798384__c92d5c5c-03dd-4203-a4eb-bbb13859689b-buttons-1"
+      ],
+      "settings": {}
+    },
+    "legacy_hero": {
+      "type": "banner",
+      "blocks": {
+        "legacy-heading": {
+          "type": "heading",
+          "settings": { "heading": "TRUSTED SINCE 1956" }
+        },
+        "legacy-text": {
+          "type": "text",
+          "settings": { "text": "70 Years of Clear Vision" }
+        },
+        "legacy-text2": {
+          "type": "text_2",
+          "settings": { "text_2": "Three generations of craftsmanship, care, and commitment to your eyesight" }
+        },
+        "legacy-buttons": {
+          "type": "buttons",
+          "settings": {
+            "button_label_1": "Our Story",
+            "button_link_1": "\/pages\/about",
+            "button_label_2": "",
+            "button_link_2": ""
+          }
+        }
+      },
+      "block_order": ["legacy-heading", "legacy-text", "legacy-text2", "legacy-buttons"],
+      "settings": {}
+    },
+    "category_showcase": {
+      "type": "category-showcase",
+      "blocks": {
+        "cat-1": { "type": "category", "settings": { "label": "Eyeglasses", "link": "shopify:\/\/collections\/eyeglasses" } },
+        "cat-2": { "type": "category", "settings": { "label": "Sunglasses", "link": "shopify:\/\/collections\/sunglasses" } },
+        "cat-3": { "type": "category", "settings": { "label": "Contact Lenses", "link": "shopify:\/\/collections\/contact-lenses" } },
+        "cat-4": { "type": "category", "settings": { "label": "Reading Glasses", "link": "shopify:\/\/collections\/reading-glasses" } },
+        "cat-5": { "type": "category", "settings": { "label": "Accessories", "link": "shopify:\/\/collections\/accessories" } }
+      },
+      "block_order": ["cat-1", "cat-2", "cat-3", "cat-4", "cat-5"],
+      "settings": {
+        "heading": "Shop By Category",
+        "subtitle": "Find the perfect eyewear for every need",
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    },
+    "legacy_strip": {
+      "type": "legacy-banner",
+      "settings": {
+        "year_text": "EST. 1956",
+        "heading": "70 Years of Clear Vision",
+        "description": "Trusted since 1956, The Rajhan Opticals blends tradition, care, and craftsmanship to bring generations the gift of clear vision.",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "featured_collection": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "New Arrivals",
+        "collection_link": "View All New Arrivals",
+        "heading_size": "h0",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "collection": "new-arrivals",
+        "products_to_show": 8,
+        "columns_desktop": 4,
+        "full_width": false,
+        "show_view_all": true,
+        "view_all_style": "solid",
+        "enable_desktop_slider": true,
+        "image_ratio": "landscape",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": true,
+        "show_rating": true,
+        "enable_quick_add": false,
+        "columns_mobile": "2",
+        "swipe_on_mobile": true,
+        "padding_top": 28,
+        "padding_bottom": 36
+      }
+    },
+    "3ea1e40c-c8a6-41c2-a0c3-92b4a8c4ee31": {
+      "type": "feature-block",
+      "blocks": {
+        "template--21684512751920__3ea1e40c-c8a6-41c2-a0c3-92b4a8c4ee31-column-1": {
+          "type": "column",
+          "settings": {
+            "image_width": "cover",
+            "block_alignment": "left",
+            "announcement_checkbox": true,
+            "announcement_text": "Upto 20% off",
+            "title": "Colorful Eyewear",
+            "button_label": "Shop Now",
+            "button_link": "shopify:\/\/collections\/best-sellers"
+          }
+        },
+        "template--21684512751920__3ea1e40c-c8a6-41c2-a0c3-92b4a8c4ee31-column-2": {
+          "type": "column",
+          "settings": {
+            "image_width": "cover",
+            "block_alignment": "left",
+            "announcement_checkbox": true,
+            "announcement_text": "Upto 40% off",
+            "title": "High Quality Frames",
+            "button_label": "Shop Now",
+            "button_link": "shopify:\/\/collections"
+          }
+        }
+      },
+      "block_order": [
+        "template--21684512751920__3ea1e40c-c8a6-41c2-a0c3-92b4a8c4ee31-column-1",
+        "template--21684512751920__3ea1e40c-c8a6-41c2-a0c3-92b4a8c4ee31-column-2"
+      ],
+      "settings": { "image_height": "medium", "padding_top": 16, "padding_bottom": 72 }
+    },
+    "000049ed-abd7-46ba-909f-2749140714ea": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "Best Sellers",
+        "collection_link": "View All Best Sellers",
+        "heading_size": "h1",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "collection": "best-sellers",
+        "products_to_show": 4,
+        "columns_desktop": 4,
+        "full_width": false,
+        "show_view_all": true,
+        "view_all_style": "solid",
+        "enable_desktop_slider": false,
+        "image_ratio": "landscape",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": true,
+        "show_rating": true,
+        "enable_quick_add": false,
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "61c523b0-e63d-44ea-aeb3-8effc92d6d93": {
+      "type": "multicolumn",
+      "blocks": {
+        "template--21453178798384__61c523b0-e63d-44ea-aeb3-8effc92d6d93-column-1": {
+          "type": "column",
+          "settings": { "title": "Custom Eyewear", "text": "<p>You have the opportunity to create a pair of glasses that is truly one-of-a-kind.<\/p>", "link_label": "", "link": "" }
+        },
+        "template--21453178798384__61c523b0-e63d-44ea-aeb3-8effc92d6d93-column-2": {
+          "type": "column",
+          "settings": { "title": "Quality Materials", "text": "<p>We prioritize quality materials to ensure the durability, comfort, and style of our products.<\/p>", "link_label": "", "link": "" }
+        },
+        "template--21453178798384__61c523b0-e63d-44ea-aeb3-8effc92d6d93-column-3": {
+          "type": "column",
+          "settings": { "title": "Free Shipping", "text": "<p>Get your eyeglasses delivered right to your doorstep, no matter where you are.<\/p>", "link_label": "", "link": "" }
+        },
+        "beeca686-d530-4468-97cd-26513a2abf86": {
+          "type": "column",
+          "settings": { "title": "Eyewear with a Purpose", "text": "<p>You can make a stylish statement while contributing to a meaningful cause.<\/p>", "link_label": "", "link": "" }
+        }
+      },
+      "block_order": [
+        "template--21453178798384__61c523b0-e63d-44ea-aeb3-8effc92d6d93-column-1",
+        "template--21453178798384__61c523b0-e63d-44ea-aeb3-8effc92d6d93-column-2",
+        "template--21453178798384__61c523b0-e63d-44ea-aeb3-8effc92d6d93-column-3",
+        "beeca686-d530-4468-97cd-26513a2abf86"
+      ],
+      "settings": {
+        "title": "What We Offer",
+        "description": "<p>We stock a wide range of glasses and sunglasses styles, from timeless classics to the latest trends \u2013 so whatever you are looking for, we have it.<\/p>",
+        "heading_size": "h0",
+        "image_width": "fixed",
+        "fixed_image_width": 7,
+        "image_ratio": "adapt",
+        "columns_desktop": 4,
+        "column_alignment": "left",
+        "background_style": "none",
+        "button_label": "",
+        "button_link": "",
+        "background_opacity": 5,
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "quiz_TwCPkA": {
+      "type": "quiz",
+      "settings": {
+        "heading": "Find Your Best Match",
+        "description": "<p>Need help looking for your perfect Readers, Sunglasses or Blue Light Filtering Eyewear? Take our quiz to find the best fit for you.<\/p>",
+        "button_label": "Take the quiz",
+        "button_link": "shopify:\/\/pages\/quiz",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
+    "170140455786ba96fb": {
+      "type": "apps",
+      "custom_css": [".reviews-footer--b0D19 {display: none;}", ".shopify-block {margin-top: 4rem;}"],
+      "settings": { "include_margins": true }
+    },
+    "17008043290686831b": {
+      "type": "apps",
+      "custom_css": ["p {text-align: center; margin-bottom: 1.875rem; line-height: 1.625rempx; cursor: arrow; margin-top: 5rem;}", "#insta-feed .instafeed-container:hover .instafeed-overlay {border: 0.5rem solid #8e8dbb;}"],
+      "settings": { "include_margins": true }
+    },
+    "d93ffb83-51ca-4920-8a48-25ee1b8caedd": {
+      "type": "image-with-heading",
+      "blocks": {
+        "template--21453178798384__d93ffb83-51ca-4920-8a48-25ee1b8caedd-column-1": { "type": "column", "settings": { "title": "100% Authentic Guaranteed" } },
+        "template--21453178798384__d93ffb83-51ca-4920-8a48-25ee1b8caedd-column-2": { "type": "column", "settings": { "title": "Easy 14-Day Returns" } },
+        "template--21453178798384__d93ffb83-51ca-4920-8a48-25ee1b8caedd-column-3": { "type": "column", "settings": { "title": "Free Shipping \u20b91999+" } },
+        "template--21453178798384__d93ffb83-51ca-4920-8a48-25ee1b8caedd-column-4": { "type": "column", "settings": { "title": "Secure Transactions" } }
+      },
+      "block_order": [
+        "template--21453178798384__d93ffb83-51ca-4920-8a48-25ee1b8caedd-column-1",
+        "template--21453178798384__d93ffb83-51ca-4920-8a48-25ee1b8caedd-column-2",
+        "template--21453178798384__d93ffb83-51ca-4920-8a48-25ee1b8caedd-column-3",
+        "template--21453178798384__d93ffb83-51ca-4920-8a48-25ee1b8caedd-column-4"
+      ],
+      "settings": { "padding_top": 40, "padding_bottom": 40 }
+    }
+  },
+  "order": [
+    "c92d5c5c-03dd-4203-a4eb-bbb13859689b",
+    "legacy_hero",
+    "category_showcase",
+    "legacy_strip",
+    "featured_collection",
+    "3ea1e40c-c8a6-41c2-a0c3-92b4a8c4ee31",
+    "000049ed-abd7-46ba-909f-2749140714ea",
+    "61c523b0-e63d-44ea-aeb3-8effc92d6d93",
+    "quiz_TwCPkA",
+    "170140455786ba96fb",
+    "17008043290686831b",
+    "d93ffb83-51ca-4920-8a48-25ee1b8caedd"
+  ]
+}

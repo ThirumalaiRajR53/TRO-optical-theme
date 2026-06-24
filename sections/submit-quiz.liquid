@@ -1,0 +1,130 @@
+{{ 'section-main-quiz.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<section
+  class="section-{{ section.id }}-padding quiz quiz-slide-section twcss-h-screen submit-quiz-slide twcss-flex-1"
+  id="#section-{{ section.index0 }}"
+>
+  <div class="page-width twcss-w-full twcss-flex twcss-justify-center">
+    <div class="twcss-flex twcss-flex-col twcss-items-center twcss-bg-[rgb(var(--color-base-background-1))] twcss-p-[3.75rem] xl:twcss-w-[66%]">
+      <h2 class="twcss-font-bold twcss-text-[2rem] twcss-text-center">{{ section.settings.heading }}</h2>
+      <div class="twcss-my-4">{{ section.settings.subheading }}</div>
+
+      {% form 'customer', id: '', class: 'twcss-w-full' %}
+        <input type="hidden" name="contact[tags]" value="newsletter">
+        <input
+          type="hidden"
+          id="quiz-to-search"
+          name="return_to"
+          value="/search"
+        >
+        <div class="field">
+          <input
+            id="NewsletterForm--{{ section.id }}"
+            type="email"
+            pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$"
+            oninvalid="this.setCustomValidity('{{- 'newsletter.input_validation_error' | t }}')"
+            onchange="try{setCustomValidity('')}catch(e){}"
+            oninput="setCustomValidity(' ')"
+            name="contact[email]"
+            aria-required="true"
+            autocorrect="off"
+            autocapitalize="off"
+            autocomplete="email"
+            required
+            placeholder="{{- 'newsletter.input_placeholder' | t }}"
+            class=" input-placeholder twcss-w-full twcss-py-[0.875rem] twcss-px-3"
+          >
+        </div>
+        <small class="twcss-hidden twcss-text-sm twcss-text-red-400 twcss-mt-1 quiz-email-error">
+          {{- 'quiz.duplicate_email_error' | t -}}
+        </small>
+        <label class="twcss-inline-flex twcss-items-center twcss-mt-4">
+          <input
+            type="checkbox"
+            class=" twcss-mr-[0.625rem] twcss-h-5 twcss-w-5 twcss-cursor-pointer"
+            checked
+          >
+          <span class="twcss-text-sm twcss-opacity-80 twcss-cursor-pointer">Email me with news and offers </span>
+        </label>
+        <div class="twcss-mt-10 twcss-w-full twcss-flex twcss-justify-center">
+          <div class="twcss-flex twcss-flex-col twcss-justify-center sm:twcss-flex-row twcss-gap-3 sm:twcss-gap-5 twcss-w-full sm:twcss-w-[23.75rem]">
+            <button
+              type="submit"
+              name="commit"
+              id="Subscribe"
+              aria-label="{{ 'newsletter.button_label' | t }}"
+              class="button button--primary button--small twcss-uppercase twcss-flex-1"
+            >
+              Submit
+            </button>
+            <span
+              class="button button--secondary button--small twcss-uppercase twcss-flex-1"
+              onclick="redirectToSearchPage()"
+            >
+              No, thanks
+            </span>
+          </div>
+        </div>
+      {% endform %}
+      <a href="#" class="next-slide" hidden></a>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.submit_quiz.name",
+  "limit": 1,
+  "enabled_on": {
+    "templates": ["page"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "t:sections.submit_quiz.settings.heading.label",
+      "default": "Save your results for later!"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "t:sections.submit_quiz.settings.subheading.label",
+      "default": "We'll email you your perfect pair(s) for safekeeping."
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 250,
+      "step": 5,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 130
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 250,
+      "step": 5,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 130
+    }
+  ]
+}
+{% endschema %}

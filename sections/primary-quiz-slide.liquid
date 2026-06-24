@@ -1,0 +1,149 @@
+{{ 'section-main-quiz.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+    }
+  }
+{%- endstyle -%}
+
+<section
+  class="section-{{ section.id }}-padding quiz quiz-slide-section twcss-flex-1"
+  id="#section-{{ section.index0 }}"
+>
+  <div class="page-width twcss-w-full twcss-flex twcss-justify-center">
+    <div
+      class="twcss-flex twcss-flex-col twcss-items-center twcss-bg-[rgb(var(--color-base-background-1))] twcss-p-[3.75rem] xl:twcss-w-[66%]"
+    >
+      <h2 class="twcss-font-bold twcss-text-[2rem] twcss-text-center">{{ section.settings.question }}</h2>
+      <div class="twcss-mt-10 twcss-grid twcss-grid-cols-1{% if section.blocks.size >= 4 %} md:twcss-grid-cols-4 {% endif %}{% if section.blocks.size == 3 %} md:twcss-grid-cols-3 {% endif %}{% if section.blocks.size == 2 %} twcss-grid-cols-2 {% endif %}{% if section.blocks.size == 1 %} twcss-grid-cols-1 {% endif %} twcss-gap-5">
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'answer' %}
+              {% if block.settings.answer_content != blank %}
+                <div
+                  class="twcss-flex twcss-flex-col"
+                  {{ block.shopify_attributes }}
+                >
+                  <a
+                    href="#section-{{ section.index0 | plus: 1 }}"
+                    class="next-slide twcss-flex-1"
+                    onclick="saveAnswerTag(`{{ section.id }}`, `{{ block.settings.answer_tag }}`);"
+                  >
+                    <div class="twcss-py-[1.125rem] twcss-px-10 quiz-answer twcss-flex twcss-flex-col twcss-items-center twcss-justify-center twcss-h-full">
+                      {% if block.settings.image != blank %}
+                        <div class="twcss-h-[1.875rem] twcss-w-[1.875rem] twcss-mb-1">
+                          {{
+                            block.settings.image
+                            | image_url: width: 50
+                            | image_tag: class: 'twcss-object-cover twcss-h-full', loading: 'lazy'
+                          }}
+                        </div>
+                      {% endif %}
+                      <div class="twcss-font-bold twcss-text-center">{{ block.settings.answer_content }}</div>
+                    </div>
+                  </a>
+                  {% if block.settings.answer_details != blank %}
+                    <div class="twcss-text-sm twcss-text-center twcss-mt-[0.625rem] quiz-answer-details">
+                      {{ block.settings.answer_details }}
+                    </div>
+                  {% endif %}
+                </div>
+              {% endif %}
+          {% endcase %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.primary_quiz_slide.name",
+  "enabled_on": {
+    "templates": ["page"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "question",
+      "label": "t:sections.primary_quiz_slide.settings.question.label",
+      "default": "Your quiz question"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 160,
+      "step": 5,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 130
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 160,
+      "step": 5,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 130
+    }
+  ],
+  "blocks": [
+    {
+      "type": "answer",
+      "name": "t:sections.primary_quiz_slide.blocks.answer.name",
+      "settings": [
+        {
+          "type": "text",
+          "id": "answer_content",
+          "label": "t:sections.primary_quiz_slide.blocks.answer.settings.answer_content.label",
+          "default": "Quiz answer",
+          "info": "t:sections.primary_quiz_slide.blocks.answer.settings.answer_content.info"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "t:sections.primary_quiz_slide.blocks.answer.settings.image.label"
+        },
+        {
+          "type": "textarea",
+          "id": "answer_details",
+          "label": "t:sections.primary_quiz_slide.blocks.answer.settings.answer_details.label",
+          "info": "t:sections.primary_quiz_slide.blocks.answer.settings.answer_details.info"
+        },
+        {
+          "type": "text",
+          "id": "answer_tag",
+          "label": "t:sections.primary_quiz_slide.blocks.answer.settings.answer_tag.label",
+          "info": "t:sections.primary_quiz_slide.blocks.answer.settings.answer_tag.info"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.primary_quiz_slide.presets.name",
+      "blocks": [
+        {
+          "type": "answer"
+        },
+        {
+          "type": "answer"
+        },
+        {
+          "type": "answer"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

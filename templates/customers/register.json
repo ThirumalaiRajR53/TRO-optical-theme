@@ -1,0 +1,14 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-register",
+      "settings": {
+        "color_scheme": "accent-1",
+        "tos_section": "<p>By creating an account or signing in, you agree to the <a href=\"\/pages\/terms-and-conditions\" title=\"Terms and Conditions\">Terms of Use,<\/a>  <a href=\"\/pages\/delivery-policy\" title=\"Privacy Policy\"> Privacy Policy.<\/a><\/p>"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

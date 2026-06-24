@@ -1,0 +1,185 @@
+{% comment %}
+  Renders prescription power selector for contact lenses and power spectacles.
+  Displays Left (OS) and Right (OD) eye selectors with configurable fields.
+
+  Accepts:
+  - product_form_id: {String} The product form ID to gate
+  - power_mode: {String} 'required' or 'optional' (controls No Power option)
+  - show_boxes: {Boolean} Whether to show Boxes selector (false = use default qty)
+  - only_spherical: {Boolean} If true, hides CYL and Axis fields
+
+  Usage:
+  {% render 'power-selector', product_form_id: product_form_id, power_mode: power_mode, show_boxes: show_boxes, only_spherical: only_spherical %}
+{% endcomment %}
+
+{{ 'component-power-selector.css' | asset_url | stylesheet_tag }}
+
+<div
+  class="power-selector"
+  id="PowerSelector"
+  data-form-id="{{ product_form_id }}"
+  data-power-mode="{{ power_mode }}"
+  data-show-boxes="{{ show_boxes }}"
+  data-only-spherical="{{ only_spherical }}"
+>
+  <div class="power-selector__header">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>
+      <circle cx="12" cy="12" r="3"/>
+    </svg>
+    <span class="power-selector__title">Select Your Prescription</span>
+  </div>
+
+  <div class="power-selector__note">
+    {%- if power_mode == 'required' -%}
+      A valid prescription is required for this product. Please have your prescription details ready.
+    {%- else -%}
+      Select "No Power" if you don't need a prescription, or enter your power details below.
+    {%- endif -%}
+  </div>
+
+  <div class="power-selector__grid">
+    {%- for eye in (1..2) -%}
+      {%- if eye == 1 -%}
+        {%- assign eye_label = 'Left' -%}
+        {%- assign eye_code = 'OS' -%}
+        {%- assign eye_id = 'left' -%}
+      {%- else -%}
+        {%- assign eye_label = 'Right' -%}
+        {%- assign eye_code = 'OD' -%}
+        {%- assign eye_id = 'right' -%}
+      {%- endif -%}
+
+      <div class="power-selector__eye" data-eye="{{ eye_id }}">
+        <h4 class="power-selector__eye-title">
+          {{ eye_label }} ({{ eye_code }})
+        </h4>
+
+        <div class="power-selector__field">
+          <label for="power-sph-{{ eye_id }}">SPH</label>
+          <select
+            id="power-sph-{{ eye_id }}"
+            class="power-selector__select"
+            data-eye="{{ eye_id }}"
+            data-field="sph"
+          >
+            <option value="">Select</option>
+            {%- if power_mode == 'optional' -%}
+              <option value="no-power">No Power</option>
+            {%- endif -%}
+            <option value="0">0.00</option>
+            <option value="-0.25">-0.25</option>
+            <option value="-0.50">-0.50</option>
+            <option value="-0.75">-0.75</option>
+            <option value="-1.00">-1.00</option>
+            <option value="-1.25">-1.25</option>
+            <option value="-1.50">-1.50</option>
+            <option value="-1.75">-1.75</option>
+            <option value="-2.00">-2.00</option>
+            <option value="-2.25">-2.25</option>
+            <option value="-2.50">-2.50</option>
+            <option value="-2.75">-2.75</option>
+            <option value="-3.00">-3.00</option>
+            <option value="-3.25">-3.25</option>
+            <option value="-3.50">-3.50</option>
+            <option value="-3.75">-3.75</option>
+            <option value="-4.00">-4.00</option>
+            <option value="-4.25">-4.25</option>
+            <option value="-4.50">-4.50</option>
+            <option value="-4.75">-4.75</option>
+            <option value="-5.00">-5.00</option>
+            <option value="-5.25">-5.25</option>
+            <option value="-5.50">-5.50</option>
+            <option value="-5.75">-5.75</option>
+            <option value="-6.00">-6.00</option>
+            <option value="-6.25">-6.25</option>
+            <option value="-6.50">-6.50</option>
+            <option value="-6.75">-6.75</option>
+            <option value="-7.00">-7.00</option>
+            <option value="-7.25">-7.25</option>
+            <option value="-7.50">-7.50</option>
+            <option value="-7.75">-7.75</option>
+            <option value="-8.00">-8.00</option>
+            <option value="-8.25">-8.25</option>
+            <option value="-8.50">-8.50</option>
+            <option value="-8.75">-8.75</option>
+            <option value="-9.00">-9.00</option>
+          </select>
+        </div>
+
+        {%- unless only_spherical -%}
+          <div class="power-selector__field">
+            <label for="power-cyl-{{ eye_id }}">CYL</label>
+            <select
+              id="power-cyl-{{ eye_id }}"
+              class="power-selector__select"
+              data-eye="{{ eye_id }}"
+              data-field="cyl"
+              disabled
+            >
+              <option value="">Select</option>
+            </select>
+          </div>
+
+          <div class="power-selector__field">
+            <label for="power-axis-{{ eye_id }}">Axis</label>
+            <select
+              id="power-axis-{{ eye_id }}"
+              class="power-selector__select"
+              data-eye="{{ eye_id }}"
+              data-field="axis"
+              disabled
+            >
+              <option value="">Select</option>
+            </select>
+          </div>
+        {%- endunless -%}
+
+        {%- if show_boxes -%}
+          <div class="power-selector__field">
+            <label for="power-boxes-{{ eye_id }}">No. of Boxes</label>
+            <select
+              id="power-boxes-{{ eye_id }}"
+              class="power-selector__select"
+              data-eye="{{ eye_id }}"
+              data-field="boxes"
+            >
+              <option value="">Select</option>
+              {%- for i in (1..20) -%}
+                <option value="{{ i }}">{{ i }}</option>
+              {%- endfor -%}
+            </select>
+          </div>
+        {%- endif -%}
+      </div>
+    {%- endfor -%}
+  </div>
+
+  <div class="power-selector__error" id="PowerSelectorError" hidden>
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="12" cy="12" r="10"/>
+      <path d="M12 8v4"/>
+      <path d="M12 16h.01"/>
+    </svg>
+    <span id="PowerSelectorErrorText"></span>
+  </div>
+
+  <input type="hidden" name="properties[Left Eye (OS) SPH]" id="prop-left-sph" value="" form="{{ product_form_id }}">
+  {%- unless only_spherical -%}
+    <input type="hidden" name="properties[Left Eye (OS) CYL]" id="prop-left-cyl" value="" form="{{ product_form_id }}">
+    <input type="hidden" name="properties[Left Eye (OS) Axis]" id="prop-left-axis" value="" form="{{ product_form_id }}">
+  {%- endunless -%}
+  {%- if show_boxes -%}
+    <input type="hidden" name="properties[Left Eye (OS) Boxes]" id="prop-left-boxes" value="" form="{{ product_form_id }}">
+  {%- endif -%}
+  <input type="hidden" name="properties[Right Eye (OD) SPH]" id="prop-right-sph" value="" form="{{ product_form_id }}">
+  {%- unless only_spherical -%}
+    <input type="hidden" name="properties[Right Eye (OD) CYL]" id="prop-right-cyl" value="" form="{{ product_form_id }}">
+    <input type="hidden" name="properties[Right Eye (OD) Axis]" id="prop-right-axis" value="" form="{{ product_form_id }}">
+  {%- endunless -%}
+  {%- if show_boxes -%}
+    <input type="hidden" name="properties[Right Eye (OD) Boxes]" id="prop-right-boxes" value="" form="{{ product_form_id }}">
+  {%- endif -%}
+</div>
+
+<script src="{{ 'power-selector.js' | asset_url }}" defer="defer"></script>

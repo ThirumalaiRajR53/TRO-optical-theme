@@ -1,0 +1,339 @@
+{
+  "sections": {
+    "quiz-start": {
+      "type": "main-quiz",
+      "settings": {
+        "heading": "Let's find your perfect pair!",
+        "subheading": "Perfect pair finder",
+        "description": "<p>Searching for the perfect pair of glasses? Take this quiz and we’ll handpick an exclusive selection of looks to match your taste!<\/p>",
+        "button_label": "Get started",
+        "padding_top": 100,
+        "padding_bottom": 100
+      }
+    },
+    "primary-quiz-slide-one": {
+      "type": "primary-quiz-slide",
+      "settings": {
+        "question": "What kind of glasses are you looking for?"
+      },
+      "blocks": {
+        "quiz-answer-one": {
+          "type": "answer",
+          "settings": {
+            "answer_content": "Masculine Styles",
+            "answer_tag": "masculine-styles"
+          }
+        },
+        "quiz-answer-two": {
+          "type": "answer",
+          "settings": {
+            "answer_content": "Feminine Styles",
+            "answer_tag": "feminine-styles"
+          }
+        },
+        "quiz-answer-three": {
+          "type": "answer",
+          "settings": {
+            "answer_content": "All Styles",
+            "answer_tag": "all-styles"
+          }
+        }
+      },
+      "block_order": [
+        "quiz-answer-one",
+        "quiz-answer-two",
+        "quiz-answer-three"
+      ]
+    },
+    "primary-quiz-slide-two": {
+      "type": "primary-quiz-slide",
+      "settings": {
+        "question": "What type of glasses are you looking for?"
+      },
+      "blocks": {
+        "quiz-answer-one": {
+          "type": "answer",
+          "settings": {
+            "answer_content": "Eyeglasses",
+            "answer_tag": "eyeglasses"
+          }
+        },
+        "quiz-answer-two": {
+          "type": "answer",
+          "settings": {
+            "answer_content": "Sunglasses",
+            "answer_tag": "sunglasses"
+          }
+        },
+        "quiz-answer-three": {
+          "type": "answer",
+          "settings": {
+            "answer_content": "Both",
+            "answer_tag": "eyeglasses-sunglasses"
+          }
+        }
+      },
+      "block_order": [
+        "quiz-answer-one",
+        "quiz-answer-two",
+        "quiz-answer-three"
+      ]
+    },
+    "secondary-quiz-slide-one": {
+      "type": "secondary-quiz-slide",
+      "settings": {
+        "question": "Select one or more styles that define you."
+      },
+      "blocks": {
+        "quiz-answer-one": {
+          "type": "answer",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/brown-glasses-on-book.jpg",
+            "answer_content": "Classic",
+            "answer_tag": "classic-style"
+          }
+        },
+        "quiz-answer-two": {
+          "type": "answer",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/brown-glasses-on-book.jpg",
+            "answer_content": "Casual",
+            "answer_tag": "casual-style"
+          }
+        },
+        "quiz-answer-three": {
+          "type": "answer",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/brown-glasses-on-book.jpg",
+            "answer_content": "Stylish",
+            "answer_tag": "stylish"
+          }
+        },
+        "quiz-answer-four": {
+          "type": "answer",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/brown-glasses-on-book.jpg",
+            "answer_content": "Edgy",
+            "answer_tag": "edgy"
+          }
+        },
+        "quiz-answer-five": {
+          "type": "answer",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/brown-glasses-on-book.jpg",
+            "answer_content": "Artsy",
+            "answer_tag": "artsy"
+          }
+        }
+      },
+      "block_order": [
+        "quiz-answer-one",
+        "quiz-answer-two",
+        "quiz-answer-three",
+        "quiz-answer-four",
+        "quiz-answer-five"
+      ]
+    },
+    "secondary-quiz-slide-two": {
+      "type": "secondary-quiz-slide",
+      "settings": {
+        "question": "Which frame shape do you typically prefer?"
+      },
+      "blocks": {
+        "quiz-answer-one": {
+          "type": "answer",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/brown-glasses-on-book.jpg",
+            "answer_content": "Round",
+            "answer_tag": "round"
+          }
+        },
+        "quiz-answer-two": {
+          "type": "answer",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/brown-glasses-on-book.jpg",
+            "answer_content": "Rectangular",
+            "answer_tag": "rectangular"
+          }
+        },
+        "quiz-answer-three": {
+          "type": "answer",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/brown-glasses-on-book.jpg",
+            "answer_content": "Cat-Eye",
+            "answer_tag": "cat-eye"
+          }
+        },
+        "quiz-answer-four": {
+          "type": "answer",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/brown-glasses-on-book.jpg",
+            "answer_content": "Square",
+            "answer_tag": "square"
+          }
+        },
+        "quiz-answer-five": {
+          "type": "answer",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/brown-glasses-on-book.jpg",
+            "answer_content": "Aviator",
+            "answer_tag": "aviator"
+          }
+        },
+        "quiz-answer-six": {
+          "type": "answer",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/brown-glasses-on-book.jpg",
+            "answer_content": "All",
+            "answer_tag": "all-frame-shapes"
+          }
+        }
+      },
+      "block_order": [
+        "quiz-answer-one",
+        "quiz-answer-two",
+        "quiz-answer-three",
+        "quiz-answer-four",
+        "quiz-answer-five",
+        "quiz-answer-six"
+      ]
+    },
+    "secondary-quiz-slide-three": {
+      "type": "secondary-quiz-slide",
+      "settings": {
+        "question": "What are your favorite frame color palette(s)?"
+      },
+      "blocks": {
+        "quiz-answer-one": {
+          "type": "answer",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/brown-glasses-on-book.jpg",
+            "answer_content": "Black",
+            "answer_tag": "black"
+          }
+        },
+        "quiz-answer-two": {
+          "type": "answer",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/brown-glasses-on-book.jpg",
+            "answer_content": "Tortoise",
+            "answer_tag": "tortoise"
+          }
+        },
+        "quiz-answer-three": {
+          "type": "answer",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/brown-glasses-on-book.jpg",
+            "answer_content": "Pattern",
+            "answer_tag": "pattern"
+          }
+        },
+        "quiz-answer-four": {
+          "type": "answer",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/brown-glasses-on-book.jpg",
+            "answer_content": "Neutral",
+            "answer_tag": "neutral"
+          }
+        },
+        "quiz-answer-five": {
+          "type": "answer",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/brown-glasses-on-book.jpg",
+            "answer_content": "Colorful",
+            "answer_tag": "colorful"
+          }
+        },
+        "quiz-answer-six": {
+          "type": "answer",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/brown-glasses-on-book.jpg",
+            "answer_content": "Translucent",
+            "answer_tag": "translucent"
+          }
+        }
+      },
+      "block_order": [
+        "quiz-answer-one",
+        "quiz-answer-two",
+        "quiz-answer-three",
+        "quiz-answer-four",
+        "quiz-answer-five",
+        "quiz-answer-six"
+      ]
+    },
+    "secondary-quiz-slide-four": {
+      "type": "secondary-quiz-slide",
+      "settings": {
+        "question": "Which frame materials do you like?"
+      },
+      "blocks": {
+        "quiz-answer-one": {
+          "type": "answer",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/brown-glasses-on-book.jpg",
+            "answer_content": "Metal",
+            "answer_tag": "metal"
+          }
+        },
+        "quiz-answer-two": {
+          "type": "answer",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/brown-glasses-on-book.jpg",
+            "answer_content": "Plastic",
+            "answer_tag": "plastic"
+          }
+        },
+        "quiz-answer-three": {
+          "type": "answer",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/brown-glasses-on-book.jpg",
+            "answer_content": "Acetate",
+            "answer_tag": "acetate"
+          }
+        },
+        "quiz-answer-four": {
+          "type": "answer",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/brown-glasses-on-book.jpg",
+            "answer_content": "Combined",
+            "answer_tag": "combined"
+          }
+        }
+      },
+      "block_order": [
+        "quiz-answer-one",
+        "quiz-answer-two",
+        "quiz-answer-three",
+        "quiz-answer-four"
+      ]
+    },
+    "submit-quiz": {
+      "type": "submit-quiz",
+      "settings": {
+        "heading": "Save your results for later!",
+        "subheading": "We'll email you your perfect pair(s) for safekeeping.",
+        "padding_top": 100,
+        "padding_bottom": 180
+      }
+    },
+    "quiz-progress": {
+      "type": "quiz-progress",
+      "settings": {
+        "start_text": "Start",
+        "end_text": "Your perfect pair"
+      }
+    }
+  },
+  "order": [
+    "quiz-start",
+    "primary-quiz-slide-one",
+    "primary-quiz-slide-two",
+    "secondary-quiz-slide-one",
+    "secondary-quiz-slide-two",
+    "secondary-quiz-slide-three",
+    "secondary-quiz-slide-four",
+    "submit-quiz",
+    "quiz-progress"
+  ]
+}

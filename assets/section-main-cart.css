@@ -1,0 +1,38 @@
+.card-border {
+  border: 0.0625rem solid rgba(var(--color-border), 0.2);
+}
+.card-shadow {
+  box-shadow: 0rem 0rem 0.625rem rgba(30, 30, 30, 0.1);
+}
+
+hr {
+  margin: 0;
+  height: 0.0625rem;
+}
+
+.btn-text-sm {
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: rgb(var(--color-base-accent-1));
+}
+.btn-text-sm:hover {
+  filter: brightness(0.85);
+}
+
+.cart-image__wrapper {
+  background-color: rgba(var(--color-base-accent-1), 0.05);
+}
+
+.continue-shopping-btn {
+  font-size: 0.875rem;
+}
+
+.btn-text--primary-sm {
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.25rem;
+}
+
+.remove-btn {
+  font-family: var(--font-heading-family);
+}

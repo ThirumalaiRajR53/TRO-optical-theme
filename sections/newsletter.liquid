@@ -1,0 +1,236 @@
+{{ 'component-newsletter.css' | asset_url | stylesheet_tag }}
+{{ 'newsletter-section.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .newsletter {
+    margin-top: {{ section.settings.margin_top | times: 0.75 | round: 0 }}px;
+  }
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .newsletter {
+    margin-top: {{ section.settings.margin_top }}px;
+  }
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+      background-color:rgb(var(--color-base-accent-1));
+      --color-button: rgb(var(--color-base-accent-1));
+    }
+  }
+{%- endstyle -%}
+
+<div class="newsletter center">
+  <div class="newsletter__wrapper  color-accent-1 gradient content-container isolate{% if section.settings.full_width %} content-container--full-width{% endif %} section-{{ section.id }}-padding">
+    <div class="page-width">
+      <div class="twcss-flex twcss-w-full twcss-flex-col  twcss-gap-[1.875rem] twcss-text-left md:twcss-items-center lg:twcss-flex-row lg:twcss-gap-[3.75rem]">
+        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+            {%- when '@app' -%}
+              {% render block %}
+            {%- when 'description' -%}
+              <div {{ block.shopify_attributes }} class="twcss-w-full">
+                <h2
+                  class="inline-richtext {{ block.settings.heading_size }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %} twcss-mb-4 twcss-font-semibold"
+                  data-cascade
+                >
+                  {{ block.settings.heading }}
+                </h2>
+                <div
+                  class=" rte{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %} twcss-leading-[1.625rem] twcss-opacity-80"
+                  data-cascade
+                >
+                  {{ block.settings.text }}
+                </div>
+              </div>
+            {%- when 'email_form' -%}
+              <div {{ block.shopify_attributes }} class="twcss-w-full">
+                {% form 'customer', class: 'newsletter-form' %}
+                  <input type="hidden" name="contact[tags]" value="newsletter">
+                  <div
+                    class="newsletter-form__field-wrapper{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+                    data-cascade
+                  >
+                    <div class=" twcss-relative twcss-w-full twcss-bg-white">
+                      <div class="twcss-mr-40">
+                        <input
+                          id="NewsletterForm--{{ section.id }}"
+                          type="email"
+                          pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$"
+                          oninvalid="this.setCustomValidity('{{- 'newsletter.input_validation_error' | t }}')"
+                          onchange="try{setCustomValidity('')}catch(e){}"
+                          oninput="setCustomValidity(' ')"
+                          name="contact[email]"
+                          value="{{ form.email }}"
+                          aria-required="true"
+                          autocorrect="off"
+                          autocapitalize="off"
+                          autocomplete="email"
+                          {% if form.errors %}
+                            autofocus
+                            aria-invalid="true"
+                            aria-describedby="Newsletter-error--{{ section.id }}"
+                          {% elsif form.posted_successfully? %}
+                            aria-describedby="Newsletter-success--{{ section.id }}"
+                          {% endif %}
+                          placeholder="{{- 'newsletter.input_placeholder' | t }}"
+                          class=" input-placeholder twcss-w-full twcss-py-[1.125rem] twcss-ps-4"
+                        >
+                      </div>
+                      <div class="twcss-absolute twcss-right-[0.4375rem] twcss-top-[0.4375rem]">
+                        <button
+                          type="submit"
+                          name="commit"
+                          id="Subscribe"
+                          aria-label="{{ 'newsletter.button_label' | t }}"
+                          class="button button--primary  twcss-h-fit twcss-uppercase "
+                        >
+                          {{- 'newsletter.button_label' | t }}
+                        </button>
+                      </div>
+                    </div>
+                    {%- if form.errors -%}
+                      <small class="newsletter-form__message form__message" id="Newsletter-error--{{ section.id }}">
+                        {%- render 'icon-error' -%}
+                        {{- form.errors.translated_fields.email | capitalize }}
+                        {{ form.errors.messages.email -}}
+                      </small>
+                    {%- endif -%}
+                  </div>
+                  {%- if form.posted_successfully? -%}
+                    <h3
+                      class="newsletter-form__message newsletter-form__message--success form__message"
+                      id="Newsletter-success--{{ section.id }}"
+                      tabindex="-1"
+                      autofocus
+                    >
+                      {% render 'icon-success' -%}
+                      {{- 'newsletter.success' | t }}
+                    </h3>
+                  {%- endif -%}
+                {% endform %}
+              </div>
+          {%- endcase -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.newsletter.name",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header"]
+  },
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "t:sections.newsletter.settings.paragraph.content"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.spacing"
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.footer.settings.margin_top.label",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 52
+    }
+  ],
+  "blocks": [
+    {
+      "type": "description",
+      "name": "t:sections.newsletter.blocks.description.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "heading",
+          "default": "Join the Exclusive Club",
+          "label": "t:sections.newsletter.blocks.description.settings.heading.label"
+        },
+        {
+          "type": "select",
+          "id": "heading_size",
+          "options": [
+            {
+              "value": "h2",
+              "label": "t:sections.all.heading_size.options__1.label"
+            },
+            {
+              "value": "h1",
+              "label": "t:sections.all.heading_size.options__2.label"
+            },
+            {
+              "value": "h0",
+              "label": "t:sections.all.heading_size.options__3.label"
+            }
+          ],
+          "default": "h0",
+          "label": "t:sections.all.heading_size.label"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "default": "<p>Sign up for our newsletter for more exclusive offers and  the latest updates!</p>",
+          "label": "t:sections.newsletter.blocks.description.settings.paragraph.label"
+        }
+      ]
+    },
+    {
+      "type": "email_form",
+      "name": "t:sections.newsletter.blocks.email_form.name",
+      "limit": 1
+    },
+    {
+      "type": "@app"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.newsletter.presets.name",
+      "blocks": [
+        { "type": "description" },
+        {
+          "type": "email_form"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

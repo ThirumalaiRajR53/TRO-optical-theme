@@ -1,0 +1,140 @@
+<ul class="footer__list-social list-unstyled list-social">
+  {%- if settings.social_facebook_link != blank -%}
+    <li class="list-social__item">
+      <a
+        href="{{ settings.social_facebook_link }}"
+        class="list-social__link"
+      >
+        <span class="twcss-flex  twcss-h-[2.5rem] twcss-w-[2.5rem] twcss-items-center twcss-justify-center twcss-rounded-full twcss-border twcss-border-current twcss-p-[0.5rem]">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="20" height="21" viewBox="0 0 20 21" fill="none">
+            <path d="M11.1643 18.3668V11.5368H13.4684L13.8109 8.86262H11.1643V7.15928C11.1643 6.38761 11.3793 5.85928 12.4868 5.85928H13.8901V3.47512C13.2073 3.40194 12.521 3.36661 11.8343 3.36928C9.79761 3.36928 8.39927 4.61261 8.39927 6.89511V8.85762H6.11011V11.5318H8.40427V18.3668H11.1643Z" fill="currentColor"/>
+          </svg>
+          <span class="visually-hidden">{{ 'general.social.links.facebook' | t }}</span>
+        </span>
+      </a>
+    </li>
+  {%- endif -%}
+  {%- if settings.social_instagram_link != blank -%}
+    <li class="list-social__item">
+      <a
+        href="{{ settings.social_instagram_link }}"
+        class="list-social__link"
+      >
+        <span class="twcss-flex  twcss-h-[2.5rem] twcss-w-[2.5rem] twcss-items-center twcss-justify-center twcss-rounded-full twcss-border twcss-border-current twcss-p-[0.5rem]">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="20" height="21" viewBox="0 0 20 21" fill="none">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M6.90796 3.41414C7.70773 3.37732 7.96273 3.36914 10 3.36914C12.0373 3.36914 12.2923 3.378 13.0914 3.41414C13.8905 3.45028 14.4359 3.57778 14.9132 3.76255C15.413 3.95141 15.8664 4.24664 16.2414 4.62846C16.6232 5.00278 16.9177 5.4555 17.1059 5.95596C17.2914 6.43323 17.4182 6.97869 17.455 7.77641C17.4918 8.57755 17.5 8.83255 17.5 10.8691C17.5 12.9064 17.4911 13.1614 17.455 13.9612C17.4189 14.7589 17.2914 15.3044 17.1059 15.7816C16.9177 16.2822 16.6227 16.7356 16.2414 17.1105C15.8664 17.4923 15.413 17.7869 14.9132 17.9751C14.4359 18.1605 13.8905 18.2873 13.0927 18.3241C12.2923 18.361 12.0373 18.3691 10 18.3691C7.96273 18.3691 7.70773 18.3603 6.90796 18.3241C6.11023 18.288 5.56477 18.1605 5.0875 17.9751C4.58699 17.7868 4.13351 17.4918 3.75864 17.1105C3.37708 16.736 3.08181 16.2827 2.89341 15.7823C2.70864 15.3051 2.58182 14.7596 2.545 13.9619C2.50818 13.1607 2.5 12.9057 2.5 10.8691C2.5 8.83187 2.50886 8.57687 2.545 7.77778C2.58114 6.97869 2.70864 6.43323 2.89341 5.95596C3.08208 5.45556 3.37758 5.00231 3.75932 4.62778C4.13366 4.2463 4.58669 3.95103 5.08682 3.76255C5.56409 3.57778 6.10955 3.45096 6.90727 3.41414H6.90796ZM13.0307 4.76414C12.2398 4.728 12.0025 4.7205 10 4.7205C7.9975 4.7205 7.76023 4.728 6.96932 4.76414C6.23773 4.79755 5.84091 4.9196 5.57636 5.02255C5.22659 5.15891 4.97636 5.3205 4.71386 5.583C4.46503 5.82509 4.27353 6.11979 4.15341 6.4455C4.05045 6.71005 3.92841 7.10687 3.895 7.83846C3.85886 8.62937 3.85136 8.86664 3.85136 10.8691C3.85136 12.8716 3.85886 13.1089 3.895 13.8998C3.92841 14.6314 4.05045 15.0282 4.15341 15.2928C4.27341 15.618 4.465 15.9132 4.71386 16.1553C4.95591 16.4041 5.25114 16.5957 5.57636 16.7157C5.84091 16.8187 6.23773 16.9407 6.96932 16.9741C7.76023 17.0103 7.99682 17.0178 10 17.0178C12.0032 17.0178 12.2398 17.0103 13.0307 16.9741C13.7623 16.9407 14.1591 16.8187 14.4236 16.7157C14.7734 16.5794 15.0236 16.4178 15.2861 16.1553C15.535 15.9132 15.7266 15.618 15.8466 15.2928C15.9495 15.0282 16.0716 14.6314 16.105 13.8998C16.1411 13.1089 16.1486 12.8716 16.1486 10.8691C16.1486 8.86664 16.1411 8.62937 16.105 7.83846C16.0716 7.10687 15.9495 6.71005 15.8466 6.4455C15.7102 6.09573 15.5486 5.8455 15.2861 5.583C15.044 5.33419 14.7493 5.14269 14.4236 5.02255C14.1591 4.9196 13.7623 4.79755 13.0307 4.76414ZM9.04205 13.1812C9.57704 13.4039 10.1728 13.4339 10.7275 13.2662C11.2821 13.0985 11.7614 12.7434 12.0834 12.2616C12.4053 11.7798 12.55 11.2011 12.4928 10.6244C12.4355 10.0478 12.1798 9.5089 11.7693 9.09982C11.5077 8.83833 11.1913 8.6381 10.843 8.51356C10.4946 8.38902 10.123 8.34325 9.75488 8.37956C9.38675 8.41587 9.03124 8.53335 8.71396 8.72355C8.39667 8.91374 8.12551 9.17192 7.91998 9.47949C7.71445 9.78707 7.57967 10.1364 7.52535 10.5023C7.47103 10.8682 7.49851 11.2416 7.60582 11.5956C7.71313 11.9496 7.8976 12.2755 8.14595 12.5496C8.39429 12.8238 8.70034 13.0395 9.04205 13.1812ZM7.27409 8.14323C7.63206 7.78526 8.05704 7.5013 8.52475 7.30757C8.99246 7.11384 9.49375 7.01412 10 7.01412C10.5062 7.01412 11.0075 7.11384 11.4753 7.30757C11.943 7.5013 12.3679 7.78526 12.7259 8.14323C13.0839 8.5012 13.3678 8.92618 13.5616 9.39389C13.7553 9.8616 13.855 10.3629 13.855 10.8691C13.855 11.3754 13.7553 11.8767 13.5616 12.3444C13.3678 12.8121 13.0839 13.2371 12.7259 13.5951C12.003 14.318 11.0224 14.7242 10 14.7242C8.97759 14.7242 7.99705 14.318 7.27409 13.5951C6.55114 12.8721 6.14498 11.8916 6.14498 10.8691C6.14498 9.84673 6.55114 8.86619 7.27409 8.14323ZM14.71 7.58823C14.7987 7.50455 14.8697 7.40392 14.9188 7.2923C14.968 7.18069 14.9942 7.06035 14.996 6.93841C14.9977 6.81648 14.975 6.69542 14.9292 6.58242C14.8833 6.46942 14.8153 6.36676 14.7291 6.28053C14.6428 6.1943 14.5402 6.12625 14.4272 6.0804C14.3142 6.03456 14.1931 6.01185 14.0712 6.01363C13.9492 6.01541 13.8289 6.04163 13.7173 6.09075C13.6057 6.13987 13.505 6.21089 13.4214 6.2996C13.2586 6.47212 13.1695 6.70127 13.173 6.93841C13.1764 7.17555 13.2722 7.40201 13.4399 7.56972C13.6076 7.73742 13.834 7.83316 14.0712 7.83662C14.3083 7.84008 14.5375 7.75098 14.71 7.58823Z" fill="currentColor"/>
+          </svg>
+          <span class="visually-hidden">{{ 'general.social.links.instagram' | t }}</span>
+        </span>
+      </a>
+    </li>
+  {%- endif -%}
+  {%- if settings.social_youtube_link != blank -%}
+    <li class="list-social__item">
+      <a
+        href="{{ settings.social_youtube_link }}"
+        class="list-social__link "
+      >
+        <span class="twcss-flex  twcss-h-[2.5rem] twcss-w-[2.5rem] twcss-items-center twcss-justify-center twcss-rounded-full twcss-border twcss-border-current twcss-p-[0.5rem]">
+          {%- render 'icon-youtube' -%}
+          <span class="visually-hidden">{{ 'general.social.links.youtube' | t }}</span>
+        </span>
+      </a>
+    </li>
+  {%- endif -%}
+  {%- if settings.social_tiktok_link != blank -%}
+    <li class="list-social__item">
+      <a
+        href="{{ settings.social_tiktok_link }}"
+        class="list-social__link"
+      >
+        <span class="twcss-flex  twcss-h-[2.5rem] twcss-w-[2.5rem] twcss-items-center twcss-justify-center twcss-rounded-full twcss-border twcss-border-current twcss-p-[0.5rem]">
+          {%- render 'icon-tiktok' -%}
+          <span class="visually-hidden">{{ 'general.social.links.tiktok' | t }}</span>
+        </span>
+      </a>
+    </li>
+  {%- endif -%}
+  {%- if settings.social_twitter_link != blank -%}
+    <li class="list-social__item">
+      <a
+        href="{{ settings.social_twitter_link }}"
+        class="list-social__link"
+      >
+        <span class="twcss-flex  twcss-h-[2.5rem] twcss-w-[2.5rem] twcss-items-center twcss-justify-center twcss-rounded-full twcss-border twcss-border-current twcss-p-[0.5rem]">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="20" height="21" viewBox="0 0 20 21" fill="none">
+            <path d="M7.04892 18.3691C14.0155 18.3691 17.8264 12.5968 17.8264 7.59971C17.8264 7.43818 17.8264 7.27435 17.8195 7.11282C18.5615 6.57571 19.2018 5.91075 19.7106 5.14908C19.0175 5.45466 18.283 5.65606 17.5311 5.74674C18.3232 5.27327 18.9164 4.5283 19.2006 3.65031C18.4564 4.0912 17.6418 4.4007 16.7926 4.56526C16.2217 3.95724 15.4662 3.55445 14.6432 3.41927C13.8202 3.2841 12.9756 3.42408 12.2402 3.81754C11.5048 4.211 10.9196 4.83597 10.5754 5.59566C10.2312 6.35535 10.147 7.20735 10.3361 8.01969C8.83007 7.94418 7.35677 7.55295 6.01172 6.87138C4.66667 6.18981 3.4799 5.23312 2.52839 4.06336C2.04535 4.89765 1.89794 5.8845 2.11608 6.82352C2.33423 7.76255 2.90159 8.58335 3.70295 9.11925C3.10245 9.09885 2.51515 8.9376 1.98842 8.64851V8.70043C1.98946 9.5744 2.29222 10.4212 2.84554 11.0977C3.39885 11.7742 4.16878 12.2389 5.02518 12.4133C4.70012 12.5029 4.36433 12.5475 4.02716 12.546C3.78946 12.5467 3.55224 12.5247 3.31874 12.4802C3.56078 13.2326 4.03209 13.8903 4.66664 14.3614C5.30119 14.8325 6.06721 15.0934 6.85739 15.1074C5.51503 16.1617 3.85686 16.7335 2.14995 16.7308C1.84918 16.732 1.54863 16.7147 1.25 16.6788C2.98242 17.7833 4.99437 18.3698 7.04892 18.3691Z" fill="currentColor"/>
+          </svg>
+          <span class="visually-hidden">{{ 'general.social.links.twitter' | t }}</span>
+        </span>
+      </a>
+    </li>
+  {%- endif -%}
+  {%- if settings.social_linkedin_link != blank -%}
+    <li class="list-social__item">
+      <a
+        href="{{ settings.social_linkedin_link }}"
+        class="list-social__link"
+      >
+        <span class="twcss-flex  twcss-h-[2.5rem] twcss-w-[2.5rem] twcss-items-center twcss-justify-center twcss-rounded-full twcss-border twcss-border-current twcss-p-[0.5rem]">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="20" height="21" viewBox="0 0 20 21" fill="none">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M8.07175 8.59589H10.8572V9.98339C11.2585 9.18539 12.2875 8.46839 13.8332 8.46839C16.7965 8.46839 17.5 10.0569 17.5 12.9714V18.3691H14.5V13.6351C14.5 11.9754 14.0987 11.0394 13.0772 11.0394C11.6605 11.0394 11.0717 12.0481 11.0717 13.6344V18.3691H8.07175V8.59589ZM2.9275 18.2416H5.9275V8.46839H2.9275V18.2416ZM6.35725 5.28164C6.35736 5.5331 6.30749 5.78207 6.21054 6.01408C6.11359 6.2461 5.97149 6.45653 5.7925 6.63314C5.4298 6.99361 4.93886 7.19538 4.4275 7.19414C3.91704 7.1938 3.42723 6.99254 3.064 6.63389C2.88566 6.45668 2.74404 6.24601 2.64726 6.01396C2.55048 5.78192 2.50043 5.53306 2.5 5.28164C2.5 4.77389 2.7025 4.28789 3.06475 3.92939C3.42766 3.57026 3.91768 3.36892 4.42825 3.36914C4.93975 3.36914 5.43025 3.57089 5.7925 3.92939C6.154 4.28789 6.35725 4.77389 6.35725 5.28164Z" fill="currentColor"/>
+          </svg>
+          <span class="visually-hidden">{{ 'general.social.links.twitter' | t }}</span>
+        </span>
+      </a>
+    </li>
+  {%- endif -%}
+  {%- if settings.social_pinterest_link != blank -%}
+    <li class="list-social__item">
+      <a
+        href="{{ settings.social_pinterest_link }}"
+        class="list-social__link "
+      >
+        <span class="twcss-flex  twcss-h-[2.5rem] twcss-w-[2.5rem] twcss-items-center twcss-justify-center twcss-rounded-full twcss-border twcss-border-current twcss-p-[0.5rem]">
+          {%- render 'icon-pinterest' -%}
+          <span class="visually-hidden">{{ 'general.social.links.pinterest' | t }}</span>
+        </span>
+      </a>
+    </li>
+  {%- endif -%}
+  {%- if settings.social_snapchat_link != blank -%}
+    <li class="list-social__item">
+      <a
+        href="{{ settings.social_snapchat_link }}"
+        class="list-social__link"
+      >
+        <span class="twcss-flex  twcss-h-[2.5rem] twcss-w-[2.5rem] twcss-items-center twcss-justify-center twcss-rounded-full twcss-border twcss-border-current twcss-p-[0.5rem]">
+          {%- render 'icon-snapchat' -%}
+          <span class="visually-hidden">{{ 'general.social.links.snapchat' | t }}</span>
+        </span>
+      </a>
+    </li>
+  {%- endif -%}
+  {%- if settings.social_tumblr_link != blank -%}
+    <li class="list-social__item">
+      <a
+        href="{{ settings.social_tumblr_link }}"
+        class="list-social__link"
+      >
+        <span class="twcss-flex  twcss-h-[2.5rem] twcss-w-[2.5rem] twcss-items-center twcss-justify-center twcss-rounded-full twcss-border twcss-border-current twcss-p-[0.5rem]">
+          {%- render 'icon-tumblr' -%}
+          <span class="visually-hidden">{{ 'general.social.links.tumblr' | t }}</span>
+        </span>
+      </a>
+    </li>
+  {%- endif -%}
+  {%- if settings.social_vimeo_link != blank -%}
+    <li class="list-social__item">
+      <a
+        href="{{ settings.social_vimeo_link }}"
+        class="list-social__link"
+      >
+        <span class="twcss-flex  twcss-h-[2.5rem] twcss-w-[2.5rem] twcss-items-center twcss-justify-center twcss-rounded-full twcss-border twcss-border-current twcss-p-[0.5rem]">
+          {%- render 'icon-vimeo' -%}
+          <span class="visually-hidden">{{ 'general.social.links.vimeo' | t }}</span>
+        </span>
+      </a>
+    </li>
+  {%- endif -%}
+</ul>

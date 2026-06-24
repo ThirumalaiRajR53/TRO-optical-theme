@@ -1,0 +1,207 @@
+{{ 'customer.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'register.js' | asset_url }}" defer></script>
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  .section-{{ section.id }}-border {
+    border-color: rgba(var(--color-base-{{ section.settings.color_scheme }}),0.5);
+    /* border-color: {{ section.settings.body_text }}; */
+  }
+
+  .text-{{ section.id }}-color {
+    color: var(--color-base-{{ section.settings.color_scheme }})
+    /* border-color: {{ section.settings.body_text }}; */
+  }
+{%- endstyle -%}
+
+<div class="twcss-bg-slate-50">
+  <section class="twcss-pb-[4.375rem] twcss-pt-[3.125rem]">
+    <div class="twcss-mx-auto twcss-flex twcss-justify-center ">
+      <div class="twcss-w-11/12 color-background-1 isolate md:twcss-w-3/4 lg:twcss-w-1/2">
+        <div class="twcss-flex twcss-border-b twcss-border-slate-200">
+          <a href="{{ routes.account_login_url }}" class="twcss-w-full twcss-py-5">
+            <h1 class="twcss-text-center twcss-text-lg twcss-font-semibold twcss-opacity-[0.7] md:twcss-text-xl">
+              {{ 'customer.login_page.sign_in' | t | upcase }}
+            </h1>
+          </a>
+          <a
+            href="{{ routes.account_register_url }}"
+            class="section-{{ section.id }}-border  twcss-w-full twcss-border-b-2 twcss-py-5"
+          >
+            <h1 class="twcss-text-heading twcss-text-center twcss-text-lg twcss-font-semibold md:twcss-text-xl">
+              {{ 'customer.register.sign_up' | t | upcase }}
+            </h1>
+          </a>
+        </div>
+
+        <div class="twcss-px-5 twcss-py-10 lg:twcss-px-[4.375rem]">
+          <h2 class="twcss-text-heading twcss-mb-5 twcss-text-center twcss-text-2xl twcss-font-semibold twcss-leading-[2.625rem] md:twcss-text-[2rem]">
+            {{ 'customer.register.title' | t }}
+          </h2>
+          <p class="twcss-text-body-text twcss-mb-5 twcss-text-center twcss-text-sm ">
+            {{ 'customer.register.sub_heading' | t }}
+          </p>
+
+          <div class="register-form customer">
+            {%- form 'create_customer', novalidate: 'novalidate' -%}
+              <div class="field">
+                <input
+                  type="text"
+                  name="customer[first_name]"
+                  id="RegisterForm-FirstName"
+                  {% if form.first_name %}
+                    value="{{ form.first_name }}"
+                  {% endif %}
+                  autocomplete="given-name"
+                  placeholder="{{ 'customer.register.first_name' | t }}"
+                  class="input-border input-placeholder twcss-w-full twcss-border twcss-px-3 twcss-py-[0.875rem] twcss-text-base twcss-leading-[1.625rem]"
+                >
+              </div>
+
+              <div class="field">
+                <input
+                  type="text"
+                  name="customer[last_name]"
+                  id="RegisterForm-LastName"
+                  {% if form.last_name %}
+                    value="{{ form.last_name }}"
+                  {% endif %}
+                  autocomplete="family-name"
+                  placeholder="{{ 'customer.register.last_name' | t }}"
+                  class=" input-border input-placeholder twcss-mt-5 twcss-w-full twcss-border twcss-px-3 twcss-py-[0.875rem] twcss-text-base twcss-leading-[1.625rem]"
+                >
+              </div>
+
+              <div class="field">
+                <input
+                  type="email"
+                  name="customer[email]"
+                  id="RegisterForm-email"
+                  {% if form.email %}
+                    value="{{ form.email }}"
+                  {% endif %}
+                  autocomplete="email"
+                  spellcheck="false"
+                  autocapitalize="off"
+                  placeholder="{{ 'customer.register.email' | t }}"
+                  class="input-border input-placeholder twcss-mt-5  twcss-w-full twcss-border twcss-px-3 twcss-py-[0.875rem] twcss-text-base twcss-leading-[1.625rem]"
+                >
+              </div>
+
+              {%- if form.errors contains 'email' -%}
+                <span id="form-signup-email-error" class="twcss-text-sm twcss-text-red-400">
+                  {{ form.errors.translated_fields.email | capitalize }}
+                  {{ form.errors.messages.email }}.
+                </span>
+              {%- endif -%}
+
+              {%- if form.errors -%}
+                {%- for field in form.errors -%}
+                  {%- if field == 'form' -%}
+                    <ul>
+                      <li>
+                        <span class="twcss-text-sm twcss-text-red-400">{{ form.errors.messages[field] }}</span>
+                      </li>
+                    </ul>
+                  {%- endif -%}
+                {%- endfor -%}
+              {%- endif -%}
+
+              <div class="twcss-relative twcss-mt-5 field">
+                <input
+                  type="password"
+                  name="customer[password]"
+                  id="form-signup-password"
+                  placeholder="{{ 'customer.register.password' | t }}"
+                  class="input-border input-placeholder  twcss-w-full twcss-px-3 twcss-py-[0.875rem] twcss-text-base twcss-leading-[1.625rem]"
+                >
+                <div class=" twcss-absolute twcss-right-4 twcss-top-1/2 twcss-h-7 -twcss-translate-y-1/2">
+                  <button
+                    type="button"
+                    id="toggle-pw-signup-button"
+                    class="twcss-h-full twcss-cursor-pointer "
+                    data-eye=" true"
+                  >
+                    <span class="eye-close">
+                      {%- render 'icon-eye-close' -%}
+                    </span>
+                    <span class="eye-open">
+                      {%- render 'icon-eye-open' -%}
+                    </span>
+                  </button>
+                </div>
+              </div>
+
+              {%- if form.errors contains 'password' -%}
+                <span id="form-signup-password-error" class="twcss-text-sm twcss-text-red-400">
+                  {{ form.errors.translated_fields.password | capitalize }}
+                  {{ form.errors.messages.password }}.
+                </span>
+              {%- endif -%}
+
+              <button class="button button--primary twcss-my-4 twcss-w-full">
+                {{ 'customer.register.sign_up' | t }}
+              </button>
+            {% endform %}
+          </div>
+
+          <div class="terms-wrapper twcss-text-body-text twcss-mb-[1.875rem] twcss-text-center twcss-text-sm ">
+            {{ section.settings.tos_section }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.main-register.name",
+  "settings": [
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "options": [
+        {
+          "value": "accent-1",
+          "label": "t:sections.all.colors.accent_1.label"
+        },
+        {
+          "value": "accent-2",
+          "label": "t:sections.all.colors.accent_2.label"
+        },
+        {
+          "value": "background-1",
+          "label": "t:sections.all.colors.background_1.label"
+        },
+        {
+          "value": "background-2",
+          "label": "t:sections.all.colors.background_2.label"
+        },
+        {
+          "value": "inverse",
+          "label": "t:sections.all.colors.inverse.label"
+        }
+      ],
+      "default": "accent-1",
+      "label": "t:sections.all.colors.label"
+    },
+    {
+      "type": "richtext",
+      "id": "tos_section",
+      "label": "t:sections.main-register.tos"
+    }
+  ]
+}
+{% endschema %}

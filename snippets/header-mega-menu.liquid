@@ -1,0 +1,184 @@
+{% comment %}
+  Renders a megamenu for the header.
+  Enhanced with "Shop All" links, badge support, and product counts.
+
+  Usage:
+  {% render 'header-mega-menu' %}
+{% endcomment %}
+
+<nav class="header__inline-menu">
+  <ul class="list-menu list-menu--inline" role="list">
+    {%- for link in section.settings.menu.links -%}
+      <li>
+        {%- if link.links != blank -%}
+          <header-menu>
+            <details id="Details-HeaderMenu-{{ forloop.index }}" class="mega-menu">
+              <summary class="header__menu-item list-menu__item link focus-inset">
+                <span class="header__menu-item--title twcss-font-semibold">
+                  {{- link.title | escape -}}
+                </span>
+                {% render 'icon-caret' %}
+              </summary>
+              <div
+                id="MegaMenu-Content-{{ forloop.index }}"
+                class="mega-menu__content gradient motion-reduce global-settings-popup twcss-flex twcss-flex-1"
+                tabindex="-1"
+              >
+                <ul class="mega-menu__list {% if link.levels == 1 %} mega-menu__list--condensed{% endif %}" role="list">
+                  {%- for childlink in link.links -%}
+                    <li>
+                      <a
+                        href="{{ childlink.url }}"
+                        class="mega-menu__link mega-menu__link--level-2 link twcss-font-semibold"
+                        {% if childlink.current %}
+                          aria-current="page"
+                        {% endif %}
+                      >
+                        {{ childlink.title | escape }}
+                        {%- if childlink.title contains '[NEW]' or childlink.title contains '[SALE]' -%}
+                          {%- assign badge_text = '' -%}
+                          {%- if childlink.title contains '[NEW]' -%}
+                            {%- assign badge_text = 'NEW' -%}
+                          {%- elsif childlink.title contains '[SALE]' -%}
+                            {%- assign badge_text = 'SALE' -%}
+                          {%- endif -%}
+                          <span class="mega-menu__badge mega-menu__badge--{{ badge_text | downcase }}">{{ badge_text }}</span>
+                        {%- endif -%}
+                      </a>
+                      {%- if childlink.links != blank -%}
+                        <ul class="list-unstyled" role="list">
+                          {%- for grandchildlink in childlink.links -%}
+                            <li>
+                              <a
+                                href="{{ grandchildlink.url }}"
+                                class="mega-menu__link link twcss-font-semibold"
+                                {% if grandchildlink.current %}
+                                  aria-current="page"
+                                {% endif %}
+                              >
+                                {{ grandchildlink.title | escape }}
+                                {%- if grandchildlink.title contains '[NEW]' or grandchildlink.title contains '[SALE]' -%}
+                                  {%- assign gc_badge = '' -%}
+                                  {%- if grandchildlink.title contains '[NEW]' -%}
+                                    {%- assign gc_badge = 'NEW' -%}
+                                  {%- elsif grandchildlink.title contains '[SALE]' -%}
+                                    {%- assign gc_badge = 'SALE' -%}
+                                  {%- endif -%}
+                                  <span class="mega-menu__badge mega-menu__badge--{{ gc_badge | downcase }}">{{ gc_badge }}</span>
+                                {%- endif -%}
+                              </a>
+                            </li>
+                          {%- endfor -%}
+                        </ul>
+                      {%- endif -%}
+                    </li>
+                  {%- endfor -%}
+                  <li class="mega-menu__shop-all">
+                    <a
+                      href="{{ link.url }}"
+                      class="mega-menu__link mega-menu__link--shop-all link twcss-font-semibold"
+                    >
+                      Shop All {{ link.title | escape }} &rarr;
+                    </a>
+                  </li>
+                </ul>
+                <div class="mega-menu__images-wrapper">
+                  {% assign counter = 0 %}
+                  {% for block in section.blocks %}
+                    {% if block.settings['top-menu-name'] != blank %}
+                      {% if link.title == block.settings['top-menu-name'] %}
+                        {% assign counter = counter | plus: 1 %}
+                        {% if counter <= 2 %}
+                          <div class="mega-menu__image-block">
+                            <a href="{{ block.settings.link }}">
+                              <div class="image-wrapper">
+                                <img
+                                  src="{{ block.settings.image | image_url: width: 400 }}"
+                                  alt="{{ block.settings.image.alt | escape }}"
+                                  loading="lazy"
+                                  width="400"
+                                  height="300"
+                                >
+                              </div>
+                              <div class="mega-menu__image-info">
+                                <span class="mega-menu__image-heading twcss-block twcss-font-semibold">
+                                  {{- block.settings.heading -}}
+                                </span>
+                                <span class="mega-menu__image-subheading twcss-block twcss-font-semibold">
+                                  {{- block.settings.subheading | upcase -}}
+                                </span>
+                              </div>
+                            </a>
+                          </div>
+                        {% endif %}
+                      {% endif %}
+                    {% endif %}
+                  {% endfor %}
+                </div>
+              </div>
+            </details>
+          </header-menu>
+        {%- else -%}
+          {%- assign link_title_lower = link.title | downcase -%}
+          {%- if link_title_lower == 'browse' or link_title_lower == 'catalog' -%}
+            <header-menu>
+              <details id="Details-HeaderMenu-Browse-{{ forloop.index }}" class="mega-menu">
+                <summary class="header__menu-item list-menu__item link focus-inset">
+                  <span class="header__menu-item--title twcss-font-semibold">
+                    Browse
+                  </span>
+                  {% render 'icon-caret' %}
+                </summary>
+                <div
+                  id="MegaMenu-Browse-{{ forloop.index }}"
+                  class="mega-menu__content gradient motion-reduce global-settings-popup twcss-flex twcss-flex-1"
+                  tabindex="-1"
+                >
+                  <ul class="mega-menu__list" role="list">
+                    <li>
+                      <a href="/collections/eyeglasses" class="mega-menu__link mega-menu__link--level-2 link twcss-font-semibold">
+                        Eyeglasses
+                      </a>
+                    </li>
+                    <li>
+                      <a href="/collections/sunglasses" class="mega-menu__link mega-menu__link--level-2 link twcss-font-semibold">
+                        Sunglasses
+                      </a>
+                    </li>
+                    <li>
+                      <a href="/collections/contact-lenses" class="mega-menu__link mega-menu__link--level-2 link twcss-font-semibold">
+                        Contact Lenses
+                      </a>
+                    </li>
+                    <li>
+                      <a href="/collections/reading-glasses" class="mega-menu__link mega-menu__link--level-2 link twcss-font-semibold">
+                        Reading Glasses
+                      </a>
+                    </li>
+                    <li>
+                      <a href="/collections/accessories" class="mega-menu__link mega-menu__link--level-2 link twcss-font-semibold">
+                        Accessories
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </details>
+            </header-menu>
+          {%- else -%}
+            <a
+              href="{{ link.url }}"
+              class="header__menu-item list-menu__item link link--text focus-inset"
+              {% if link.current %}
+                aria-current="page"
+              {% endif %}
+            >
+              <span class="header__menu-item--title twcss-font-semibold">
+                {{- link.title | escape -}}
+              </span>
+            </a>
+          {%- endif -%}
+        {%- endif -%}
+      </li>
+    {%- endfor -%}
+  </ul>
+</nav>

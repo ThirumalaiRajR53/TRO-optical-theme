@@ -1,0 +1,100 @@
+{% unless template == 'index'
+  or template == '404'
+  or template == 'customers/login'
+  or template == 'customers/register'
+  or template == 'customers/reset_password'
+  or template == 'page.product-quiz'
+%}
+  {% assign t = template | split: '.' | first %}
+
+  <div class="page-width breadcrumbs twcss-w-full">
+    <nav
+      class="twcss-pb-4 twcss-pt-4 twcss-text-sm"
+      role="navigation"
+      aria-label="breadcrumbs"
+    >
+      {% capture breadcrumbs_arrow %}
+        <span class="twcss-mx-2 twcss-flex twcss-items-center">
+          <svg width="5" height="10" viewBox="0 0 5 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4.9834 0.00585938L1.26465 10H0.143555L3.86914 0.00585938H4.9834Z" fill="#0F172A" fill-opacity="0.2"/>
+          </svg>
+        </span>
+      {% endcapture %}
+
+      <ol class="twcss-flex twcss-flex-wrap">
+        <li>
+          <a href="/" title="Home">{{ 'general.home' | t }}</a>
+        </li>
+
+        {% case t %}
+          {% when 'page' %}
+            {{ breadcrumbs_arrow }}
+            <li aria-current="page" class="twcss-font-semibold twcss-text-[rgb(var(--color-base-text))]">
+              {{ page.title }}
+            </li>
+
+          {% when 'product' %}
+            {% if collection.url %}
+              {{ breadcrumbs_arrow }}
+              <li>
+                {{ collection.title | link_to: collection.url }}
+              </li>
+            {% endif %}
+
+            {{ breadcrumbs_arrow }}
+            <li aria-current="page" class="twcss-font-semibold twcss-text-[rgb(var(--color-base-text))]">
+              {{ product.title }}
+            </li>
+
+          {% when 'collection' and collection.handle %}
+            {% if current_tags %}
+              {{ breadcrumbs_arrow }}
+              <li>{{ collection.title | link_to: collection.url }}</li>
+              {{ breadcrumbs_arrow }}
+              <li aria-current="page" class="twcss-font-semibold twcss-text-[rgb(var(--color-base-text))]">
+                {{ current_tags | join: ' + ' }}
+              </li>
+            {% else %}
+              {{ breadcrumbs_arrow }}
+              <li aria-current="page" class="twcss-font-semibold twcss-text-[rgb(var(--color-base-text))]">
+                {{ collection.title }}
+              </li>
+            {% endif %}
+
+          {% when 'blog' %}
+            {% if current_tags %}
+              {{ breadcrumbs_arrow }}
+              <li>{{ blog.title | link_to: blog.url }}</li>
+              {{ breadcrumbs_arrow }}
+              <li aria-current="page" class="twcss-font-semibold twcss-text-[rgb(var(--color-base-text))]">
+                {{ current_tags | join: ' + ' }}
+              </li>
+            {% else %}
+              {{ breadcrumbs_arrow }}
+              <li aria-current="page" class="twcss-font-semibold twcss-text-[rgb(var(--color-base-text))]">
+                {{ blog.title }}
+              </li>
+            {% endif %}
+
+          {% when 'article' %}
+            {{ breadcrumbs_arrow }}
+            <li>{{ blog.title | link_to: blog.url }}</li>
+            {{ breadcrumbs_arrow }}
+            <li aria-current="page" class="twcss-font-semibold twcss-text-[rgb(var(--color-base-text))]">
+              {{ article.title }}
+            </li>
+
+          {% else %}
+            {% if request.path contains '/orders' or request.path contains '/addresses' %}
+              {{ breadcrumbs_arrow }}
+              <li>{{ 'Account' | link_to: routes.account_url }}</li>
+            {% endif %}
+            {{ breadcrumbs_arrow }}
+            <li aria-current="page" class="twcss-font-semibold twcss-text-[rgb(var(--color-base-text))]">
+              {{ page_title }}
+            </li>
+        {% endcase %}
+      </ol>
+    </nav>
+  </div>
+{% endunless %}

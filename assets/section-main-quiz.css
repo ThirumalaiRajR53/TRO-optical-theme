@@ -1,0 +1,64 @@
+#MainContent > .shopify-section:first-child {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.quiz {
+  background-color: rgba(var(--color-base-text), 0.05);
+}
+
+.quiz-slide-section {
+  display: none;
+}
+
+.quiz-slide-section .field:before {
+  z-index: 0;
+}
+
+.active-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.quiz-info {
+  box-shadow: -0.125rem 0.125rem 0rem 0rem rgb(var(--color-base-accent-1));
+}
+
+.quiz-answer {
+  border: 0.0625rem solid rgba(var(--color-base-text), 0.2);
+  transition: box-shadow 300ms ease-out;
+}
+
+.quiz-answer:hover {
+  box-shadow: 0rem 0rem 0.9375rem 0rem rgba(var(--color-base-text), 0.1);
+}
+
+.highlighted-answer {
+  border-color: rgb(var(--color-base-accent-1));
+}
+
+.quiz-answer-details {
+  color: rgba(var(--color-base-text), 0.8);
+}
+
+.progress-section {
+  display: none;
+}
+
+#bar {
+  background-color: rgba(var(--color-base-text), 0.2);
+}
+
+#progress:empty {
+  display: block;
+}
+
+#back-button {
+  cursor: pointer;
+}
+
+.next-button[disabled] {
+  cursor: not-allowed;
+}

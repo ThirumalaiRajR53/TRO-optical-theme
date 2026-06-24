@@ -1,0 +1,150 @@
+<section class="legacy-banner section-{{ section.id }}-padding">
+  {%- style -%}
+    .legacy-banner {
+      background: linear-gradient(135deg, var(--accent-color-2, #04032D) 0%, var(--accent-color-1, #3B3989) 100%);
+      color: #fff;
+      text-align: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .legacy-banner::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(ellipse at center, rgba(255,255,255,0.03) 0%, transparent 70%);
+      animation: legacy-shimmer 8s ease-in-out infinite;
+    }
+
+    @keyframes legacy-shimmer {
+      0%, 100% { transform: translateX(-10%) translateY(-10%); }
+      50% { transform: translateX(10%) translateY(10%); }
+    }
+
+    .legacy-banner__inner {
+      position: relative;
+      z-index: 1;
+      padding: 2.5rem 1.5rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    @media screen and (min-width: 750px) {
+      .legacy-banner__inner {
+        padding: 3.5rem 2rem;
+      }
+    }
+
+    .legacy-banner__year {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      opacity: 0.7;
+      margin-bottom: 0.5rem;
+    }
+
+    .legacy-banner__heading {
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      line-height: 1.2;
+    }
+
+    @media screen and (min-width: 750px) {
+      .legacy-banner__heading {
+        font-size: 2.25rem;
+      }
+    }
+
+    .legacy-banner__text {
+      font-size: 1rem;
+      opacity: 0.85;
+      line-height: 1.6;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .legacy-banner__divider {
+      width: 60px;
+      height: 2px;
+      background: rgba(255,255,255,0.4);
+      margin: 1rem auto;
+    }
+
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+      padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+    }
+
+    @media screen and (min-width: 750px) {
+      .section-{{ section.id }}-padding {
+        padding-top: {{ section.settings.padding_top }}px;
+        padding-bottom: {{ section.settings.padding_bottom }}px;
+      }
+    }
+  {%- endstyle -%}
+
+  <div class="legacy-banner__inner">
+    <p class="legacy-banner__year">{{ section.settings.year_text }}</p>
+    <h2 class="legacy-banner__heading">{{ section.settings.heading }}</h2>
+    <div class="legacy-banner__divider"></div>
+    <p class="legacy-banner__text">{{ section.settings.description }}</p>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Legacy Banner",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "year_text",
+      "default": "EST. 1956",
+      "label": "Year text"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "default": "70 Years of Clear Vision",
+      "label": "Heading"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "default": "Trusted since 1956, The Rajhan Opticals blends tradition, care, and craftsmanship to bring generations the gift of clear vision.",
+      "label": "Description"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+      "name": "Legacy Banner"
+    }
+  ]
+}
+{% endschema %}

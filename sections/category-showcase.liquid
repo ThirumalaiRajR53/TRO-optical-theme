@@ -1,0 +1,258 @@
+<section class="category-showcase section-{{ section.id }}-padding">
+  {%- style -%}
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+      padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+    }
+
+    @media screen and (min-width: 750px) {
+      .section-{{ section.id }}-padding {
+        padding-top: {{ section.settings.padding_top }}px;
+        padding-bottom: {{ section.settings.padding_bottom }}px;
+      }
+    }
+
+    .category-showcase {
+      text-align: center;
+    }
+
+    .category-showcase__title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: var(--text-color, #0F172A);
+    }
+
+    .category-showcase__subtitle {
+      font-size: 1rem;
+      color: rgba(15, 23, 42, 0.6);
+      margin-bottom: 2rem;
+    }
+
+    .category-showcase__grid {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    @media screen and (min-width: 750px) {
+      .category-showcase__grid {
+        gap: 2.5rem;
+        flex-wrap: nowrap;
+      }
+    }
+
+    .category-showcase__item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-decoration: none;
+      transition: transform 0.2s ease;
+      width: calc(33.333% - 1rem);
+    }
+
+    @media screen and (min-width: 750px) {
+      .category-showcase__item {
+        width: auto;
+        flex: 1;
+      }
+    }
+
+    .category-showcase__item:hover {
+      transform: translateY(-4px);
+    }
+
+    .category-showcase__image-wrapper {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 3px solid rgba(59, 57, 137, 0.12);
+      margin-bottom: 0.75rem;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      background: rgba(59, 57, 137, 0.04);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    @media screen and (min-width: 750px) {
+      .category-showcase__image-wrapper {
+        width: 130px;
+        height: 130px;
+      }
+    }
+
+    .category-showcase__item:hover .category-showcase__image-wrapper {
+      border-color: rgba(59, 57, 137, 0.4);
+      box-shadow: 0 4px 16px rgba(59, 57, 137, 0.15);
+    }
+
+    .category-showcase__image-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .category-showcase__image-wrapper svg {
+      width: 40%;
+      height: 40%;
+      color: rgba(59, 57, 137, 0.6);
+    }
+
+    .category-showcase__label {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--text-color, #0F172A);
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    @media screen and (min-width: 750px) {
+      .category-showcase__label {
+        font-size: 0.875rem;
+      }
+    }
+  {%- endstyle -%}
+
+  <div class="page-width">
+    {%- if section.settings.heading != blank -%}
+      <h2 class="category-showcase__title">{{ section.settings.heading }}</h2>
+    {%- endif -%}
+    {%- if section.settings.subtitle != blank -%}
+      <p class="category-showcase__subtitle">{{ section.settings.subtitle }}</p>
+    {%- endif -%}
+
+    <div class="category-showcase__grid">
+      {%- for block in section.blocks -%}
+        <a href="{{ block.settings.link }}" class="category-showcase__item" {{ block.shopify_attributes }}>
+          <div class="category-showcase__image-wrapper">
+            {%- if block.settings.image != blank -%}
+              <img
+                src="{{ block.settings.image | image_url: width: 260 }}"
+                alt="{{ block.settings.label | escape }}"
+                width="130"
+                height="130"
+                loading="lazy"
+              >
+            {%- else -%}
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+            {%- endif -%}
+          </div>
+          <span class="category-showcase__label">{{ block.settings.label }}</span>
+        </a>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Category Showcase",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "default": "Shop By Category",
+      "label": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "default": "Find the perfect eyewear for every need",
+      "label": "Subtitle"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 40
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Category",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "default": "Category",
+          "label": "Label"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "Category Showcase",
+      "blocks": [
+        {
+          "type": "category",
+          "settings": {
+            "label": "Eyeglasses"
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "label": "Sunglasses"
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "label": "Contact Lenses"
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "label": "Reading Glasses"
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "label": "Accessories"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
