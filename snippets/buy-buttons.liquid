@@ -57,7 +57,7 @@
     -%}
 
     {%- if needs_power and is_eyeglass == false -%}
-      {% render 'power-selector', product_form_id: product_form_id, power_mode: power_mode, show_boxes: show_boxes, only_spherical: only_spherical %}
+      {% render 'power-selector', product_form_id: product_form_id, power_mode: power_mode, show_boxes: show_boxes, only_spherical: only_spherical, power_values: product.metafields.custom.power_values.value %}
     {%- endif -%}
 
     {%- if is_eyeglass -%}

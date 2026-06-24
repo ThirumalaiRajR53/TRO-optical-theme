@@ -7,9 +7,10 @@
   - power_mode: {String} 'required' or 'optional' (controls No Power option)
   - show_boxes: {Boolean} Whether to show Boxes selector (false = use default qty)
   - only_spherical: {Boolean} If true, hides CYL and Axis fields
+  - power_values: {JSON} Per-product power config from product.metafields.custom.power_values
 
   Usage:
-  {% render 'power-selector', product_form_id: product_form_id, power_mode: power_mode, show_boxes: show_boxes, only_spherical: only_spherical %}
+  {% render 'power-selector', product_form_id: product_form_id, power_mode: power_mode, show_boxes: show_boxes, only_spherical: only_spherical, power_values: product.metafields.custom.power_values.value %}
 {% endcomment %}
 
 {{ 'component-power-selector.css' | asset_url | stylesheet_tag }}
@@ -21,6 +22,7 @@
   data-power-mode="{{ power_mode }}"
   data-show-boxes="{{ show_boxes }}"
   data-only-spherical="{{ only_spherical }}"
+  {% if power_values %}data-power-values='{{ power_values | json }}'{% endif %}
 >
   <div class="power-selector__header">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
@@ -67,43 +69,6 @@
             {%- if power_mode == 'optional' -%}
               <option value="no-power">No Power</option>
             {%- endif -%}
-            <option value="0">0.00</option>
-            <option value="-0.25">-0.25</option>
-            <option value="-0.50">-0.50</option>
-            <option value="-0.75">-0.75</option>
-            <option value="-1.00">-1.00</option>
-            <option value="-1.25">-1.25</option>
-            <option value="-1.50">-1.50</option>
-            <option value="-1.75">-1.75</option>
-            <option value="-2.00">-2.00</option>
-            <option value="-2.25">-2.25</option>
-            <option value="-2.50">-2.50</option>
-            <option value="-2.75">-2.75</option>
-            <option value="-3.00">-3.00</option>
-            <option value="-3.25">-3.25</option>
-            <option value="-3.50">-3.50</option>
-            <option value="-3.75">-3.75</option>
-            <option value="-4.00">-4.00</option>
-            <option value="-4.25">-4.25</option>
-            <option value="-4.50">-4.50</option>
-            <option value="-4.75">-4.75</option>
-            <option value="-5.00">-5.00</option>
-            <option value="-5.25">-5.25</option>
-            <option value="-5.50">-5.50</option>
-            <option value="-5.75">-5.75</option>
-            <option value="-6.00">-6.00</option>
-            <option value="-6.25">-6.25</option>
-            <option value="-6.50">-6.50</option>
-            <option value="-6.75">-6.75</option>
-            <option value="-7.00">-7.00</option>
-            <option value="-7.25">-7.25</option>
-            <option value="-7.50">-7.50</option>
-            <option value="-7.75">-7.75</option>
-            <option value="-8.00">-8.00</option>
-            <option value="-8.25">-8.25</option>
-            <option value="-8.50">-8.50</option>
-            <option value="-8.75">-8.75</option>
-            <option value="-9.00">-9.00</option>
           </select>
         </div>
 
