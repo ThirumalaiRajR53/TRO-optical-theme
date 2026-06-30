@@ -135,12 +135,42 @@ Usage:
                       </div>
                     </details>
                   {%- else -%}
-                    <a
-                      href="{{ link.url }}"
-                      class="menu-drawer__menu-item list-menu__item link focus-inset{% if link.current %} menu-drawer__menu-item--active{% endif %}"
-                      {% if link.current %}aria-current="page"{% endif %}>
-                      {{ link.title | escape }}
-                    </a>
+                    {%- assign drawer_link_lower = link.title | downcase -%}
+                    {%- if drawer_link_lower == 'brands' or drawer_link_lower == 'contact' -%}
+                      <details id="Details-menu-drawer-brands-{{ forloop.index }}">
+                        <summary class="menu-drawer__menu-item list-menu__item link focus-inset">
+                          Brands
+                          {% render 'icon-caret' %}
+                        </summary>
+                        <div class="menu-drawer__submenu gradient motion-reduce" tabindex="-1">
+                          <div class="menu-drawer__inner-submenu">
+                            <button class="menu-drawer__close-button link focus-inset" aria-expanded="true">
+                              {% render 'icon-caret' %}
+                              Brands
+                            </button>
+                            <ul class="menu-drawer__menu menu-drawer__menu--level-2" role="list" tabindex="-1">
+                              <li><a href="/collections/all?filter.p.vendor=Idee" class="menu-drawer__menu-item link list-menu__item focus-inset">Idee</a></li>
+                              <li><a href="/collections/all?filter.p.vendor=Irus" class="menu-drawer__menu-item link list-menu__item focus-inset">Irus</a></li>
+                              <li><a href="/collections/all?filter.p.vendor=Fila" class="menu-drawer__menu-item link list-menu__item focus-inset">Fila</a></li>
+                              <li><a href="/collections/all?filter.p.vendor=Police" class="menu-drawer__menu-item link list-menu__item focus-inset">Police</a></li>
+                              <li><a href="/collections/all?filter.p.vendor=Acuvue" class="menu-drawer__menu-item link list-menu__item focus-inset">Acuvue</a></li>
+                              <li><a href="/collections/all?filter.p.vendor=Bausch%2BLomb" class="menu-drawer__menu-item link list-menu__item focus-inset">Bausch+Lomb</a></li>
+                              <li><a href="/collections/all?filter.p.vendor=Celebration" class="menu-drawer__menu-item link list-menu__item focus-inset">Celebration</a></li>
+                              <li><a href="/collections/all?filter.p.vendor=PolyLite" class="menu-drawer__menu-item link list-menu__item focus-inset">PolyLite</a></li>
+                              <li><a href="/collections/all?filter.p.vendor=CooperVision" class="menu-drawer__menu-item link list-menu__item focus-inset">CooperVision</a></li>
+                              <li><a href="/collections/all?filter.p.vendor=Alcon" class="menu-drawer__menu-item link list-menu__item focus-inset">Alcon</a></li>
+                            </ul>
+                          </div>
+                        </div>
+                      </details>
+                    {%- else -%}
+                      <a
+                        href="{{ link.url }}"
+                        class="menu-drawer__menu-item list-menu__item link focus-inset{% if link.current %} menu-drawer__menu-item--active{% endif %}"
+                        {% if link.current %}aria-current="page"{% endif %}>
+                        {{ link.title | escape }}
+                      </a>
+                    {%- endif -%}
                   {%- endif -%}
                 </li>
               {%- endfor -%}
