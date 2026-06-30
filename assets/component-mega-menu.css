@@ -184,3 +184,14 @@
   color: rgba(var(--color-base-accent-1)) !important;
   font-size: 0.875rem;
 }
+
+.mega-menu__brands-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.25rem 3rem;
+  padding: 1rem 2rem;
+}
+
+.mega-menu__brands-grid a {
+  padding: 0.5rem 0;
+}
