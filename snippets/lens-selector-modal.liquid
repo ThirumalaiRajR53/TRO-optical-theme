@@ -95,44 +95,9 @@
           Back to Lens Type
         </button>
       </div>
-      <h3 class="lens-modal__section-title">How would you like to share your prescription?</h3>
+      <h3 class="lens-modal__section-title">Enter Your Prescription</h3>
 
-      <div class="lens-modal__rx-options">
-        <label class="lens-modal__card">
-          <input type="radio" name="lens-rx-method" value="upload" class="lens-modal__radio" checked>
-          <div class="lens-modal__card-inner">
-            <div class="lens-modal__card-icon">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="1.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-            </div>
-            <div class="lens-modal__card-text">
-              <strong>Upload Prescription</strong>
-              <span>Upload an image or PDF of your prescription (up to 10 MB).</span>
-            </div>
-          </div>
-        </label>
-
-        <label class="lens-modal__card">
-          <input type="radio" name="lens-rx-method" value="manual" class="lens-modal__radio">
-          <div class="lens-modal__card-inner">
-            <div class="lens-modal__card-icon">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="1.5"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.12 2.12 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-            </div>
-            <div class="lens-modal__card-text">
-              <strong>Enter Prescription Manually</strong>
-              <span>Enter your SPH, CYL and Axis values for each eye.</span>
-            </div>
-          </div>
-        </label>
-      </div>
-
-      {% comment %} Upload-Lift renders its widget inside this container.
-           Configure the app to target CSS selector: .lens-upload-target {% endcomment %}
-      <div class="lens-modal__upload-area lens-modal__upload-area--visible" id="LensUploadArea-{{ section_id }}">
-        <div class="lens-upload-target" id="lens-upload-target"></div>
-      </div>
-
-      <!-- Manual prescription form (hidden until "manual" selected) -->
-      <div class="lens-modal__manual-rx" id="LensManualRx-{{ section_id }}">
+      <div class="lens-modal__manual-rx lens-modal__manual-rx--visible" id="LensManualRx-{{ section_id }}">
         <div class="lens-modal__rx-grid">
           {%- for eye_i in (1..2) -%}
             {%- if eye_i == 1 -%}
@@ -149,7 +114,6 @@
                   <label for="lens-sph-{{ eye_id }}">SPH</label>
                   <select id="lens-sph-{{ eye_id }}" class="lens-modal__rx-select" data-rx-field="sph">
                     <option value="">Select</option>
-                    <!-- ponytail: populated by JS, +6.00 to -9.00 in 0.25 steps -->
                   </select>
                 </div>
                 <div class="lens-modal__rx-field">
@@ -174,6 +138,9 @@
 
       <button type="button" class="lens-modal__submit-btn" data-lens-submit>
         Add to Cart
+      </button>
+      <button type="button" class="lens-modal__skip-btn" data-lens-skip>
+        Skip to upload prescription post checkout
       </button>
     </div>
   </div>
