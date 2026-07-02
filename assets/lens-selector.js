@@ -177,6 +177,13 @@
     }
   }
 
+  function resetProps() {
+    propPowerType.value = '';
+    propLensPackage.value = '';
+    propPrescription.value = '';
+    form.querySelectorAll('.lens-dynamic-prop').forEach(function (el) { el.remove(); });
+  }
+
   function addMultipleItems(lensVariantId) {
     submitButton.setAttribute('aria-disabled', 'true');
     submitButton.classList.add('loading');
@@ -184,7 +191,7 @@
     if (spinner) spinner.classList.remove('hidden');
     if (cart && cart.setActiveElement) cart.setActiveElement(document.activeElement);
 
-    var frameId = parseInt(form.querySelector('[name="id"]').value);
+    var frameVariantId = form.querySelector('[name="id"]').value;
     var qty = parseInt((form.querySelector('[name="quantity"]') || {}).value) || 1;
 
     var props = {};
@@ -196,8 +203,8 @@
 
     var body = {
       items: [
-        { id: frameId, quantity: qty, properties: props },
-        { id: parseInt(lensVariantId), quantity: 1 }
+        { id: Number(frameVariantId), quantity: qty, properties: props },
+        { id: Number(lensVariantId), quantity: 1 }
       ]
     };
     if (cart && cart.getSectionsToRender) {
@@ -214,26 +221,35 @@
     .then(function (response) {
       if (response.status) {
         console.error('Cart add error:', response.description);
+        resetProps();
         return;
       }
       if (typeof publish === 'function' && typeof PUB_SUB_EVENTS !== 'undefined') {
         publish(PUB_SUB_EVENTS.cartUpdate, {
           source: 'product-form',
-          productVariantId: String(frameId)
+          productVariantId: frameVariantId
         });
       }
       if (cart) {
         if (cart.classList.contains('is-empty')) cart.classList.remove('is-empty');
-        if (typeof cart.renderContents === 'function') {
-          cart.renderContents(response);
-        } else if (typeof cart.open === 'function') {
-          cart.open();
+        try {
+          if (typeof cart.renderContents === 'function') {
+            cart.renderContents(response);
+          } else if (typeof cart.open === 'function') {
+            cart.open();
+          }
+        } catch (renderErr) {
+          console.error('Cart render failed, redirecting:', renderErr);
+          window.location = window.routes.cart_url;
         }
       } else {
         window.location = window.routes.cart_url;
       }
     })
-    .catch(function (e) { console.error(e); })
+    .catch(function (e) {
+      console.error('Cart add failed:', e);
+      resetProps();
+    })
     .finally(function () {
       submitButton.classList.remove('loading');
       submitButton.removeAttribute('aria-disabled');
