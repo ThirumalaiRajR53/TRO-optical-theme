@@ -495,9 +495,13 @@
   inset: 0;
   z-index: 99999;
   background: rgba(15, 23, 42, 0.5);
-  display: flex;
   align-items: center;
   justify-content: center;
+  display: none;
+}
+
+.lens-loading-overlay:not([hidden]) {
+  display: flex;
 }
 
 .lens-loading-overlay__text {
