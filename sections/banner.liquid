@@ -56,7 +56,7 @@
         {%- endcase -%}
       {%- endfor -%}
     </div>
-    <div class="banner-image-wrapper twcss-flex twcss-justify-center md:twcss-h-[35rem] md:twcss-w-1/2 lg:twcss-h-[42rem]">
+    <div class="banner-image-wrapper twcss-flex twcss-justify-center twcss-aspect-square md:twcss-w-1/2">
       {% comment %} <img src="images/home-banner-image.jpg" /> {% endcomment %}
       {%- if section.settings.image == blank -%}
         {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg' }}

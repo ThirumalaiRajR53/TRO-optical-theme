@@ -120,7 +120,36 @@
           </header-menu>
         {%- else -%}
           {%- assign link_title_lower = link.title | downcase -%}
-          {%- if link_title_lower == 'browse' or link_title_lower == 'catalog' -%}
+          {%- if link_title_lower == 'brands' or link_title_lower == 'contact' -%}
+            <header-menu>
+              <details id="Details-HeaderMenu-Brands-{{ forloop.index }}" class="mega-menu">
+                <summary class="header__menu-item list-menu__item link focus-inset">
+                  <span class="header__menu-item--title twcss-font-semibold">
+                    Brands
+                  </span>
+                  {% render 'icon-caret' %}
+                </summary>
+                <div
+                  id="MegaMenu-Brands-{{ forloop.index }}"
+                  class="mega-menu__content gradient motion-reduce global-settings-popup twcss-flex twcss-flex-1"
+                  tabindex="-1"
+                >
+                  <div class="mega-menu__brands-grid">
+                    <a href="/collections/all?filter.p.vendor=Idee" class="mega-menu__link mega-menu__link--level-2 link twcss-font-semibold">Idee</a>
+                    <a href="/collections/all?filter.p.vendor=Irus" class="mega-menu__link mega-menu__link--level-2 link twcss-font-semibold">Irus</a>
+                    <a href="/collections/all?filter.p.vendor=Fila" class="mega-menu__link mega-menu__link--level-2 link twcss-font-semibold">Fila</a>
+                    <a href="/collections/all?filter.p.vendor=Police" class="mega-menu__link mega-menu__link--level-2 link twcss-font-semibold">Police</a>
+                    <a href="/collections/all?filter.p.vendor=Acuvue" class="mega-menu__link mega-menu__link--level-2 link twcss-font-semibold">Acuvue</a>
+                    <a href="/collections/all?filter.p.vendor=Bausch%2BLomb" class="mega-menu__link mega-menu__link--level-2 link twcss-font-semibold">Bausch+Lomb</a>
+                    <a href="/collections/all?filter.p.vendor=Celebration" class="mega-menu__link mega-menu__link--level-2 link twcss-font-semibold">Celebration</a>
+                    <a href="/collections/all?filter.p.vendor=PolyLite" class="mega-menu__link mega-menu__link--level-2 link twcss-font-semibold">PolyLite</a>
+                    <a href="/collections/all?filter.p.vendor=CooperVision" class="mega-menu__link mega-menu__link--level-2 link twcss-font-semibold">CooperVision</a>
+                    <a href="/collections/all?filter.p.vendor=Alcon" class="mega-menu__link mega-menu__link--level-2 link twcss-font-semibold">Alcon</a>
+                  </div>
+                </div>
+              </details>
+            </header-menu>
+          {%- elsif link_title_lower == 'browse' or link_title_lower == 'catalog' -%}
             <header-menu>
               <details id="Details-HeaderMenu-Browse-{{ forloop.index }}" class="mega-menu">
                 <summary class="header__menu-item list-menu__item link focus-inset">
