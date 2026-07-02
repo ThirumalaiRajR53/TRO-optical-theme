@@ -146,6 +146,10 @@
   </div>
 </dialog>
 
+<div id="LensLoadingOverlay" class="lens-loading-overlay" hidden>
+  <span class="lens-loading-overlay__text">Please wait...</span>
+</div>
+
 {% comment %}
   Lens bundle config. ponytail: variantId empty = frame-only pricing.
   To enable cart pricing:
@@ -157,28 +161,44 @@
 {
   "bundles": [
     {
-      "name": "Bundle 1",
-      "description": "Basic lens package with essential coatings.",
-      "features": ["UV400 Protect", "Scratch Resistant"],
-      "price": 1000,
-      "priceDisplay": "₹1,000",
+      "name": "ANTI REFLECT",
+      "description": "Protects eyes from high intensity reflections.",
+      "features": ["Anti Reflective", "Scratch Resistant"],
+      "price": 1200,
+      "priceDisplay": "₹1,200",
       "variantId": "53969999495536"
     },
     {
-      "name": "Bundle 2",
-      "description": "Mid-range package with anti-reflective coating.",
-      "features": ["UV400 Protect", "Anti Reflective", "Scratch Resistant"],
-      "price": 2000,
-      "priceDisplay": "₹2,000",
+      "name": "BLUE TECH +",
+      "description": "Protects from harmful blue rays from gadgets like laptops, tabs, smartphones etc.",
+      "features": ["Blue Filter", "Anti Reflective", "Scratch Resistant"],
+      "price": 1600,
+      "priceDisplay": "₹1,600",
       "variantId": "53969999528304"
     },
     {
-      "name": "Bundle 3",
-      "description": "Premium package with blue protect and all coatings.",
-      "features": ["UV400 Protect", "Blue Protect", "Anti Reflective", "Scratch Resistant", "Anti Smudge"],
-      "price": 3000,
-      "priceDisplay": "₹3,000",
+      "name": "BLUE OLEO +",
+      "description": "Easy to maintain lenses for all-day clarity.",
+      "features": ["100% UV Protect", "Dust & Water Resistant", "Blue Filter", "Anti Reflective", "Scratch Resistant"],
+      "price": 2500,
+      "priceDisplay": "₹2,500",
       "variantId": "53969999561072"
+    },
+    {
+      "name": "CLEARSIGHT",
+      "description": "Experience the best in class clarity and durability",
+      "features": ["High Durability", "High Clarity", "100% UV Protect", "Dust & Water Resistant", "Blue Filter", "Anti Reflective", "Scratch Resistan"],
+      "price": 4900,
+      "priceDisplay": "₹4,900",
+      "variantId": "53970310005104"
+    },
+    {
+      "name": "ZEISS FSV ClassicPlus 1.6 DuraVision Chrome BlueGuard",
+      "description": "Thin, light lenses with scratch resistance, full UV protection & BlueGuard material shields against digital eyestrain.",
+      "features": ["High Durability", "High Clarity", "100% UV Protect", "Dust & Water Resistant", "Blue Filter", "Scratch Resistant", "Anti Reflective"],
+      "price": 4700,
+      "priceDisplay": "₹4,700",
+      "variantId": "53970310037872"
     }
   ]
 }

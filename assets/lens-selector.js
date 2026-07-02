@@ -165,8 +165,12 @@
     form.appendChild(input);
   }
 
+  var overlay = document.getElementById('LensLoadingOverlay');
+
+  function showOverlay() { if (overlay) overlay.hidden = false; }
+  function hideOverlay() { if (overlay) overlay.hidden = true; }
+
   function addToCart(powerType, bundle, prescription) {
-    // ponytail: Pair ID links frame + lens line items in the order
     var pairId = 'P' + Date.now();
     propPowerType.value = powerType;
     propLensPackage.value = bundle ? bundle.name : 'No Lens';
@@ -175,6 +179,7 @@
     modal.close();
 
     if (bundle && bundle.variantId) {
+      showOverlay();
       fetch(window.routes.cart_add_url, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -232,5 +237,42 @@
 
   function formatINR(amount) {
     return '\u20B9' + Math.round(amount).toLocaleString('en-IN');
+  }
+
+  // ponytail: remove orphaned lens items when their paired frame is removed, batch removal
+  if (typeof subscribe === 'function' && typeof PUB_SUB_EVENTS !== 'undefined') {
+    subscribe(PUB_SUB_EVENTS.cartUpdate, function (event) {
+      hideOverlay();
+      if (event.source === 'lens-cleanup') return;
+      fetch(window.routes.cart_url + '.js')
+        .then(function (r) { return r.json(); })
+        .then(function (cart) {
+          var framePairIds = {};
+          var orphanKeys = [];
+          cart.items.forEach(function (item) {
+            var pid = item.properties && item.properties['Pair ID'];
+            if (!pid) return;
+            if (item.properties['For Frame']) {
+              orphanKeys.push({ key: item.key, pairId: pid });
+            } else {
+              framePairIds[pid] = true;
+            }
+          });
+          var toRemove = orphanKeys.filter(function (lens) { return !framePairIds[lens.pairId]; });
+          if (!toRemove.length) return;
+
+          showOverlay();
+          // ponytail: batch via Shopify /cart/update.js with updates object
+          var updates = {};
+          toRemove.forEach(function (lens) { updates[lens.key] = 0; });
+          fetch(window.routes.cart_update_url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ updates: updates })
+          }).then(function () {
+            publish(PUB_SUB_EVENTS.cartUpdate, { source: 'lens-cleanup' });
+          });
+        });
+    });
   }
 })();
