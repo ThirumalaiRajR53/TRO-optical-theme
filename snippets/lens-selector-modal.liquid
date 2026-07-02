@@ -81,7 +81,29 @@
           <span data-lens-power-label></span>
         </button>
       </div>
-      <h3 class="lens-modal__section-title">Select Lens Package</h3>
+      <div class="lens-modal__power-toggle-bar">
+        <h3 class="lens-modal__section-title" style="margin:0">Select Lens Package</h3>
+        <div class="lens-modal__power-toggle-right">
+          <span class="lens-modal__power-info-wrap">
+            Lens Power
+            <span class="lens-modal__power-info">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+              <span class="lens-modal__power-tooltip">
+                <strong>Low Power Lens</strong><br>
+                SPH &minus;6 to +6 and CYL upto &minus;4<br><br>
+                <strong>High Power Lens</strong><br>
+                SPH &minus;16 to +9 and CYL upto &minus;6
+              </span>
+            </span>
+          </span>
+          <label class="lens-modal__toggle">
+            <span class="lens-modal__toggle-label">Low</span>
+            <input type="checkbox" id="LensPowerToggle-{{ section_id }}" class="lens-modal__toggle-input">
+            <span class="lens-modal__toggle-track"></span>
+            <span class="lens-modal__toggle-label">High</span>
+          </label>
+        </div>
+      </div>
       <div class="lens-modal__lens-list" id="LensList-{{ section_id }}">
         <!-- ponytail: populated by JS from config JSON -->
       </div>
@@ -199,6 +221,48 @@
       "price": 4700,
       "priceDisplay": "₹4,700",
       "variantId": "53970310037872"
+    }
+  ],
+  "bundlesHigh": [
+    {
+      "name": "High Power Basic",
+      "description": "Essential high-power lens with standard coatings.",
+      "features": ["Anti Reflective", "Scratch Resistant"],
+      "price": 2000,
+      "priceDisplay": "₹2,000",
+      "variantId": ""
+    },
+    {
+      "name": "High Power Blue Tech",
+      "description": "High-power lens with blue light filter for digital protection.",
+      "features": ["Blue Filter", "Anti Reflective", "Scratch Resistant"],
+      "price": 3200,
+      "priceDisplay": "₹3,200",
+      "variantId": ""
+    },
+    {
+      "name": "High Power Oleo+",
+      "description": "High-power lens with premium easy-clean coatings.",
+      "features": ["100% UV Protect", "Dust & Water Resistant", "Blue Filter", "Anti Reflective", "Scratch Resistant"],
+      "price": 4500,
+      "priceDisplay": "₹4,500",
+      "variantId": ""
+    },
+    {
+      "name": "High Power ClearSight",
+      "description": "High-power lens with best-in-class clarity and durability.",
+      "features": ["High Durability", "High Clarity", "100% UV Protect", "Dust & Water Resistant", "Blue Filter", "Anti Reflective", "Scratch Resistant"],
+      "price": 6500,
+      "priceDisplay": "₹6,500",
+      "variantId": ""
+    },
+    {
+      "name": "High Power ZEISS Premium",
+      "description": "Premium ZEISS high-power lens with advanced coatings.",
+      "features": ["High Durability", "High Clarity", "100% UV Protect", "Dust & Water Resistant", "Blue Filter", "Scratch Resistant", "Anti Reflective"],
+      "price": 8000,
+      "priceDisplay": "₹8,000",
+      "variantId": ""
     }
   ]
 }

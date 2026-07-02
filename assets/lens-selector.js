@@ -29,6 +29,7 @@
   var stepIndicators = modal.querySelectorAll('[data-step-indicator]');
   var powerLabel = modal.querySelector('[data-lens-power-label]');
 
+  var powerToggle = document.getElementById('LensPowerToggle-' + sectionId);
   var selectedPowerType = '';
   var selectedBundle = null;
 
@@ -50,9 +51,20 @@
         return;
       }
       showStep(2);
-      renderBundles();
+      renderBundles(getActiveBundles());
     });
   });
+
+  // Low/High power toggle
+  if (powerToggle) {
+    powerToggle.addEventListener('change', function () {
+      renderBundles(getActiveBundles());
+    });
+  }
+
+  function getActiveBundles() {
+    return powerToggle && powerToggle.checked ? (config.bundlesHigh || []) : config.bundles;
+  }
 
   // Add to Cart with manual prescription
   modal.querySelector('[data-lens-submit]').addEventListener('click', function () {
@@ -116,9 +128,9 @@
     if (n >= 2 && powerLabel) powerLabel.textContent = selectedPowerType;
   }
 
-  function renderBundles() {
+  function renderBundles(bundles) {
     var checkSvg = '<svg width="14" height="14" viewBox="0 0 24 24" fill="#10b981"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>';
-    lensList.innerHTML = config.bundles.map(function (b, i) {
+    lensList.innerHTML = bundles.map(function (b, i) {
       var total = (framePricePaise / 100) + b.price;
       var features = (b.features || []).map(function (f) {
         return '<span class="lens-modal__badge">' + checkSvg + f + '</span>';
@@ -138,7 +150,7 @@
 
     lensList.querySelectorAll('.lens-modal__add-btn').forEach(function (btn) {
       btn.addEventListener('click', function () {
-        selectedBundle = config.bundles[parseInt(this.dataset.bundleIdx)];
+        selectedBundle = bundles[parseInt(this.dataset.bundleIdx)];
         updatePriceDisplay(selectedBundle);
         showStep(3);
       });
@@ -199,6 +211,7 @@
   function resetModal() {
     showStep(1);
     modal.querySelectorAll('input[type="radio"]').forEach(function (r) { r.checked = false; });
+    if (powerToggle) powerToggle.checked = false;
     rxError.hidden = true;
     lensList.innerHTML = '';
     selectedPowerType = '';
