@@ -18,8 +18,6 @@
   var propPrescription = document.getElementById('lens-prop-prescription');
 
   var lensList = document.getElementById('LensList-' + sectionId);
-  var manualRx = document.getElementById('LensManualRx-' + sectionId);
-  var uploadArea = document.getElementById('LensUploadArea-' + sectionId);
   var rxError = document.getElementById('LensRxError-' + sectionId);
   var rxErrorText = document.getElementById('LensRxErrorText-' + sectionId);
   var priceLabel = document.getElementById('LensPriceLabel-' + sectionId);
@@ -27,6 +25,8 @@
   var steps = modal.querySelectorAll('[data-step]');
   var stepIndicators = modal.querySelectorAll('[data-step-indicator]');
   var powerLabel = modal.querySelector('[data-lens-power-label]');
+  var submitButton = productForm.querySelector('[type="submit"]');
+  var cart = document.querySelector('cart-notification') || document.querySelector('cart-drawer');
 
   var selectedPowerType = '';
   var selectedBundle = null;
@@ -53,59 +53,35 @@
     });
   });
 
-  // Prescription method toggle
-  modal.querySelectorAll('[name="lens-rx-method"]').forEach(function (radio) {
-    radio.addEventListener('change', function () {
-      manualRx.classList.toggle('lens-modal__manual-rx--visible', this.value === 'manual');
-      uploadArea.classList.toggle('lens-modal__upload-area--visible', this.value === 'upload');
-      rxError.hidden = true;
-    });
-  });
-
-  // Final submit
+  // Add to Cart with manual prescription
   modal.querySelector('[data-lens-submit]').addEventListener('click', function () {
-    var method = modal.querySelector('[name="lens-rx-method"]:checked');
-    if (!method) return;
-
-    var rxValue = '';
-    if (method.value === 'upload') {
-      // ponytail: Upload-Lift stores file URL as a hidden input with name containing "Prescription"
-      // Check both the form and the upload area for Upload-Lift's property input
-      var uploadInput = getUploadLiftInput();
-      if (!uploadInput || !uploadInput.value) {
-        rxErrorText.textContent = 'Please upload your prescription file.';
-        rxError.hidden = false;
-        return;
-      }
-      rxValue = 'File Uploaded';
-    } else if (method.value === 'manual') {
-      var lSph = modal.querySelector('#lens-sph-left').value;
-      var rSph = modal.querySelector('#lens-sph-right').value;
-      if (!lSph && !rSph) {
-        rxErrorText.textContent = 'Please select SPH for at least one eye.';
-        rxError.hidden = false;
-        return;
-      }
-      rxValue = 'Manual';
-      if (lSph) addProp('Left Eye (OS) SPH', lSph);
-      if (rSph) addProp('Right Eye (OD) SPH', rSph);
-      var lCyl = modal.querySelector('#lens-cyl-left').value;
-      var rCyl = modal.querySelector('#lens-cyl-right').value;
-      if (lCyl) addProp('Left Eye (OS) CYL', lCyl);
-      if (rCyl) addProp('Right Eye (OD) CYL', rCyl);
-      var lAxis = modal.querySelector('#lens-axis-left').value;
-      var rAxis = modal.querySelector('#lens-axis-right').value;
-      if (lAxis) addProp('Left Eye (OS) Axis', lAxis + '\u00B0');
-      if (rAxis) addProp('Right Eye (OD) Axis', rAxis + '\u00B0');
+    var lSph = modal.querySelector('#lens-sph-left').value;
+    var rSph = modal.querySelector('#lens-sph-right').value;
+    if (!lSph && !rSph) {
+      rxErrorText.textContent = 'Please select SPH for at least one eye.';
+      rxError.hidden = false;
+      return;
     }
-    addToCart(selectedPowerType, selectedBundle, rxValue);
+    rxError.hidden = true;
+
+    if (lSph) addProp('Left Eye (OS) SPH', lSph);
+    if (rSph) addProp('Right Eye (OD) SPH', rSph);
+    var lCyl = modal.querySelector('#lens-cyl-left').value;
+    var rCyl = modal.querySelector('#lens-cyl-right').value;
+    if (lCyl) addProp('Left Eye (OS) CYL', lCyl);
+    if (rCyl) addProp('Right Eye (OD) CYL', rCyl);
+    var lAxis = modal.querySelector('#lens-axis-left').value;
+    var rAxis = modal.querySelector('#lens-axis-right').value;
+    if (lAxis) addProp('Left Eye (OS) Axis', lAxis + '\u00B0');
+    if (rAxis) addProp('Right Eye (OD) Axis', rAxis + '\u00B0');
+
+    addToCart(selectedPowerType, selectedBundle, 'Manual');
   });
 
-  // ponytail: Upload-Lift creates hidden inputs for file URLs; name varies by app config
-  function getUploadLiftInput() {
-    return form.querySelector('input[name*="Prescription"][type="hidden"][value^="http"]') ||
-           document.querySelector('.lens-upload-target input[type="hidden"][value^="http"]');
-  }
+  // Skip prescription -- upload after checkout
+  modal.querySelector('[data-lens-skip]').addEventListener('click', function () {
+    addToCart(selectedPowerType, selectedBundle, 'Upload After Purchase');
+  });
 
   // Back buttons
   modal.querySelectorAll('[data-lens-back]').forEach(function (btn) {
@@ -194,7 +170,6 @@
     propPrescription.value = prescription;
     modal.close();
 
-    // ponytail: if variantId set, add frame + lens via Cart API; else just submit the frame form
     if (bundle && bundle.variantId) {
       addMultipleItems(bundle.variantId);
     } else {
@@ -203,7 +178,12 @@
   }
 
   function addMultipleItems(lensVariantId) {
-    var cart = document.querySelector('cart-notification') || document.querySelector('cart-drawer');
+    submitButton.setAttribute('aria-disabled', 'true');
+    submitButton.classList.add('loading');
+    var spinner = productForm.querySelector('.loading-overlay__spinner');
+    if (spinner) spinner.classList.remove('hidden');
+    if (cart && cart.setActiveElement) cart.setActiveElement(document.activeElement);
+
     var frameId = parseInt(form.querySelector('[name="id"]').value);
     var qty = parseInt((form.querySelector('[name="quantity"]') || {}).value) || 1;
 
@@ -236,22 +216,34 @@
         console.error('Cart add error:', response.description);
         return;
       }
+      if (typeof publish === 'function' && typeof PUB_SUB_EVENTS !== 'undefined') {
+        publish(PUB_SUB_EVENTS.cartUpdate, {
+          source: 'product-form',
+          productVariantId: String(frameId)
+        });
+      }
       if (cart) {
-        if (typeof cart.renderContents === 'function') cart.renderContents(response);
-        else if (typeof cart.open === 'function') cart.open();
+        if (cart.classList.contains('is-empty')) cart.classList.remove('is-empty');
+        if (typeof cart.renderContents === 'function') {
+          cart.renderContents(response);
+        } else if (typeof cart.open === 'function') {
+          cart.open();
+        }
       } else {
         window.location = window.routes.cart_url;
       }
     })
-    .catch(console.error);
+    .catch(function (e) { console.error(e); })
+    .finally(function () {
+      submitButton.classList.remove('loading');
+      submitButton.removeAttribute('aria-disabled');
+      if (spinner) spinner.classList.add('hidden');
+    });
   }
 
   function resetModal() {
     showStep(1);
     modal.querySelectorAll('input[type="radio"]').forEach(function (r) { r.checked = false; });
-    modal.querySelector('[name="lens-rx-method"][value="upload"]').checked = true;
-    manualRx.classList.remove('lens-modal__manual-rx--visible');
-    uploadArea.classList.add('lens-modal__upload-area--visible');
     rxError.hidden = true;
     lensList.innerHTML = '';
     selectedPowerType = '';
@@ -261,11 +253,9 @@
     propPrescription.value = '';
     form.querySelectorAll('.lens-dynamic-prop').forEach(function (el) { el.remove(); });
     updatePriceDisplay(null);
-    // Reset manual fields
     modal.querySelectorAll('.lens-modal__rx-select, .lens-modal__rx-input').forEach(function (el) { el.value = ''; });
   }
 
-  // Populate SPH dropdowns (+6.00 to -9.00 in 0.25 steps)
   function populateSPH(select) {
     for (var i = 24; i >= -36; i--) {
       var val = (i * 0.25).toFixed(2);
@@ -276,7 +266,6 @@
     }
   }
 
-  // Populate CYL dropdown (-0.25 to -4.00 in 0.25 steps)
   function populateCYL(select) {
     for (var i = -1; i >= -16; i--) {
       var val = (i * 0.25).toFixed(2);
