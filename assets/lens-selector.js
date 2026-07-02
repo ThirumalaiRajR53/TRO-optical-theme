@@ -16,6 +16,9 @@
   var propPowerType = document.getElementById('lens-prop-power-type');
   var propLensPackage = document.getElementById('lens-prop-lens-package');
   var propPrescription = document.getElementById('lens-prop-prescription');
+  var propPairId = document.getElementById('lens-prop-pair-id');
+  var productTitle = document.querySelector('.product__title h1, .product__title h2');
+  var frameName = productTitle ? productTitle.textContent.trim() : 'Frame';
 
   var lensList = document.getElementById('LensList-' + sectionId);
   var rxError = document.getElementById('LensRxError-' + sectionId);
@@ -25,8 +28,6 @@
   var steps = modal.querySelectorAll('[data-step]');
   var stepIndicators = modal.querySelectorAll('[data-step-indicator]');
   var powerLabel = modal.querySelector('[data-lens-power-label]');
-  var submitButton = productForm.querySelector('[type="submit"]');
-  var cart = document.querySelector('cart-notification') || document.querySelector('cart-drawer');
 
   var selectedPowerType = '';
   var selectedBundle = null;
@@ -165,96 +166,29 @@
   }
 
   function addToCart(powerType, bundle, prescription) {
+    // ponytail: Pair ID links frame + lens line items in the order
+    var pairId = 'P' + Date.now();
     propPowerType.value = powerType;
     propLensPackage.value = bundle ? bundle.name : 'No Lens';
     propPrescription.value = prescription;
+    propPairId.value = bundle && bundle.variantId ? pairId : '';
     modal.close();
 
     if (bundle && bundle.variantId) {
-      addMultipleItems(bundle.variantId);
+      fetch(window.routes.cart_add_url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          id: Number(bundle.variantId),
+          quantity: 1,
+          properties: { 'Pair ID': pairId, 'For Frame': frameName }
+        })
+      }).finally(function () {
+        form.requestSubmit();
+      });
     } else {
       form.requestSubmit();
     }
-  }
-
-  function resetProps() {
-    propPowerType.value = '';
-    propLensPackage.value = '';
-    propPrescription.value = '';
-    form.querySelectorAll('.lens-dynamic-prop').forEach(function (el) { el.remove(); });
-  }
-
-  function addMultipleItems(lensVariantId) {
-    submitButton.setAttribute('aria-disabled', 'true');
-    submitButton.classList.add('loading');
-    var spinner = productForm.querySelector('.loading-overlay__spinner');
-    if (spinner) spinner.classList.remove('hidden');
-    if (cart && cart.setActiveElement) cart.setActiveElement(document.activeElement);
-
-    var frameVariantId = form.querySelector('[name="id"]').value;
-    var qty = parseInt((form.querySelector('[name="quantity"]') || {}).value) || 1;
-
-    var props = {};
-    form.querySelectorAll('input[name^="properties"]').forEach(function (el) {
-      if (el.value) {
-        props[el.name.replace('properties[', '').replace(']', '')] = el.value;
-      }
-    });
-
-    var body = {
-      items: [
-        { id: Number(frameVariantId), quantity: qty, properties: props },
-        { id: Number(lensVariantId), quantity: 1 }
-      ]
-    };
-    if (cart && cart.getSectionsToRender) {
-      body.sections = cart.getSectionsToRender().map(function (s) { return s.id; });
-      body.sections_url = window.location.pathname;
-    }
-
-    fetch(window.routes.cart_add_url, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest' },
-      body: JSON.stringify(body)
-    })
-    .then(function (r) { return r.json(); })
-    .then(function (response) {
-      if (response.status) {
-        console.error('Cart add error:', response.description);
-        resetProps();
-        return;
-      }
-      if (typeof publish === 'function' && typeof PUB_SUB_EVENTS !== 'undefined') {
-        publish(PUB_SUB_EVENTS.cartUpdate, {
-          source: 'product-form',
-          productVariantId: frameVariantId
-        });
-      }
-      if (cart) {
-        if (cart.classList.contains('is-empty')) cart.classList.remove('is-empty');
-        try {
-          if (typeof cart.renderContents === 'function') {
-            cart.renderContents(response);
-          } else if (typeof cart.open === 'function') {
-            cart.open();
-          }
-        } catch (renderErr) {
-          console.error('Cart render failed, redirecting:', renderErr);
-          window.location = window.routes.cart_url;
-        }
-      } else {
-        window.location = window.routes.cart_url;
-      }
-    })
-    .catch(function (e) {
-      console.error('Cart add failed:', e);
-      resetProps();
-    })
-    .finally(function () {
-      submitButton.classList.remove('loading');
-      submitButton.removeAttribute('aria-disabled');
-      if (spinner) spinner.classList.add('hidden');
-    });
   }
 
   function resetModal() {
@@ -267,6 +201,7 @@
     propPowerType.value = '';
     propLensPackage.value = '';
     propPrescription.value = '';
+    propPairId.value = '';
     form.querySelectorAll('.lens-dynamic-prop').forEach(function (el) { el.remove(); });
     updatePriceDisplay(null);
     modal.querySelectorAll('.lens-modal__rx-select, .lens-modal__rx-input').forEach(function (el) { el.value = ''; });
