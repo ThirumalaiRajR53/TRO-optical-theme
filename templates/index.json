@@ -277,7 +277,7 @@
         "template--21453178798384__61c523b0-e63d-44ea-aeb3-8effc92d6d93-column-3": {
           "type": "column",
           "settings": {
-            "title": "Free Shipping",
+            "title": "Secure Shipping",
             "text": "<p>Get your eyeglasses delivered right to your doorstep, no matter where you are.</p>",
             "link_label": "",
             "link": ""
@@ -361,19 +361,19 @@
         "template--21453178798384__d93ffb83-51ca-4920-8a48-25ee1b8caedd-column-2": {
           "type": "column",
           "settings": {
-            "title": "Easy 14-Day Returns"
+            "title": "70 Years of Trust & Legacy"
           }
         },
         "template--21453178798384__d93ffb83-51ca-4920-8a48-25ee1b8caedd-column-3": {
           "type": "column",
           "settings": {
-            "title": "Free Shipping ₹1999+"
+            "title": "Free Shipping ₹7000+"
           }
         },
         "template--21453178798384__d93ffb83-51ca-4920-8a48-25ee1b8caedd-column-4": {
           "type": "column",
           "settings": {
-            "title": "Secure Transactions"
+            "title": "Unique Designs"
           }
         }
       },

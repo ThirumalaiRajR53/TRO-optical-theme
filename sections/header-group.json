@@ -1,1 +1,181 @@
-{"name":"t:sections.header.name","type":"header","sections":{"announcement-bar":{"type":"announcement-bar","blocks":{"announcement-bar-0":{"type":"announcement","settings":{"text":"FREE SHIPPING ON ORDERS ABOVE \u20b91999 | EASY 14-DAY RETURNS | COD AVAILABLE","link":""}}},"block_order":["announcement-bar-0"],"settings":{"show_line_separator":true,"auto_rotate":false,"change_slides_speed":5}},"header":{"type":"header","blocks":{"eyeglasses-menu-image-1":{"type":"mega-menu-image","settings":{"top-menu-name":"Eyeglasses","heading":"Blue Light Blocking Collection","subheading":"Shop Now","link":"shopify:\/\/collections\/blue-light-glasses"}},"eyeglasses-menu-image-2":{"type":"mega-menu-image","settings":{"top-menu-name":"Eyeglasses","heading":"Premium Titanium Frames","subheading":"Explore","link":"shopify:\/\/collections\/titanium-frames"}},"sunglasses-menu-image-1":{"type":"mega-menu-image","settings":{"top-menu-name":"Sunglasses","heading":"Polarized Collection","subheading":"Shop Now","link":"shopify:\/\/collections\/polarized-sunglasses"}},"sunglasses-menu-image-2":{"type":"mega-menu-image","settings":{"top-menu-name":"Sunglasses","heading":"Summer Essentials 2024","subheading":"View All","link":"shopify:\/\/collections\/summer-sunglasses"}},"contacts-menu-image-1":{"type":"mega-menu-image","settings":{"top-menu-name":"Contact Lenses","heading":"Daily Disposable Lenses","subheading":"Shop Now","link":"shopify:\/\/collections\/daily-contacts"}},"contacts-menu-image-2":{"type":"mega-menu-image","settings":{"top-menu-name":"Contact Lenses","heading":"Colored Contact Lenses","subheading":"Explore","link":"shopify:\/\/collections\/colored-contacts"}},"reading-menu-image-1":{"type":"mega-menu-image","settings":{"top-menu-name":"Reading Glasses","heading":"Lightweight Readers","subheading":"Shop Now","link":"shopify:\/\/collections\/reading-glasses"}},"reading-menu-image-2":{"type":"mega-menu-image","settings":{"top-menu-name":"Reading Glasses","heading":"Stylish Reading Collection","subheading":"View All","link":"shopify:\/\/collections\/designer-readers"}},"accessories-menu-image-1":{"type":"mega-menu-image","settings":{"top-menu-name":"Accessories","heading":"Premium Eyewear Cases","subheading":"Shop Now","link":"shopify:\/\/collections\/eyewear-cases"}},"accessories-menu-image-2":{"type":"mega-menu-image","settings":{"top-menu-name":"Accessories","heading":"Lens Care Essentials","subheading":"View All","link":"shopify:\/\/collections\/lens-care"}}},"block_order":["eyeglasses-menu-image-1","eyeglasses-menu-image-2","sunglasses-menu-image-1","sunglasses-menu-image-2","contacts-menu-image-1","contacts-menu-image-2","reading-menu-image-1","reading-menu-image-2","accessories-menu-image-1","accessories-menu-image-2"],"settings":{"logo_position":"middle-left","menu":"main-menu","sticky_header_type":"on-scroll-up","show_line_separator":true,"enable_country_selector":false,"enable_language_selector":false,"mobile_logo_position":"left","margin_bottom":0,"padding_top":8,"padding_bottom":8}},"cart_drawer":{"type":"cart-drawer","blocks":{"cart_collection-1":{"type":"cart_collection","settings":{"collection":"kids-eyeglasses"}},"cart_collection-2":{"type":"cart_collection","settings":{"collection":"womens-eyeglasses"}},"cart_collection-3":{"type":"cart_collection","settings":{"collection":"mens-eyeglasses"}}},"block_order":["cart_collection-1","cart_collection-2","cart_collection-3"],"settings":{"shipping_message":"Free Shipping on orders \u20b91999+"}}},"order":["announcement-bar","header","cart_drawer"]}
+{
+    "name": "t:sections.header.name",
+    "type": "header",
+    "sections": {
+        "announcement-bar": {
+            "type": "announcement-bar",
+            "blocks": {
+                "announcement-bar-0": {
+                    "type": "announcement",
+                    "settings": {
+                        "text": "15% OFF ON ALL PRODUCTS | SECURE TRANSACTIONS | INDIA WIDE DELIVERY",
+                        "link": ""
+                    }
+                }
+            },
+            "block_order": [
+                "announcement-bar-0"
+            ],
+            "settings": {
+                "show_line_separator": true,
+                "auto_rotate": false,
+                "change_slides_speed": 5
+            }
+        },
+        "header": {
+            "type": "header",
+            "blocks": {
+                "eyeglasses-menu-image-1": {
+                    "type": "mega-menu-image",
+                    "settings": {
+                        "top-menu-name": "Eyeglasses",
+                        "heading": "Blue Light Blocking Collection",
+                        "subheading": "Shop Now",
+                        "link": "shopify:\/\/collections\/blue-light-glasses"
+                    }
+                },
+                "eyeglasses-menu-image-2": {
+                    "type": "mega-menu-image",
+                    "settings": {
+                        "top-menu-name": "Eyeglasses",
+                        "heading": "Premium Titanium Frames",
+                        "subheading": "Explore",
+                        "link": "shopify:\/\/collections\/titanium-frames"
+                    }
+                },
+                "sunglasses-menu-image-1": {
+                    "type": "mega-menu-image",
+                    "settings": {
+                        "top-menu-name": "Sunglasses",
+                        "heading": "Polarized Collection",
+                        "subheading": "Shop Now",
+                        "link": "shopify:\/\/collections\/polarized-sunglasses"
+                    }
+                },
+                "sunglasses-menu-image-2": {
+                    "type": "mega-menu-image",
+                    "settings": {
+                        "top-menu-name": "Sunglasses",
+                        "heading": "Summer Essentials 2024",
+                        "subheading": "View All",
+                        "link": "shopify:\/\/collections\/summer-sunglasses"
+                    }
+                },
+                "contacts-menu-image-1": {
+                    "type": "mega-menu-image",
+                    "settings": {
+                        "top-menu-name": "Contact Lenses",
+                        "heading": "Daily Disposable Lenses",
+                        "subheading": "Shop Now",
+                        "link": "shopify:\/\/collections\/daily-contacts"
+                    }
+                },
+                "contacts-menu-image-2": {
+                    "type": "mega-menu-image",
+                    "settings": {
+                        "top-menu-name": "Contact Lenses",
+                        "heading": "Colored Contact Lenses",
+                        "subheading": "Explore",
+                        "link": "shopify:\/\/collections\/colored-contacts"
+                    }
+                },
+                "reading-menu-image-1": {
+                    "type": "mega-menu-image",
+                    "settings": {
+                        "top-menu-name": "Reading Glasses",
+                        "heading": "Lightweight Readers",
+                        "subheading": "Shop Now",
+                        "link": "shopify:\/\/collections\/reading-glasses"
+                    }
+                },
+                "reading-menu-image-2": {
+                    "type": "mega-menu-image",
+                    "settings": {
+                        "top-menu-name": "Reading Glasses",
+                        "heading": "Stylish Reading Collection",
+                        "subheading": "View All",
+                        "link": "shopify:\/\/collections\/designer-readers"
+                    }
+                },
+                "accessories-menu-image-1": {
+                    "type": "mega-menu-image",
+                    "settings": {
+                        "top-menu-name": "Accessories",
+                        "heading": "Premium Eyewear Cases",
+                        "subheading": "Shop Now",
+                        "link": "shopify:\/\/collections\/eyewear-cases"
+                    }
+                },
+                "accessories-menu-image-2": {
+                    "type": "mega-menu-image",
+                    "settings": {
+                        "top-menu-name": "Accessories",
+                        "heading": "Lens Care Essentials",
+                        "subheading": "View All",
+                        "link": "shopify:\/\/collections\/lens-care"
+                    }
+                }
+            },
+            "block_order": [
+                "eyeglasses-menu-image-1",
+                "eyeglasses-menu-image-2",
+                "sunglasses-menu-image-1",
+                "sunglasses-menu-image-2",
+                "contacts-menu-image-1",
+                "contacts-menu-image-2",
+                "reading-menu-image-1",
+                "reading-menu-image-2",
+                "accessories-menu-image-1",
+                "accessories-menu-image-2"
+            ],
+            "settings": {
+                "logo_position": "middle-left",
+                "menu": "main-menu",
+                "sticky_header_type": "on-scroll-up",
+                "show_line_separator": true,
+                "enable_country_selector": false,
+                "enable_language_selector": false,
+                "mobile_logo_position": "left",
+                "margin_bottom": 0,
+                "padding_top": 8,
+                "padding_bottom": 8
+            }
+        },
+        "cart_drawer": {
+            "type": "cart-drawer",
+            "blocks": {
+                "cart_collection-1": {
+                    "type": "cart_collection",
+                    "settings": {
+                        "collection": "kids-eyeglasses"
+                    }
+                },
+                "cart_collection-2": {
+                    "type": "cart_collection",
+                    "settings": {
+                        "collection": "womens-eyeglasses"
+                    }
+                },
+                "cart_collection-3": {
+                    "type": "cart_collection",
+                    "settings": {
+                        "collection": "mens-eyeglasses"
+                    }
+                }
+            },
+            "block_order": [
+                "cart_collection-1",
+                "cart_collection-2",
+                "cart_collection-3"
+            ],
+            "settings": {
+                "shipping_message": "Free Shipping on orders \u20b91999+"
+            }
+        }
+    },
+    "order": [
+        "announcement-bar",
+        "header",
+        "cart_drawer"
+    ]
+}
