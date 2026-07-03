@@ -199,7 +199,7 @@
             "announcement_text": "Upto 20% off",
             "title": "Colorful Eyewear",
             "button_label": "Shop Now",
-            "button_link": "shopify://collections/best-sellers"
+            "button_link": "shopify://collections/sunglasses"
           }
         },
         "template--21684512751920__3ea1e40c-c8a6-41c2-a0c3-92b4a8c4ee31-column-2": {
@@ -211,7 +211,7 @@
             "announcement_text": "Upto 40% off",
             "title": "High Quality Frames",
             "button_label": "Shop Now",
-            "button_link": "shopify://collections"
+            "button_link": "shopify://collections/eyeglasses"
           }
         }
       },
