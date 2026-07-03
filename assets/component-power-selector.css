@@ -118,7 +118,7 @@
 }
 
 .power-selector__error {
-  display: flex;
+  display: none;
   align-items: center;
   gap: 0.5rem;
   margin-top: 0.75rem;
@@ -127,6 +127,10 @@
   border: 1px solid #fecaca;
   border-radius: 0.375rem;
   animation: power-error-shake 0.3s ease;
+}
+
+.power-selector__error:not([hidden]) {
+  display: flex;
 }
 
 .power-selector__error svg {
