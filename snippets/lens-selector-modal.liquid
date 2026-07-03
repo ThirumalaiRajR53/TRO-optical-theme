@@ -173,90 +173,68 @@
 </div>
 
 {% comment %}
-  Lens bundle config. ponytail: variantId empty = frame-only pricing.
-  To enable cart pricing:
-  1. Create product "Lens Package" in Shopify Admin (hidden from sales channels)
-  2. Add 3 variants: Bundle 1 @ ₹1000, Bundle 2 @ ₹2000, Bundle 3 @ ₹3000
-  3. Copy each variant ID from the URL and paste below as a string, e.g. "49123456789"
+  Lens bundle config keyed by power type, each with low/high arrays.
+  ponytail: variantId empty = placeholder; fill with Shopify variant IDs.
 {% endcomment %}
 <script type="application/json" id="LensConfig-{{ section_id }}">
 {
-  "bundles": [
-    {
-      "name": "ANTI REFLECT",
-      "description": "Protects eyes from high intensity reflections.",
-      "features": ["Anti Reflective", "Scratch Resistant"],
-      "price": 1200,
-      "priceDisplay": "₹1,200",
-      "variantId": "53969999495536"
-    },
-    {
-      "name": "BLUE TECH +",
-      "description": "Protects from harmful blue rays from gadgets like laptops, tabs, smartphones etc.",
-      "features": ["Blue Filter", "Anti Reflective", "Scratch Resistant"],
-      "price": 1600,
-      "priceDisplay": "₹1,600",
-      "variantId": "53969999528304"
-    },
-    {
-      "name": "BLUE OLEO +",
-      "description": "Easy to maintain lenses for all-day clarity.",
-      "features": ["100% UV Protect", "Dust & Water Resistant", "Blue Filter", "Anti Reflective", "Scratch Resistant"],
-      "price": 2500,
-      "priceDisplay": "₹2,500",
-      "variantId": "53969999561072"
-    },
-    {
-      "name": "CLEARSIGHT",
-      "description": "Experience the best in class clarity and durability",
-      "features": ["High Durability", "High Clarity", "100% UV Protect", "Dust & Water Resistant", "Blue Filter", "Anti Reflective", "Scratch Resistant"],
-      "price": 4900,
-      "priceDisplay": "₹4,900",
-      "variantId": "53970310005104"
-    },
-    {
-      "name": "ZEISS FSV ClassicPlus 1.6 DuraVision Chrome BlueGuard",
-      "description": "Thin, light lenses with scratch resistance, full UV protection & BlueGuard material shields against digital eyestrain.",
-      "features": ["High Durability", "High Clarity", "100% UV Protect", "Dust & Water Resistant", "Blue Filter", "Scratch Resistant", "Anti Reflective"],
-      "price": 4700,
-      "priceDisplay": "₹4,700",
-      "variantId": "53970310037872"
-    }
-  ],
-  "bundlesHigh": [
-    {
-      "name": "BLUE TECH +",
-      "description": "Protects from harmful blue rays from gadgets like laptops, tabs, smartphones etc.",
-      "features": ["Blue Filter", "Anti Reflective"],
-      "price": 2800,
-      "priceDisplay": "₹2,800",
-      "variantId": "53971208601968"
-    },
-    {
-      "name": "CLEARSIGHT",
-      "description": "Experience the best in class clarity and durability",
-      "features": ["High Durability", "Blue Filter", "Anti Reflective"],
-      "price": 6100,
-      "priceDisplay": "₹6,100",
-      "variantId": "53971208667504"
-    },
-    {
-      "name": "ANTI REFLECT",
-      "description": "Protects eyes from high intensity reflections",
-      "features": ["Anti Reflective"],
-      "price": 2400,
-      "priceDisplay": "₹2,400",
-      "variantId": "53971208634736"
-    },
-    {
-      "name": "ZEISS FSV ClearView 1.6 PhotoFusion X DuraVision Platinum",
-      "description": "X Larger zone of clarity. 3-in-1 benefit; Clear indoors, sunglass darkness outdoors. Full UV & Bluelight protection.",
-      "features": ["High Durability", "Scratch resistant", "Anti Reflective", "Blue Filter", "100% UV Protect", "Dust & Water Resistant", "High Durability", "High Clarity"],
-      "price": 16000,
-      "priceDisplay": "₹16,000",
-      "variantId": "53971208700272"
-    }
-  ]
+  "Single Vision": {
+    "low": [
+      { "name": "ANTI REFLECT", "description": "Protects eyes from high intensity reflections.", "features": ["Anti Reflective", "Scratch Resistant"], "price": 1200, "priceDisplay": "₹1,200", "variantId": "53973037810032" },
+      { "name": "BLUE TECH +", "description": "Protects from harmful blue rays from gadgets.", "features": ["Blue Filter", "Anti Reflective", "Scratch Resistant"], "price": 1600, "priceDisplay": "₹1,600", "variantId": "53973037842800" },
+      { "name": "BLUE OLEO +", "description": "Easy to maintain lenses for all-day clarity.", "features": ["100% UV Protect", "Dust & Water Resistant", "Blue Filter", "Anti Reflective", "Scratch Resistant"], "price": 2500, "priceDisplay": "₹2,500", "variantId": "53973037875568" },
+      { "name": "CLEARSIGHT", "description": "Experience the best in class clarity and durability.", "features": ["High Durability", "High Clarity", "100% UV Protect", "Dust & Water Resistant", "Blue Filter", "Anti Reflective", "Scratch Resistant"], "price": 4900, "priceDisplay": "₹4,900", "variantId": "53973037908336" },
+      { "name": "ZEISS FSV ClassicPlus 1.6 DuraVision Chrome BlueGuard", "description": "Thin, light lenses with scratch resistance, full UV protection & BlueGuard.", "features": ["High Durability", "High Clarity", "100% UV Protect", "Dust & Water Resistant", "Blue Filter", "Scratch Resistant", "Anti Reflective"], "price": 4700, "priceDisplay": "₹4,700", "variantId": "53973037941104" }
+    ],
+    "high": [
+      { "name": "ANTI REFLECT", "description": "Protects eyes from high intensity reflections.", "features": ["Anti Reflective"], "price": 2400, "priceDisplay": "₹2,400", "variantId": "53973061828976" },
+      { "name": "BLUE TECH +", "description": "Protects from harmful blue rays from gadgets.", "features": ["Blue Filter", "Anti Reflective"], "price": 2800, "priceDisplay": "₹2,800", "variantId": "53973061861744" },
+      { "name": "CLEARSIGHT", "description": "Experience the best in class clarity and durability.", "features": ["High Durability", "Blue Filter", "Anti Reflective"], "price": 6100, "priceDisplay": "₹6,100", "variantId": "53973061927280" },
+      { "name": "ZEISS FSV ClearView 1.6 PhotoFusion X DuraVision Platinum", "description": "3-in-1 benefit; Clear indoors, sunglass darkness outdoors.", "features": ["High Durability", "Scratch Resistant", "Anti Reflective", "Blue Filter", "100% UV Protect", "Dust & Water Resistant", "High Clarity"], "price": 16000, "priceDisplay": "₹16,000", "variantId": "53973061960048" }
+    ]
+  },
+  "Computer": {
+    "low": [
+      { "name": "BLUE TECH +", "description": "Protects from harmful blue rays from gadgets.", "features": ["Blue Filter", "Anti Reflective", "Scratch Resistant"], "price": 1600, "priceDisplay": "₹1,600", "variantId": "53973022998896" }
+    ],
+    "high": [
+      
+    ]
+  },
+  "Progressive": {
+    "low": [
+      { "name": "Neo Digi with Anti Reflect", "description": "Great value progressive lens. Perfect for today's digital lifestyle", "features": ["Anti Reflective", "Scratch Resistant"], "price": 5500, "priceDisplay": "₹5,500", "variantId": "53973084832112" },
+      { "name": "Neo Digi with DrivEZ", "description": "Most digital friendly lens with exciting coatings.", "features": ["UV400 Protect", "Blue Protect", "Anti Reflective", "Scratch Resistant"], "price": 7000, "priceDisplay": "₹7,000", "variantId": "53973084864880" },
+      { "name": "Neo Uno with DrivEZ", "description": "Most digital friendly lens with exciting coatings.", "features": ["100% UV Protect", "Blue Filter", "Anti Reflective", "Scratch Resistant"], "price": 8500, "priceDisplay": "₹8,500", "variantId": "53973084897648" },
+      { "name": "Neo Pro with ClearSight", "description": "Most digital friendly lens with exciting coatings.", "features": ["High Clarity", "High Durability", "UV400 Protect", "Blue Protect", "Anti Reflective", "Scratch resistant"], "price": 11500, "priceDisplay": "₹11,500", "variantId": "53973084930416" },
+      { "name": "Neo Space with ClearSight", "description": "Most digital friendly lens with exciting coatings.", "features": ["High Clarity", "High Durability", "UV400 Protect", "Blue Protect", "Anti Reflective", "Scratch resistant"], "price": 18500, "priceDisplay": "₹18,500", "variantId": "53973084963184" },
+      { "name": "Neo Binocs with DrivEZ", "description": "Most digital friendly lens with exciting coatings.", "features": ["High Clarity", "High Durability", "UV400 Protect", "Blue Protect", "Anti Reflective", "Scratch resistant"], "price": 22500, "priceDisplay": "₹22,500", "variantId": "53973084995952" },
+      { "name": "Neo Ergo with ClearSight", "description": "Most digital friendly lens with exciting coatings.", "features": ["High Clarity", "High Durability", "UV400 Protect", "Blue Protect", "Anti Reflective", "Scratch resistant"], "price": 27500, "priceDisplay": "₹27,500", "variantId": "53973085028720" },
+      { "name": "Neo Sync with ClearSight", "description": "Most digital friendly lens with exciting coatings.", "features": ["High Clarity", "High Durability", "UV400 Protect", "Blue Protect", "Anti Reflective", "Scratch resistant"], "price": 33500, "priceDisplay": "₹33,500", "variantId": "53973085061488" }
+    ],
+    "high": [
+      { "name": "Neo Digi", "description": "Great value progressive lens. Perfect for today's digital lifestyle", "features": ["Scratch Resistant"], "price": 5500, "priceDisplay": "₹5,500", "variantId": "53973084832112" },
+      { "name": "Neo Digi with DrivEZ", "description": "Most digital friendly lens with exciting coatings.", "features": ["UV400 Protect", "Blue Protect", "Anti Reflective", "Scratch Resistant"], "price": 7000, "priceDisplay": "₹7,000", "variantId": "53973084864880" },
+      { "name": "Neo Uno with DrivEZ", "description": "Most digital friendly lens with exciting coatings.", "features": ["100% UV Protect", "Blue Filter", "Anti Reflective", "Scratch Resistant"], "price": 8500, "priceDisplay": "₹8,500", "variantId": "53973084897648" },
+      { "name": "Neo Pro with ClearSight", "description": "Most digital friendly lens with exciting coatings.", "features": ["High Clarity", "High Durability", "UV400 Protect", "Blue Protect", "Anti Reflective", "Scratch resistant"], "price": 11500, "priceDisplay": "₹11,500", "variantId": "53973084930416" },
+      { "name": "Neo Space with ClearSight", "description": "Most digital friendly lens with exciting coatings.", "features": ["High Clarity", "High Durability", "UV400 Protect", "Blue Protect", "Anti Reflective", "Scratch resistant"], "price": 18500, "priceDisplay": "₹18,500", "variantId": "53973084963184" },
+      { "name": "Neo Binocs with DrivEZ", "description": "Most digital friendly lens with exciting coatings.", "features": ["High Clarity", "High Durability", "UV400 Protect", "Blue Protect", "Anti Reflective", "Scratch resistant"], "price": 22500, "priceDisplay": "₹22,500", "variantId": "53973084995952" },
+      { "name": "Neo Ergo with ClearSight", "description": "Most digital friendly lens with exciting coatings.", "features": ["High Clarity", "High Durability", "UV400 Protect", "Blue Protect", "Anti Reflective", "Scratch resistant"], "price": 27500, "priceDisplay": "₹27,500", "variantId": "53973085028720" },
+      { "name": "Neo Sync with ClearSight", "description": "Most digital friendly lens with exciting coatings.", "features": ["High Clarity", "High Durability", "UV400 Protect", "Blue Protect", "Anti Reflective", "Scratch resistant"], "price": 33500, "priceDisplay": "₹33,500", "variantId": "53973085061488" }
+    ]
+  },
+  "Bifocal": {
+    "low": [
+      { "name": "BASIC", "description": "Perfect for daily wear. Comes with scratch resistant coating", "features": ["Scratch Resistant"], "price": 1500, "priceDisplay": "₹1,500", "variantId": "53973134115184" },
+      { "name": "Anti Reflect", "description": "Protects eyes from high intensity reflections", "features": ["Anti Reflective", "Scratch Resistant"], "price": 2100, "priceDisplay": "₹2,100", "variantId": "53973134147952" },
+      { "name": "BLUE TECH +", "description": "Protects from harmful blue rays from gadgets like laptops, tabs, smartphones etc.", "features": ["Blue Filter", "Anti Reflective", "Scratch Resistant"], "price": 3100, "priceDisplay": "₹3,100", "variantId": "53973134180720" },
+      { "name": "DRIVEZ", "description": "Experience enhanced clarity and visual comfort on the road.", "features": ["High Clarity", "100% UV Protect", "Blue Filter", "Anti Reflective", "Scratch Resistant", "Dust & Water Resistant"], "price": 4100, "priceDisplay": "₹4,100", "variantId": "53973134213488" },
+      { "name": "CLEARSIGHT", "description": "Placeholder - top-tier bifocal lens.", "features": ["High Durability", "High Clarity", "100% UV Protect", "Blue Filter", "Anti Reflective", "Scratch Resistant", "Dust & Water Resistant"], "price": 5500, "priceDisplay": "₹5,500", "variantId": "53973134246256" }
+    ],
+    "high": [
+      
+    ]
+  }
 }
 </script>
 

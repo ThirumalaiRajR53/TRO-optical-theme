@@ -63,7 +63,8 @@
   }
 
   function getActiveBundles() {
-    return powerToggle && powerToggle.checked ? (config.bundlesHigh || []) : config.bundles;
+    var typeConfig = config[selectedPowerType] || {};
+    return powerToggle && powerToggle.checked ? (typeConfig.high || []) : (typeConfig.low || []);
   }
 
   // Add to Cart with manual prescription
@@ -129,6 +130,10 @@
   }
 
   function renderBundles(bundles) {
+    if (!bundles.length) {
+      lensList.innerHTML = '<div class="lens-modal__empty"><strong>No Lens found</strong><br>Try other lenses</div>';
+      return;
+    }
     var checkSvg = '<svg width="14" height="14" viewBox="0 0 24 24" fill="#10b981"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>';
     lensList.innerHTML = bundles.map(function (b, i) {
       var total = (framePricePaise / 100) + b.price;
@@ -152,7 +157,11 @@
       btn.addEventListener('click', function () {
         selectedBundle = bundles[parseInt(this.dataset.bundleIdx)];
         updatePriceDisplay(selectedBundle);
-        showStep(3);
+        if (selectedPowerType === 'Computer') {
+          addToCart(selectedPowerType, selectedBundle, 'N/A');
+        } else {
+          showStep(3);
+        }
       });
     });
   }
@@ -201,10 +210,25 @@
           properties: { 'Pair ID': pairId, 'For Frame': frameName }
         })
       }).finally(function () {
-        form.requestSubmit();
+        submitAndClearProps();
       });
     } else {
-      form.requestSubmit();
+      submitAndClearProps();
+    }
+  }
+
+  // ponytail: submit form then clear props so next click reopens modal
+  function submitAndClearProps() {
+    form.requestSubmit();
+    if (typeof subscribe === 'function' && typeof PUB_SUB_EVENTS !== 'undefined') {
+      var unsub = subscribe(PUB_SUB_EVENTS.cartUpdate, function () {
+        propPowerType.value = '';
+        propLensPackage.value = '';
+        propPrescription.value = '';
+        propPairId.value = '';
+        form.querySelectorAll('.lens-dynamic-prop').forEach(function (el) { el.remove(); });
+        unsub();
+      });
     }
   }
 
