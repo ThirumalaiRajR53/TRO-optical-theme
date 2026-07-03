@@ -442,6 +442,15 @@
   transform: translateX(18px);
 }
 
+/* Empty bundle state */
+.lens-modal__empty {
+  text-align: center;
+  padding: 2rem 1rem;
+  color: #64748b;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+}
+
 /* Step 3: Prescription */
 .lens-modal__manual-rx {
   display: none;
