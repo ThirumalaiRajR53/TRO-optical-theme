@@ -113,6 +113,14 @@
                 {%- assign display_label = filter.label -%}
                 {%- if filter.param_name == 'filter.p.vendor' -%}
                   {%- assign display_label = 'Brands' -%}
+                {%- elsif filter.param_name == 'filter.p.m.custom.color' -%}
+                  {%- assign display_label = 'Color' -%}
+                {%- elsif filter.param_name == 'filter.p.m.custom.shape' -%}
+                  {%- assign display_label = 'Shape' -%}
+                {%- elsif filter.param_name == 'filter.p.m.custom.gender' -%}
+                  {%- assign display_label = 'Gender' -%}
+                {%- elsif filter.param_name == 'filter.p.m.custom.rim_type' -%}
+                  {%- assign display_label = 'Rim Type' -%}
                 {%- endif -%}
                 {% case filter.type %}
                   {% when 'boolean', 'list' %}
@@ -637,6 +645,14 @@
                   {%- assign mobile_display_label = filter.label -%}
                   {%- if filter.param_name == 'filter.p.vendor' -%}
                     {%- assign mobile_display_label = 'Brands' -%}
+                  {%- elsif filter.param_name == 'filter.p.m.custom.color' -%}
+                    {%- assign mobile_display_label = 'Color' -%}
+                  {%- elsif filter.param_name == 'filter.p.m.custom.shape' -%}
+                    {%- assign mobile_display_label = 'Shape' -%}
+                  {%- elsif filter.param_name == 'filter.p.m.custom.gender' -%}
+                    {%- assign mobile_display_label = 'Gender' -%}
+                  {%- elsif filter.param_name == 'filter.p.m.custom.rim_type' -%}
+                    {%- assign mobile_display_label = 'Rim Type' -%}
                   {%- endif -%}
                   {% case filter.type %}
                     {% when 'boolean', 'list' %}

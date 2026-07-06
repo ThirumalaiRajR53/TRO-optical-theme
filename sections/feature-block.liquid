@@ -23,30 +23,22 @@
         {%- case block.type -%}
           {%- when 'column' -%}
             <div
+              {{ block.shopify_attributes }}
               class="
-                twcss-relative
+                twcss-relative twcss-overflow-hidden
                 {% if section.settings.image_height == "small" %}twcss-h-[15rem] md:twcss-h-[25rem]{% endif %}
                 {% if section.settings.image_height == "medium" %}twcss-h-[20rem] md:twcss-h-[30rem]{% endif %}
                 {% if section.settings.image_height == "large" %}twcss-h-[25rem] md:twcss-h-[36rem]{% endif %}
               "
             >
               {%- if block.settings.block_image == blank -%}
-                {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg twcss-h-full twcss-w-full twcss-object-cover' }}
               {%- else -%}
-                {% if block.settings.image_width == 'cover' %}
-                  {{
-                    block.settings.block_image
-                    | image_url: width: 600
-                    | image_tag: class: 'twcss-h-full twcss-w-full twcss-object-cover', loading: 'lazy'
-                  }}
-                {% endif %}
-                {% if block.settings.image_width == 'contain' %}
-                  {{
-                    block.settings.block_image
-                    | image_url: width: 600
-                    | image_tag: class: 'twcss-h-full twcss-w-full twcss-object-contain', loading: 'lazy'
-                  }}
-                {% endif %}
+                {{
+                  block.settings.block_image
+                  | image_url: width: 600
+                  | image_tag: class: 'twcss-h-full twcss-w-full twcss-object-cover', loading: 'lazy'
+                }}
               {%- endif -%}
               <div
                 class="
@@ -63,12 +55,12 @@
                     </span>
                   </p>
                 {% endif %}
-                <a href="collections/sunglasses">
+                <a href="{{ block.settings.button_link }}">
                   <h3 class="section-{{ section.id }}-title-lh twcss-mb-5 twcss-text-2xl twcss-font-extrabold twcss-text-[rgb(var(--color-base-solid-button-labels))] md:twcss-text-4xl">
                     {{ block.settings.title }}
                   </h3>
                 </a>
-                <a href="{{ block.settings.button_link}}">
+                <a href="{{ block.settings.button_link }}">
                   <button class="twcss-border twcss-border-[rgb(var(--color-base-solid-button-labels))] twcss-px-8 twcss-py-3 twcss-text-sm twcss-text-[rgb(var(--color-base-solid-button-labels))] twcss-transition-all twcss-duration-500 hover:twcss-bg-[rgb(var(--color-base-solid-button-labels))] hover:twcss-text-[rgb(var(--color-base-accent-1))]">
                     {{ block.settings.button_label | upcase }}
                   </button>
@@ -139,24 +131,7 @@
         {
           "type": "image_picker",
           "id": "block_image",
-          "label": "t:sections.feature_block.blocks.feature.settings.image.label"
-        },
-        {
-          "type": "select",
-          "id": "image_width",
-          "options": [
-            {
-              "value": "cover",
-              "label": "t:sections.feature_block.blocks.feature.settings.image_width.options__1.label"
-            },
-            {
-              "value": "contain",
-              "label": "t:sections.feature_block.blocks.feature.settings.image_width.options__2.label"
-            }
-          ],
-          "default": "cover",
-          "label": "t:sections.feature_block.blocks.feature.settings.image_width.default.label",
-          "info": "t:sections.feature_block.blocks.feature.settings.image_width.default.info"
+          "label": "Image"
         },
         {
           "type": "select",

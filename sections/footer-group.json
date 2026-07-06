@@ -13,10 +13,10 @@
                     }
                 },
                 "footer-shop": {
-                    "type": "link_list",
+                    "type": "text",
                     "settings": {
                         "heading": "SHOP",
-                        "menu": "main-menu"
+                        "subtext": "<p><a href=\"/collections/mens-eyeglasses\">Men's Eyeglasses</a><br><a href=\"/collections/womens-eyeglasses\">Women's Eyeglasses</a><br><a href=\"/collections/kids-eyeglasses\">Kids Eyeglasses</a><br><a href=\"/collections/sunglasses\">Sunglasses</a><br><a href=\"/collections/contact-lenses\">Contact Lenses</a></p>"
                     }
                 },
                 "footer-help": {
@@ -55,7 +55,6 @@
         }
     },
     "order": [
-        "c9f9a1a9-a61a-480c-99ae-a1587a6275b4",
         "footer"
     ]
 }
