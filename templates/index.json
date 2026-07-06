@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "c92d5c5c-03dd-4203-a4eb-bbb13859689b": {
@@ -6,7 +15,7 @@
         "template--21453178798384__c92d5c5c-03dd-4203-a4eb-bbb13859689b-heading-1": {
           "type": "heading",
           "settings": {
-            "heading": "LOOK <span style=\"font-family: 'Brush Script MT', cursive; font-weight: normal; font-size: 1.2em\">DIFFERENT</span>"
+            "heading": "LOOK DIFFERENT"
           }
         },
         "template--21453178798384__c92d5c5c-03dd-4203-a4eb-bbb13859689b-text-1": {
@@ -184,10 +193,10 @@
         "template--21684512751920__3ea1e40c-c8a6-41c2-a0c3-92b4a8c4ee31-column-1": {
           "type": "column",
           "settings": {
-            "image_width": "cover",
+            "block_image": "shopify://shop_images/young-woman-in-shades-looking-into-the-distance.jpg",
             "block_alignment": "left",
             "announcement_checkbox": true,
-            "announcement_text": "Upto 20% off",
+            "announcement_text": "Upto 15% off",
             "title": "Colorful Eyewear",
             "button_label": "Shop Now",
             "button_link": "shopify://collections/sunglasses"
@@ -196,10 +205,10 @@
         "template--21684512751920__3ea1e40c-c8a6-41c2-a0c3-92b4a8c4ee31-column-2": {
           "type": "column",
           "settings": {
-            "image_width": "cover",
-            "block_alignment": "left",
+            "block_image": "shopify://shop_images/black-sunglasses-in-a-pile-of-grey-stones.jpg",
+            "block_alignment": "right",
             "announcement_checkbox": true,
-            "announcement_text": "Upto 40% off",
+            "announcement_text": "Unique & Trendy",
             "title": "High Quality Frames",
             "button_label": "Shop Now",
             "button_link": "shopify://collections/eyeglasses"
