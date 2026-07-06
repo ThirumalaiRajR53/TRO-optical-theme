@@ -324,7 +324,7 @@
         "heading": "Find Your Best Match",
         "description": "<p>Need help looking for your perfect Readers, Sunglasses or Blue Light Filtering Eyewear? Take our quiz to find the best fit for you.</p>",
         "button_label": "Take the quiz",
-        "button_link": "shopify://pages/quiz",
+        "button_link": "shopify://pages/find-your-best-match",
         "padding_top": 80,
         "padding_bottom": 80
       }
