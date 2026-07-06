@@ -136,7 +136,29 @@ Usage:
                     </details>
                   {%- else -%}
                     {%- assign drawer_link_lower = link.title | downcase -%}
-                    {%- if drawer_link_lower == 'brands' or drawer_link_lower == 'contact' -%}
+                    {%- if drawer_link_lower == 'browse' or drawer_link_lower == 'catalog' -%}
+                      <details id="Details-menu-drawer-explore-{{ forloop.index }}">
+                        <summary class="menu-drawer__menu-item list-menu__item link focus-inset">
+                          Explore
+                          {% render 'icon-caret' %}
+                        </summary>
+                        <div class="menu-drawer__submenu gradient motion-reduce" tabindex="-1">
+                          <div class="menu-drawer__inner-submenu">
+                            <button class="menu-drawer__close-button link focus-inset" aria-expanded="true">
+                              {% render 'icon-caret' %}
+                              Explore
+                            </button>
+                            <ul class="menu-drawer__menu menu-drawer__menu--level-2" role="list" tabindex="-1">
+                              <li><a href="/collections/eyeglasses" class="menu-drawer__menu-item link list-menu__item focus-inset">Eyeglasses</a></li>
+                              <li><a href="/collections/sunglasses" class="menu-drawer__menu-item link list-menu__item focus-inset">Sunglasses</a></li>
+                              <li><a href="/collections/contact-lenses" class="menu-drawer__menu-item link list-menu__item focus-inset">Contact Lenses</a></li>
+                              <li><a href="/collections/reading-glasses" class="menu-drawer__menu-item link list-menu__item focus-inset">Reading Glasses</a></li>
+                              <li><a href="/collections/accessories" class="menu-drawer__menu-item link list-menu__item focus-inset">Accessories</a></li>
+                            </ul>
+                          </div>
+                        </div>
+                      </details>
+                    {%- elsif drawer_link_lower == 'brands' or drawer_link_lower == 'contact' -%}
                       <details id="Details-menu-drawer-brands-{{ forloop.index }}">
                         <summary class="menu-drawer__menu-item list-menu__item link focus-inset">
                           Brands
