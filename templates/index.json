@@ -56,7 +56,7 @@
         "legacy-heading": {
           "type": "heading",
           "settings": {
-            "heading": "TRUSTED SINCE 1956"
+            "heading": "Trusted Since <strong>1956</strong>"
           }
         },
         "legacy-text": {
