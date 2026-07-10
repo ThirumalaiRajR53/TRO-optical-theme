@@ -5,6 +5,8 @@ const {
   buildCollectionUrl,
   createFallbackUrls,
   expandGender,
+  isSelectedAnswer,
+  shouldHideAnswer,
 } = require("../assets/quiz.js");
 
 test("expands adult genders and temporary youth sunglasses fallback", () => {
@@ -58,4 +60,17 @@ test("relaxes optional filters in the configured order", () => {
   assert.equal(urls[4].searchParams.has("filter.p.m.custom.shape"), false);
   assert.equal(urls[5].searchParams.has("filter.v.price.gte"), false);
   assert.deepEqual(urls[5].searchParams.getAll("filter.p.m.custom.gender"), ["Men", "Unisex"]);
+});
+
+test("selects an answer by identity when filter values are identical", () => {
+  const selected = { answerId: "unsure-face", value: "" };
+
+  assert.equal(isSelectedAnswer(selected, "unsure-face"), true);
+  assert.equal(isSelectedAnswer(selected, "oval-face"), false);
+});
+
+test("hides collection-specific answers only for that collection", () => {
+  assert.equal(shouldHideAnswer("sunglasses", "sunglasses"), true);
+  assert.equal(shouldHideAnswer("sunglasses", "eyeglasses"), false);
+  assert.equal(shouldHideAnswer("none", "sunglasses"), false);
 });

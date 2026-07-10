@@ -5,16 +5,25 @@
     <div
       class="twcss-my-[1.875rem] xl:twcss-pr-[9.9375rem] twcss-flex twcss-flex-col md:twcss-flex-row twcss-items-center twcss-justify-between twcss-gap-5 md:twcss-gap-10 xl:twcss-gap-20"
     >
-      <div
-        data-prev-section=""
-        id="back-button"
-        class="twcss-text-sm twcss-font-semibold twcss-flex twcss-items-center twcss-justify-between twcss-w-[4.5625rem]"
-        onclick="showPrevSection(this)"
-      >
-        <svg width="14" height="15" viewBox="0 0 14 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M9.0624 3.25703L9.18044 3.37498L5.40883 7.14606L5.05521 7.49964L5.40883 7.85321L9.18044 11.6243L9.0624 11.7422L4.8198 7.49964L9.0624 3.25703Z" fill="rgb(var(--color-base-text))" stroke="rgb(var(--color-base-text))"/>
-        </svg>
-        <span>Go Back</span>
+      <div class="quiz-navigation twcss-flex twcss-items-center twcss-gap-5">
+        <button
+          type="button"
+          data-prev-section=""
+          id="back-button"
+          class="quiz-nav-button twcss-text-sm twcss-font-semibold twcss-flex twcss-items-center twcss-gap-2"
+        >
+          <svg width="14" height="15" viewBox="0 0 14 15" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M9.0624 3.25703L9.18044 3.37498L5.40883 7.14606L5.05521 7.49964L5.40883 7.85321L9.18044 11.6243L9.0624 11.7422L4.8198 7.49964L9.0624 3.25703Z" fill="rgb(var(--color-base-text))" stroke="rgb(var(--color-base-text))"/>
+          </svg>
+          <span>Go Back</span>
+        </button>
+        <button
+          type="button"
+          id="reset-quiz-button"
+          class="quiz-nav-button twcss-text-sm twcss-font-semibold"
+        >
+          Reset
+        </button>
       </div>
       <div class="twcss-w-full md:twcss-w-[86%]">
         <div

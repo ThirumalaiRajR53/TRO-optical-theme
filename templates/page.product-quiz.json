@@ -64,6 +64,7 @@
           "type": "answer",
           "settings": {
             "answer_content": "Kids",
+            "answer_details": "Colorful and unique frames for all kids",
             "answer_value": "Kids"
           }
         },
@@ -71,6 +72,7 @@
           "type": "answer",
           "settings": {
             "answer_content": "Teens",
+            "answer_details": "Trendy & stylish, just like you",
             "answer_value": "Teens"
           }
         }
@@ -103,7 +105,8 @@
           "type": "answer",
           "settings": {
             "answer_content": "Work or study",
-            "answer_value": "Full-Rimmed|Semi-Rimmed"
+            "answer_value": "Full-Rimmed|Semi-Rimmed",
+            "hide_for_collection": "sunglasses"
           }
         },
         "style": {
@@ -145,13 +148,6 @@
             "answer_value": ""
           }
         },
-        "heart-face": {
-          "type": "answer",
-          "settings": {
-            "answer_content": "Heart",
-            "answer_value": "Cat Eye|Round|Aviator"
-          }
-        },
         "unsure-face": {
           "type": "answer",
           "settings": {
@@ -160,7 +156,7 @@
           }
         }
       },
-      "block_order": ["round-face", "square-face", "oval-face", "heart-face", "unsure-face"]
+      "block_order": ["round-face", "square-face", "oval-face", "unsure-face"]
     },
     "color-personality": {
       "type": "secondary-quiz-slide",
