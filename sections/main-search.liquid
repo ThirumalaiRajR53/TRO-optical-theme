@@ -287,17 +287,6 @@
   window.addEventListener('beforeunload', () => {
     localStorage.setItem('search-sort-key', '');
   });
-
-  // Clear quiz keys & answers from localstorage once they are submitted
-  if (document.referrer.includes('/pages/quiz')) {
-    const joinedKeys = localStorage.getItem('quizKeys');
-    const splitKeys = joinedKeys.split('+');
-
-    splitKeys.forEach((key) => {
-      localStorage.removeItem(key);
-    });
-    localStorage.removeItem('quizKeys');
-  }
 {% endjavascript %}
 
 {% schema %}

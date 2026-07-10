@@ -1,244 +1,269 @@
-const quizEmailError = document.querySelector(".quiz-email-error");
+(function initializeFrameFinder(global) {
+  const STORAGE_KEY = "frameFinderAnswers";
+  const FILTER_PARAMS = {
+    vendor: "filter.p.vendor",
+    color: "filter.p.m.custom.color",
+    shape: "filter.p.m.custom.shape",
+    rim_type: "filter.p.m.custom.rim_type",
+  };
+  const FALLBACK_ORDER = ["vendor", "color", "rim_type", "shape", "price"];
 
-// Ensures that the submit quiz section is shown when the user submits an existing email
-if (window.location.search.includes("?contact%5Btags%5D=newsletter&form_type=customer")) {
-  const currentSection = localStorage.getItem("currentSection");
-  showSection(currentSection);
-  quizEmailError.classList.remove("twcss-hidden");
-  quizEmailError.classList.add("twcss-block");
-}
-
-// section.index doesn't work in theme editor preview, so this function saves the quiz slide section's index as data-* attribute; this index helps to move to next section
-function updateSectionIndex() {
-  const quizSlideSections = document.querySelectorAll(".quiz-slide-section");
-  quizSlideSections.forEach((section, index) => {
-    section.querySelectorAll(".next-slide").forEach((nextSlide) => {
-      nextSlide.dataset.sectionIndex = index;
-    });
-  });
-}
-
-function attachShowSection() {
-  const nextSlides = document.querySelectorAll(".next-slide");
-  nextSlides.forEach((nextSlide) => {
-    nextSlide.addEventListener("click", () => {
-      if (nextSlide.hasAttribute("disabled")) return;
-      showSection(Number(nextSlide.dataset.sectionIndex) + 1);
-    });
-  });
-}
-
-// For section add event in theme editor
-document.addEventListener("shopify:section:load", (event) => {
-  updateSectionIndex();
-  attachShowSection();
-
-  // When a block is added to primary or secondary slide sections, this keeps the preview from going blank
-  extractIndexAndShowSection(event);
-
-  // Needed because when the quiz-progress section's settings are changed, the correct quiz slide and the correct progress bar can be shown in the theme editor preview
-  const isQuizProgressSection = event.detail.sectionId.includes("quiz-progress");
-  if (isQuizProgressSection) {
-    const currentPercent = localStorage.getItem("currentPercent");
-    const currentSection = localStorage.getItem("currentSection");
-    showProgressSection(Number(currentSection));
-    updateProgressBar(Number(currentPercent));
+  function splitValues(value = "") {
+    return value
+      .split("|")
+      .map((item) => item.trim())
+      .filter(Boolean);
   }
-});
 
-// For section delete event in theme editor
-document.addEventListener("shopify:section:unload", (event) => {
-  extractIndexAndShowSection(event, true);
-
-  setTimeout(() => {
-    updateSectionIndex();
-    attachShowSection();
-  });
-});
-
-// For section reorder event in theme editor
-document.addEventListener("shopify:section:reorder", () => {
-  updateSectionIndex();
-  attachShowSection();
-});
-
-// For section select event in theme editor
-document.addEventListener("shopify:section:select", (event) => {
-  extractIndexAndShowSection(event);
-});
-
-function extractIndexAndShowSection(event, isSectionDeleted = false) {
-  const sectionIndex = Number(event.target.querySelector(".next-slide").dataset.sectionIndex);
-  const currentSection = localStorage.getItem("currentSection");
-
-  if (sectionIndex && isSectionDeleted) {
-    if (currentSection == sectionIndex) {
-      showSection(sectionIndex - 1);
+  function expandGender(collection, gender) {
+    if (!gender) return [];
+    if (gender === "Men" || gender === "Women") return [gender, "Unisex"];
+    if (collection === "sunglasses" && (gender === "Kids" || gender === "Teens")) {
+      return [gender, "Unisex"];
     }
-  } else {
-    showSection(sectionIndex);
+    return [gender];
   }
-}
 
-// Needed because the above three events are for theme editor only
-document.addEventListener("DOMContentLoaded", () => {
-  updateSectionIndex();
-  attachShowSection();
-});
+  function buildCollectionUrl(answers, excludedGroups = []) {
+    const collection = answers.collection === "sunglasses" ? "sunglasses" : "eyeglasses";
+    const excluded = new Set(excludedGroups);
+    const params = new URLSearchParams();
 
-function updateProgressBar(percent) {
-  const quizProgress = document.querySelector("#progress");
-  quizProgress.style.width = `${percent}%`;
-}
+    expandGender(collection, answers.gender).forEach((value) => {
+      params.append("filter.p.m.custom.gender", value);
+    });
 
-// Show progress bar in all slide sections except the starting one
-function showProgressSection(sectionNum) {
-  const progressSecton = document.querySelector(".progress-section");
+    Object.entries(FILTER_PARAMS).forEach(([group, param]) => {
+      if (excluded.has(group)) return;
+      splitValues(answers[group]).forEach((value) => params.append(param, value));
+    });
 
-  if (sectionNum > 0) {
-    progressSecton.style.display = "block";
+    if (!excluded.has("price")) {
+      const [minimum, maximum] = splitValues(answers.price);
+      if (minimum) params.set("filter.v.price.gte", minimum);
+      if (maximum) params.set("filter.v.price.lte", maximum);
+    }
 
-    const backButton = progressSecton.querySelector("#back-button");
-    backButton.dataset.prevSection = sectionNum == 1 ? "0" : sectionNum - 1;
-  } else {
-    progressSecton.style.display = "none";
+    params.set("sort_by", "best-selling");
+    return `/collections/${collection}?${params.toString()}`;
   }
-}
 
-function showPrevSection(element) {
-  const sectionToShow = element.dataset.prevSection;
-  window.location.href = `#section-${element.dataset.prevSection}`;
-  showSection(Number(sectionToShow));
-}
+  function createFallbackUrls(answers) {
+    const urls = [buildCollectionUrl(answers)];
+    const excluded = [];
 
-function showSection(sectionNum) {
-  const quizSlideSections = document.querySelectorAll(".quiz-slide-section");
+    FALLBACK_ORDER.forEach((group) => {
+      if (!answers[group]) return;
+      excluded.push(group);
+      urls.push(buildCollectionUrl(answers, excluded));
+    });
 
-  const totalPercent = quizSlideSections.length - 1;
+    return [...new Set(urls)];
+  }
 
-  // Hide all sections
-  quizSlideSections.forEach((section) => {
-    section.classList.remove("active-section");
-    section.parentNode.style.display = "none";
-  });
+  const api = { buildCollectionUrl, createFallbackUrls, expandGender };
+  global.FrameFinder = api;
 
-  // Show the targeted section
-  quizSlideSections.forEach((section, index) => {
-    if (sectionNum == index) {
-      section.classList.add("active-section");
-      section.parentNode.style.display = "flex";
-      section.parentNode.style.flex = "1";
-      section.parentNode.style.flexDirection = "column";
+  if (typeof module !== "undefined" && module.exports) module.exports = api;
+  if (typeof document === "undefined") return;
 
-      highlightAlreadySelected(section);
+  function readAnswers() {
+    return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+  }
 
-      const currentPercent = (index / totalPercent) * 100;
-      updateProgressBar(currentPercent);
+  function groupedAnswers() {
+    return Object.values(readAnswers()).reduce((answers, answer) => {
+      answers[answer.group] = answer.value;
+      return answers;
+    }, {});
+  }
 
-      localStorage.setItem("currentPercent", currentPercent);
-      localStorage.setItem("currentSection", sectionNum);
+  function saveAnswer(section, value) {
+    const answers = readAnswers();
+    answers[section.closest(".shopify-section").id] = {
+      group: section.dataset.filterGroup,
+      value,
+    };
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(answers));
+  }
 
-      if (section.classList.contains("submit-quiz-slide")) {
-        addSearchUrl(section);
+  function removeAnswer(section) {
+    const answers = readAnswers();
+    delete answers[section.closest(".shopify-section").id];
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(answers));
+  }
+
+  function quizSections() {
+    return [...document.querySelectorAll(".quiz-slide-section")];
+  }
+
+  function updateProgress(sectionNumber) {
+    const progress = document.querySelector("#progress");
+    const progressSection = document.querySelector(".progress-section");
+    if (!progress || !progressSection) return;
+
+    progressSection.style.display = sectionNumber > 0 ? "block" : "none";
+    const finalQuestionIndex = Math.max(quizSections().length - 1, 1);
+    progress.style.width = `${(sectionNumber / finalQuestionIndex) * 100}%`;
+
+    const backButton = progressSection.querySelector("#back-button");
+    if (backButton) backButton.dataset.prevSection = Math.max(sectionNumber - 1, 0);
+  }
+
+  function highlightStoredAnswer(section) {
+    const answer = readAnswers()[section.closest(".shopify-section").id];
+    section.querySelectorAll(".quiz-answer-option").forEach((option) => {
+      option.classList.toggle(
+        "highlighted-answer",
+        Boolean(answer) && option.dataset.answerValue === answer.value,
+      );
+    });
+
+    const nextButton = section.querySelector(".next-button");
+    if (nextButton) nextButton.disabled = !answer;
+  }
+
+  function showSection(sectionNumber) {
+    const sections = quizSections();
+    sections.forEach((section, index) => {
+      const wrapper = section.closest(".shopify-section");
+      const isActive = index === sectionNumber;
+      section.classList.toggle("active-section", isActive);
+      wrapper.style.display = isActive ? "flex" : "none";
+      if (isActive) {
+        wrapper.style.flex = "1";
+        wrapper.style.flexDirection = "column";
+        highlightStoredAnswer(section);
       }
-    }
-  });
+    });
 
-  showProgressSection(sectionNum);
-}
+    localStorage.setItem("currentSection", String(sectionNumber));
+    updateProgress(sectionNumber);
+  }
 
-function highlightAlreadySelected(section) {
-  const storageKey = section.parentNode.id.replace("shopify-section-", "");
-  if (storageKey.includes("secondary-quiz-slide")) {
-    const selectedTag = localStorage.getItem(storageKey);
-    if (selectedTag) {
-      section.querySelectorAll(".secondary-quiz-answer").forEach((block) => {
-        if (block.dataset.answerTag == selectedTag) {
-          block.classList.add("highlighted-answer");
+  function nextSection(section) {
+    const index = quizSections().indexOf(section);
+    if (index >= 0) showSection(index + 1);
+  }
+
+  async function pageHasProducts(url) {
+    const response = await fetch(url, { headers: { Accept: "text/html" } });
+    if (!response.ok) throw new Error(`Recommendation request failed: ${response.status}`);
+
+    const page = new DOMParser().parseFromString(await response.text(), "text/html");
+    const productGrid = page.querySelector("#product-grid");
+    if (!productGrid) throw new Error("Recommendation response did not contain a product grid");
+    return Boolean(productGrid.querySelector(".grid__item"));
+  }
+
+  function redirectToResults(url) {
+    localStorage.removeItem(STORAGE_KEY);
+    localStorage.removeItem("currentSection");
+    window.location.assign(url);
+  }
+
+  async function showRecommendations(section) {
+    const status = section.querySelector(".quiz-status");
+    const buttons = section.querySelectorAll(".next-button, .skip-button");
+    buttons.forEach((button) => {
+      button.disabled = true;
+      button.setAttribute("aria-busy", "true");
+    });
+    if (status) status.textContent = "Finding the best available matches…";
+
+    const answers = groupedAnswers();
+    const fallbackUrls = createFallbackUrls(answers);
+
+    try {
+      for (const url of fallbackUrls) {
+        if (await pageHasProducts(url)) {
+          redirectToResults(url);
+          return;
         }
+      }
+      redirectToResults(fallbackUrls[fallbackUrls.length - 1]);
+    } catch (error) {
+      const safeUrl = buildCollectionUrl({
+        collection: answers.collection,
+        gender: answers.gender,
       });
-      section.querySelector(".next-button").removeAttribute("disabled");
+      redirectToResults(safeUrl);
     }
   }
-}
 
-function saveAnswerTag(key, tag) {
-  localStorage.setItem(key, tag);
-  saveAnswerKeys(key);
+  function bindQuiz() {
+    quizSections().forEach((section) => {
+      section.querySelectorAll(".quiz-answer-option").forEach((option) => {
+        if (option.dataset.quizBound) return;
+        option.dataset.quizBound = "true";
+        option.addEventListener("click", () => {
+          saveAnswer(section, option.dataset.answerValue || "");
+          highlightStoredAnswer(section);
+          if (option.dataset.autoAdvance === "true") nextSection(section);
+        });
+      });
 
-  if (key.includes("secondary-quiz-slide")) {
-    document.querySelector(`#shopify-section-${key} .next-button`).removeAttribute("disabled");
+      section.querySelectorAll(".next-button").forEach((button) => {
+        if (button.dataset.quizBound) return;
+        button.dataset.quizBound = "true";
+        button.addEventListener("click", () => {
+          if (button.disabled) return;
+          if (button.dataset.submitQuiz === "true") {
+            showRecommendations(section);
+          } else {
+            nextSection(section);
+          }
+        });
+      });
+
+      section.querySelectorAll(".skip-button").forEach((button) => {
+        if (button.dataset.quizBound) return;
+        button.dataset.quizBound = "true";
+        button.addEventListener("click", () => {
+          removeAnswer(section);
+          if (button.dataset.submitQuiz === "true") {
+            showRecommendations(section);
+          } else {
+            nextSection(section);
+          }
+        });
+      });
+
+      section.querySelectorAll(".next-slide:not(.next-button):not(.skip-button):not(.quiz-answer-option)").forEach(
+        (button) => {
+          if (button.dataset.quizBound) return;
+          button.dataset.quizBound = "true";
+          button.addEventListener("click", (event) => {
+            event.preventDefault();
+            nextSection(section);
+          });
+        },
+      );
+    });
   }
-}
 
-// These keys are used to extract answers from local storage, which in turn helps to create search query parameters
-function saveAnswerKeys(key) {
-  const storedKeys = localStorage.getItem("quizKeys");
+  global.showPrevSection = function showPreviousSection(button) {
+    const previousSection = Number(button.dataset.prevSection || 0);
+    showSection(previousSection);
+    window.location.hash = `section-${previousSection}`;
+  };
 
-  if (storedKeys) {
-    if (storedKeys.includes(key)) return;
-    const currentKeys = storedKeys + "+" + key;
-    localStorage.setItem("quizKeys", currentKeys);
-  } else {
-    localStorage.setItem("quizKeys", key);
+  function initialize() {
+    bindQuiz();
+    const hashSection = window.location.hash.match(/section-(\d+)/);
+    const savedSection = localStorage.getItem(STORAGE_KEY)
+      ? Number(localStorage.getItem("currentSection") || 0)
+      : 0;
+    const requestedSection = hashSection ? Number(hashSection[1]) : savedSection;
+    showSection(Math.min(requestedSection, quizSections().length - 1));
   }
-}
 
-// For skip button
-function removeQuizAnswer(key) {
-  const section = document.querySelector(`#shopify-section-${key}`);
-  section.querySelectorAll(".secondary-quiz-answer").forEach((block) => {
-    block.classList.remove("highlighted-answer");
+  document.addEventListener("DOMContentLoaded", initialize);
+  document.addEventListener("shopify:section:load", initialize);
+  document.addEventListener("shopify:section:reorder", initialize);
+  document.addEventListener("shopify:section:select", (event) => {
+    const selectedSection = event.target.querySelector(".quiz-slide-section");
+    const selectedIndex = quizSections().indexOf(selectedSection);
+    if (selectedIndex >= 0) showSection(selectedIndex);
   });
-  section.querySelector(".next-button").setAttribute("disabled", "disabled");
-
-  localStorage.removeItem(key);
-
-  const joinedKeys = localStorage.getItem("quizKeys");
-  if (joinedKeys) {
-    const splitKeys = joinedKeys.split("+");
-    const updatedKeys = splitKeys.filter((splitKey) => splitKey !== key).join("+");
-    localStorage.setItem("quizKeys", updatedKeys);
-  }
-}
-
-function createSearchUrlWithQueries() {
-  let selectedTags = "";
-  const joinedKeys = localStorage.getItem("quizKeys");
-  const splitKeys = joinedKeys.split("+");
-
-  splitKeys.forEach((key) => {
-    selectedTags += localStorage.getItem(key) + "+";
-  });
-
-  const queryString = "?q=" + selectedTags.slice(0, -1) + "&type=product";
-  return routes.search_url + queryString;
-}
-
-// Run when the no thanks button is clicked
-function redirectToSearchPage() {
-  window.location.href = createSearchUrlWithQueries();
-}
-
-// Add search URL to the value of the input with the id of quiz-to-search, so that once the email id is submitted in the last quiz slide, the user is redirected to the search page
-function addSearchUrl(section) {
-  const quizToSearch = section.querySelector("#quiz-to-search");
-  quizToSearch.value = createSearchUrlWithQueries();
-}
-
-// Highlight selected quiz answer in secondary-quiz-slide.liquid
-function highlightSelected(element) {
-  const answers = document.querySelectorAll(".secondary-quiz-answer");
-  answers.forEach((answer) => {
-    answer.classList.remove("highlighted-answer");
-  });
-
-  element.classList.add("highlighted-answer");
-}
-
-// Check for the id of the section the user was in before reloading and show that section instead of the first section
-const initialHash = location.hash;
-if (initialHash) {
-  const sectionToShow = initialHash.slice(-1);
-  showSection(Number(sectionToShow));
-}
+})(typeof window !== "undefined" ? window : globalThis);

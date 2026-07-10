@@ -15,7 +15,8 @@
 
 <section
   class="section-{{ section.id }}-padding quiz quiz-slide-section twcss-flex-1"
-  id="#section-{{ section.index0 }}"
+  id="section-{{ section.index0 }}"
+  data-filter-group="{{ section.settings.filter_group }}"
 >
   <div class="page-width twcss-w-full twcss-flex twcss-justify-center">
     <div
@@ -31,10 +32,11 @@
                   class="twcss-flex twcss-flex-col"
                   {{ block.shopify_attributes }}
                 >
-                  <a
-                    href="#section-{{ section.index0 | plus: 1 }}"
-                    class="next-slide twcss-flex-1"
-                    onclick="saveAnswerTag(`{{ section.id }}`, `{{ block.settings.answer_tag }}`);"
+                  <button
+                    type="button"
+                    class="next-slide quiz-answer-option twcss-flex-1 twcss-bg-transparent twcss-border-0 twcss-p-0 twcss-cursor-pointer"
+                    data-answer-value="{{ block.settings.answer_value | escape }}"
+                    data-auto-advance="true"
                   >
                     <div class="twcss-py-[1.125rem] twcss-px-10 quiz-answer twcss-flex twcss-flex-col twcss-items-center twcss-justify-center twcss-h-full">
                       {% if block.settings.image != blank %}
@@ -48,7 +50,7 @@
                       {% endif %}
                       <div class="twcss-font-bold twcss-text-center">{{ block.settings.answer_content }}</div>
                     </div>
-                  </a>
+                  </button>
                   {% if block.settings.answer_details != blank %}
                     <div class="twcss-text-sm twcss-text-center twcss-mt-[0.625rem] quiz-answer-details">
                       {{ block.settings.answer_details }}
@@ -75,6 +77,22 @@
       "id": "question",
       "label": "t:sections.primary_quiz_slide.settings.question.label",
       "default": "Your quiz question"
+    },
+    {
+      "type": "select",
+      "id": "filter_group",
+      "label": "Recommendation field",
+      "info": "Determines how this answer is used to build the collection filter URL.",
+      "options": [
+        { "value": "collection", "label": "Product type" },
+        { "value": "gender", "label": "Gender" },
+        { "value": "rim_type", "label": "Rim type" },
+        { "value": "shape", "label": "Frame shape" },
+        { "value": "color", "label": "Color" },
+        { "value": "price", "label": "Price range" },
+        { "value": "vendor", "label": "Brand" }
+      ],
+      "default": "collection"
     },
     {
       "type": "range",
@@ -122,9 +140,9 @@
         },
         {
           "type": "text",
-          "id": "answer_tag",
-          "label": "t:sections.primary_quiz_slide.blocks.answer.settings.answer_tag.label",
-          "info": "t:sections.primary_quiz_slide.blocks.answer.settings.answer_tag.info"
+          "id": "answer_value",
+          "label": "Recommendation value",
+          "info": "Use an exact Shopify filter value. Separate OR values with |. For prices use minimum|maximum."
         }
       ]
     }

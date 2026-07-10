@@ -367,7 +367,7 @@
       {{ content_for_layout }}
     </main>
 
-    {% unless request.path contains '/quiz' %}
+    {% unless template == 'page.product-quiz' %}
       {% sections 'footer-group' %}
     {% endunless %}
 
@@ -411,8 +411,8 @@
       <script src="{{ 'predictive-search.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
 
-    {% if request.path contains '/quiz' %}
-      <script src="{{ 'quiz.js' |  asset_url }}" defer="defer"></script>
+    {% if template == 'page.product-quiz' %}
+      <script src="{{ 'quiz.js' | asset_url }}" defer="defer"></script>
     {% endif %}
   </body>
 </html>

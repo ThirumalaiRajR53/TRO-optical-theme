@@ -15,7 +15,9 @@
 
 <section
   class="section-{{ section.id }}-padding quiz quiz-slide-section twcss-flex-1"
-  id="#section-{{ section.index0 }}"
+  id="section-{{ section.index0 }}"
+  data-filter-group="{{ section.settings.filter_group }}"
+  data-final-step="{{ section.settings.is_final_step }}"
 >
   <div class="page-width twcss-w-full twcss-flex twcss-justify-center">
     <div
@@ -27,11 +29,11 @@
           {% case block.type %}
             {% when 'answer' %}
               {% if block.settings.answer_content != blank %}
-                <div
-                  class="secondary-quiz-answer twcss-border twcss-py-3 md:twcss-py-[1.125rem] twcss-px-6 md:twcss-px-[1.875rem] "
+                <button
+                  type="button"
+                  class="secondary-quiz-answer quiz-answer-option twcss-bg-transparent twcss-cursor-pointer twcss-border twcss-py-3 md:twcss-py-[1.125rem] twcss-px-6 md:twcss-px-[1.875rem]"
                   {{ block.shopify_attributes }}
-                  onclick="saveAnswerTag(`{{ section.id }}`, `{{ block.settings.answer_tag }}`); highlightSelected(this);"
-                  data-answer-tag="{{ block.settings.answer_tag }}"
+                  data-answer-value="{{ block.settings.answer_value | escape }}"
                 >
                   {% if block.settings.image != blank %}
                     <div class="twcss-h-20 sm:twcss-h-[6.25rem] twcss-w-20 sm:twcss-w-[6.25rem] twcss-mb-3">
@@ -43,27 +45,31 @@
                     </div>
                   {% endif %}
                   <div class="twcss-font-bold twcss-text-center">{{ block.settings.answer_content }}</div>
-                </div>
+                </button>
               {% endif %}
           {% endcase %}
         {% endfor %}
       </div>
       <div class="twcss-flex twcss-flex-col sm:twcss-flex-row twcss-gap-3 sm:twcss-gap-5 twcss-w-full sm:twcss-w-[23.75rem]">
-        <a
-          href="#section-{{ section.index0 | plus: 1 }}"
+        <button
+          type="button"
           class="next-slide next-button button button--primary button--small twcss-uppercase twcss-flex-1"
           disabled="disabled"
+          {% if section.settings.is_final_step %}data-submit-quiz="true"{% endif %}
         >
-          Next
-        </a>
-        <a
-          href="#section-{{ section.index0 | plus: 1 }}"
-          onclick="removeQuizAnswer(`{{ section.id }}`);"
-          class="next-slide button button--secondary button--small twcss-uppercase twcss-flex-1"
+          {% if section.settings.is_final_step %}Show my matches{% else %}Next{% endif %}
+        </button>
+        <button
+          type="button"
+          class="next-slide skip-button button button--secondary button--small twcss-uppercase twcss-flex-1"
+          {% if section.settings.is_final_step %}data-submit-quiz="true"{% endif %}
         >
-          Skip
-        </a>
+          {% if section.settings.is_final_step %}No brand preference{% else %}Skip{% endif %}
+        </button>
       </div>
+      {% if section.settings.is_final_step %}
+        <p class="quiz-status twcss-mt-5 twcss-text-center" role="status" aria-live="polite"></p>
+      {% endif %}
     </div>
   </div>
 </section>
@@ -80,6 +86,28 @@
       "id": "question",
       "label": "t:sections.secondary_quiz_slide.settings.question.label",
       "default": "Your quiz question"
+    },
+    {
+      "type": "select",
+      "id": "filter_group",
+      "label": "Recommendation field",
+      "info": "Determines how this answer is used to build the collection filter URL.",
+      "options": [
+        { "value": "collection", "label": "Product type" },
+        { "value": "gender", "label": "Gender" },
+        { "value": "rim_type", "label": "Rim type" },
+        { "value": "shape", "label": "Frame shape" },
+        { "value": "color", "label": "Color" },
+        { "value": "price", "label": "Price range" },
+        { "value": "vendor", "label": "Brand" }
+      ],
+      "default": "shape"
+    },
+    {
+      "type": "checkbox",
+      "id": "is_final_step",
+      "label": "Show recommendations after this question",
+      "default": false
     },
     {
       "type": "range",
@@ -121,9 +149,9 @@
         },
         {
           "type": "text",
-          "id": "answer_tag",
-          "label": "t:sections.secondary_quiz_slide.blocks.answer.settings.answer_tag.label",
-          "info": "t:sections.secondary_quiz_slide.blocks.answer.settings.answer_tag.info"
+          "id": "answer_value",
+          "label": "Recommendation value",
+          "info": "Use exact Shopify filter values. Separate OR values with |. For prices use minimum|maximum. Leave blank for no preference."
         }
       ]
     }
