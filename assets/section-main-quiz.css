@@ -56,8 +56,17 @@
   display: block;
 }
 
-#back-button {
+.quiz-nav-button {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  color: inherit;
   cursor: pointer;
+  padding: 0;
+}
+
+.quiz-nav-button:hover {
+  text-decoration: underline;
 }
 
 .next-button[disabled],
@@ -69,6 +78,10 @@
 .quiz-answer-option {
   color: inherit;
   font: inherit;
+}
+
+.quiz-answer-option[hidden] {
+  display: none;
 }
 
 .quiz-status:empty {

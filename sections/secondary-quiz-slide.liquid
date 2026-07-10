@@ -33,7 +33,9 @@
                   type="button"
                   class="secondary-quiz-answer quiz-answer-option twcss-bg-transparent twcss-cursor-pointer twcss-border twcss-py-3 md:twcss-py-[1.125rem] twcss-px-6 md:twcss-px-[1.875rem]"
                   {{ block.shopify_attributes }}
+                  data-answer-id="{{ block.id }}"
                   data-answer-value="{{ block.settings.answer_value | escape }}"
+                  data-hide-for-collection="{{ block.settings.hide_for_collection }}"
                 >
                   {% if block.settings.image != blank %}
                     <div class="twcss-h-20 sm:twcss-h-[6.25rem] twcss-w-20 sm:twcss-w-[6.25rem] twcss-mb-3">
@@ -152,6 +154,17 @@
           "id": "answer_value",
           "label": "Recommendation value",
           "info": "Use exact Shopify filter values. Separate OR values with |. For prices use minimum|maximum. Leave blank for no preference."
+        },
+        {
+          "type": "select",
+          "id": "hide_for_collection",
+          "label": "Hide this answer for",
+          "options": [
+            { "value": "none", "label": "Neither collection" },
+            { "value": "eyeglasses", "label": "Eyeglasses" },
+            { "value": "sunglasses", "label": "Sunglasses" }
+          ],
+          "default": "none"
         }
       ]
     }

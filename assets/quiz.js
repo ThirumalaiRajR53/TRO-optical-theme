@@ -24,6 +24,14 @@
     return [gender];
   }
 
+  function isSelectedAnswer(answer, answerId) {
+    return Boolean(answer) && answer.answerId === answerId;
+  }
+
+  function shouldHideAnswer(hiddenForCollection, collection) {
+    return hiddenForCollection === collection;
+  }
+
   function buildCollectionUrl(answers, excludedGroups = []) {
     const collection = answers.collection === "sunglasses" ? "sunglasses" : "eyeglasses";
     const excluded = new Set(excludedGroups);
@@ -61,7 +69,13 @@
     return [...new Set(urls)];
   }
 
-  const api = { buildCollectionUrl, createFallbackUrls, expandGender };
+  const api = {
+    buildCollectionUrl,
+    createFallbackUrls,
+    expandGender,
+    isSelectedAnswer,
+    shouldHideAnswer,
+  };
   global.FrameFinder = api;
 
   if (typeof module !== "undefined" && module.exports) module.exports = api;
@@ -78,11 +92,12 @@
     }, {});
   }
 
-  function saveAnswer(section, value) {
+  function saveAnswer(section, option) {
     const answers = readAnswers();
     answers[section.closest(".shopify-section").id] = {
       group: section.dataset.filterGroup,
-      value,
+      value: option.dataset.answerValue || "",
+      answerId: option.dataset.answerId,
     };
     localStorage.setItem(STORAGE_KEY, JSON.stringify(answers));
   }
@@ -95,6 +110,19 @@
 
   function quizSections() {
     return [...document.querySelectorAll(".quiz-slide-section")];
+  }
+
+  function updateConditionalAnswers() {
+    const collection = groupedAnswers().collection;
+
+    quizSections().forEach((section) => {
+      const storedAnswer = readAnswers()[section.closest(".shopify-section").id];
+      section.querySelectorAll(".quiz-answer-option[data-hide-for-collection]").forEach((option) => {
+        const isHidden = shouldHideAnswer(option.dataset.hideForCollection, collection);
+        option.hidden = isHidden;
+        if (isHidden && storedAnswer?.answerId === option.dataset.answerId) removeAnswer(section);
+      });
+    });
   }
 
   function updateProgress(sectionNumber) {
@@ -115,7 +143,7 @@
     section.querySelectorAll(".quiz-answer-option").forEach((option) => {
       option.classList.toggle(
         "highlighted-answer",
-        Boolean(answer) && option.dataset.answerValue === answer.value,
+        isSelectedAnswer(answer, option.dataset.answerId),
       );
     });
 
@@ -133,6 +161,7 @@
       if (isActive) {
         wrapper.style.flex = "1";
         wrapper.style.flexDirection = "column";
+        updateConditionalAnswers();
         highlightStoredAnswer(section);
       }
     });
@@ -197,7 +226,8 @@
         if (option.dataset.quizBound) return;
         option.dataset.quizBound = "true";
         option.addEventListener("click", () => {
-          saveAnswer(section, option.dataset.answerValue || "");
+          saveAnswer(section, option);
+          updateConditionalAnswers();
           highlightStoredAnswer(section);
           if (option.dataset.autoAdvance === "true") nextSection(section);
         });
@@ -242,14 +272,41 @@
     });
   }
 
-  global.showPrevSection = function showPreviousSection(button) {
-    const previousSection = Number(button.dataset.prevSection || 0);
-    showSection(previousSection);
-    window.location.hash = `section-${previousSection}`;
-  };
+  function clearQuizHash() {
+    history.replaceState(null, "", `${window.location.pathname}${window.location.search}`);
+  }
+
+  function bindNavigationControls() {
+    const backButton = document.querySelector("#back-button");
+    if (backButton && !backButton.dataset.quizBound) {
+      backButton.dataset.quizBound = "true";
+      backButton.addEventListener("click", () => {
+        showSection(Number(backButton.dataset.prevSection || 0));
+        clearQuizHash();
+      });
+    }
+
+    const resetButton = document.querySelector("#reset-quiz-button");
+    if (resetButton && !resetButton.dataset.quizBound) {
+      resetButton.dataset.quizBound = "true";
+      resetButton.addEventListener("click", () => {
+        localStorage.removeItem(STORAGE_KEY);
+        localStorage.removeItem("currentSection");
+        clearQuizHash();
+        updateConditionalAnswers();
+        showSection(0);
+      });
+    }
+  }
 
   function initialize() {
+    const storedAnswers = readAnswers();
+    if (Object.values(storedAnswers).some((answer) => !answer.answerId)) {
+      localStorage.removeItem(STORAGE_KEY);
+      localStorage.removeItem("currentSection");
+    }
     bindQuiz();
+    bindNavigationControls();
     const hashSection = window.location.hash.match(/section-(\d+)/);
     const savedSection = localStorage.getItem(STORAGE_KEY)
       ? Number(localStorage.getItem("currentSection") || 0)
