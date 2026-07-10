@@ -37,6 +37,7 @@
 
 .highlighted-answer {
   border-color: rgb(var(--color-base-accent-1));
+  box-shadow: 0 0 0 0.125rem rgb(var(--color-base-accent-1));
 }
 
 .quiz-answer-details {
@@ -59,6 +60,17 @@
   cursor: pointer;
 }
 
-.next-button[disabled] {
+.next-button[disabled],
+.skip-button[disabled] {
   cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.quiz-answer-option {
+  color: inherit;
+  font: inherit;
+}
+
+.quiz-status:empty {
+  display: none;
 }
