@@ -8,62 +8,62 @@
  * ------------------------------------------------------------
  */
 {
-    "name": "t:sections.footer.name",
-    "type": "footer",
-    "sections": {
-        "footer": {
-            "type": "footer",
-            "blocks": {
-                "footer-about": {
-                    "type": "text",
-                    "settings": {
-                        "heading": "ABOUT US",
-                        "subtext": "<p><strong>The Rajhan Opticals</strong><br>65\/30, 7th Avenue, Ashok Nagar<br>Chennai - 600083</p>"
-                    }
-                },
-                "footer-shop": {
-                    "type": "text",
-                    "settings": {
-                        "heading": "SHOP",
-                        "subtext": "<p><a href=\"/collections/mens-eyeglasses\">Men's Eyeglasses</a><br><a href=\"/collections/womens-eyeglasses\">Women's Eyeglasses</a><br><a href=\"/collections/kids-eyeglasses\">Kids Eyeglasses</a><br><a href=\"/collections/sunglasses\">Sunglasses</a><br><a href=\"/collections/contact-lenses\">Contact Lenses</a></p>"
-                    }
-                },
-                "footer-help": {
-                    "type": "link_list",
-                    "settings": {
-                        "heading": "NEED HELP",
-                        "menu": "footer"
-                    }
-                },
-                "footer-contact": {
-                    "type": "text",
-                    "settings": {
-                        "heading": "CONTACT US",
-                        "subtext": "<p>+91-9791020440<br>support@rajhanopticals.com<br><br><strong>Store Hours</strong><br>Mon-Sat: 10:00 AM - 8:00 PM<br>Sun: 11:00 AM - 6:00 PM</p>"
-                    }
-                }
-            },
-            "block_order": [
-                "footer-about",
-                "footer-shop",
-                "footer-help",
-                "footer-contact"
-            ],
-            "settings": {
-                "newsletter_heading": "",
-                "enable_follow_on_shop": false,
-                "show_social": true,
-                "enable_country_selector": false,
-                "enable_language_selector": false,
-                "payment_enable": true,
-                "show_policy": true,
-                "margin_top": 0,
-                "padding_top": 60,
-                "padding_bottom": 40
-            }
+  "name": "t:sections.footer.name",
+  "type": "footer",
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "footer-about": {
+          "type": "text",
+          "settings": {
+            "heading": "ABOUT US",
+            "subtext": "<p><strong>The Rajhan Opticals</strong><br>65/30, 7th Avenue, Ashok Nagar<br>Chennai - 600083</p>"
+          }
+        },
+        "footer-shop": {
+          "type": "text",
+          "settings": {
+            "heading": "SHOP",
+            "subtext": "<p><a href=\"/collections/mens-eyeglasses\">Men's Eyeglasses</a><br><a href=\"/collections/womens-eyeglasses\">Women's Eyeglasses</a><br><a href=\"/collections/kids-eyeglasses\">Kids Eyeglasses</a><br><a href=\"/collections/sunglasses\">Sunglasses</a><br><a href=\"/collections/contact-lenses\">Contact Lenses</a></p>"
+          }
+        },
+        "footer-help": {
+          "type": "link_list",
+          "settings": {
+            "heading": "NEED HELP",
+            "menu": "footer"
+          }
+        },
+        "footer-contact": {
+          "type": "text",
+          "settings": {
+            "heading": "CONTACT US",
+            "subtext": "<p>+91-9791020440<br/>therajhanopticalsonline@gmail.com<br/><br/><strong>Store Hours</strong><br/>Mon-Sat: 10:00 AM - 9:30 PM<br/>Sun: 10:30 AM - 2:00 PM , 4:00 PM-8:00PM</p>"
+          }
         }
-    },
-    "order": [
-        "footer"
-    ]
+      },
+      "block_order": [
+        "footer-about",
+        "footer-shop",
+        "footer-help",
+        "footer-contact"
+      ],
+      "settings": {
+        "newsletter_heading": "",
+        "enable_follow_on_shop": false,
+        "show_social": true,
+        "enable_country_selector": false,
+        "enable_language_selector": false,
+        "payment_enable": true,
+        "show_policy": true,
+        "margin_top": 0,
+        "padding_top": 60,
+        "padding_bottom": 40
+      }
+    }
+  },
+  "order": [
+    "footer"
+  ]
 }
