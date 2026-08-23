@@ -62,8 +62,28 @@
                 "padding_bottom": 40
             }
         }
-    },
-    "order": [
-        "footer"
-    ]
+      },
+      "block_order": [
+        "footer-about",
+        "footer-shop",
+        "footer-help",
+        "footer-contact"
+      ],
+      "settings": {
+        "newsletter_heading": "",
+        "enable_follow_on_shop": false,
+        "show_social": true,
+        "enable_country_selector": false,
+        "enable_language_selector": false,
+        "payment_enable": true,
+        "show_policy": true,
+        "margin_top": 0,
+        "padding_top": 60,
+        "padding_bottom": 40
+      }
+    }
+  },
+  "order": [
+    "footer"
+  ]
 }
