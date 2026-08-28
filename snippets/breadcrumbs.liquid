@@ -46,7 +46,7 @@
               {{ product.title }}
             </li>
 
-          {% when 'collection' and collection.handle %}
+          {% when 'collection' %}
             {% if current_tags %}
               {{ breadcrumbs_arrow }}
               <li>{{ collection.title | link_to: collection.url }}</li>
@@ -98,3 +98,13 @@
     </nav>
   </div>
 {% endunless %}
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{% when 'collection' and collection.handle %}"
+  to: "{% when 'collection' %}"
+  position: 1637..1660
+{% endcomment %}
