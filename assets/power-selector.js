@@ -255,7 +255,7 @@
       if (!submitBtn.dataset.originalText) {
         submitBtn.dataset.originalText = submitBtn.querySelector('span').textContent;
       }
-      submitBtn.querySelector('span').textContent = 'Select Prescription Details';
+      submitBtn.querySelector('span').textContent = 'Select Power Details';
     }
   }
 

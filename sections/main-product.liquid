@@ -375,6 +375,17 @@
                 section_id: section.id,
                 show_pickup_availability: true
               -%}
+              {%- if block.settings.stock_badge != blank -%}
+                {%- if product.tags contains 'Contact Lens' or product.tags contains 'Eyeglasses' or product.tags contains 'Sunglasses' -%}
+                  <img
+                    src="{{ block.settings.stock_badge | image_url: width: 600 }}"
+                    alt="{{ block.settings.stock_badge.alt | default: 'Kindly call ahead to confirm availability before placing your order. +91 97910 20440' | escape }}"
+                    width="{{ block.settings.stock_badge.width }}"
+                    height="{{ block.settings.stock_badge.height }}"
+                    loading="lazy"
+                  >
+                {%- endif -%}
+              {%- endif -%}
             {%- when 'rating' -%}
               {%- if product.metafields.reviews.rating.value != blank -%}
                 {% liquid
@@ -857,6 +868,12 @@
           "default": false,
           "label": "t:sections.main-product.blocks.buy_buttons.settings.show_gift_card_recipient.label",
           "info": "t:sections.main-product.blocks.buy_buttons.settings.show_gift_card_recipient.info"
+        },
+        {
+          "type": "image_picker",
+          "id": "stock_badge",
+          "label": "t:sections.main-product.blocks.buy_buttons.settings.stock_badge.label",
+          "info": "t:sections.main-product.blocks.buy_buttons.settings.stock_badge.info"
         }
       ]
     },
