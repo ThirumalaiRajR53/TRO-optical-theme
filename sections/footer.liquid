@@ -44,6 +44,14 @@
     if section.blocks.size == 1 and section.blocks[0].type == 'brand_information' and brand_empty and has_social_icons == false and section.settings.enable_follow_on_shop == false
       assign only_empty_brand = true
     endif
+
+    assign has_store_locations = false
+    for block in section.blocks
+      if block.type == 'store_locations'
+        assign has_store_locations = true
+        break
+      endif
+    endfor
   -%}
   {%- if section.blocks.size > 0 or section.settings.show_social or section.settings.enable_follow_on_shop -%}
     {%- unless only_empty_brand -%}
@@ -60,10 +68,10 @@
               assign footer_grid_class = 'grid--3-col-tablet'
             endif
           -%}
-          <div class="footer__blocks-wrapper grid grid--1-col grid--2-col grid--4-col-tablet {{ footer_grid_class }}">
+          <div class="footer__blocks-wrapper grid grid--1-col grid--2-col grid--4-col-tablet {{ footer_grid_class }}{% if has_store_locations %} footer__blocks-wrapper--store-layout{% endif %}">
             {%- for block in section.blocks -%}
               <div
-                class="footer-block grid__item{% if block.type == 'link_list' %} footer-block--menu{% endif %}{% if block.id contains 'footer-locations-' %} footer-block--locations{% endif %}"
+                class="footer-block grid__item{% if block.type == 'link_list' %} footer-block--menu{% endif %}{% if block.type == 'store_locations' %} footer-block--store-locations{% endif %}"
                 {{ block.shopify_attributes }}
               >
                 {%- if block.settings.heading != blank -%}
@@ -78,6 +86,34 @@
                   {%- when 'text' -%}
                     <div class="footer-block__details-content rte">
                       {{ block.settings.subtext }}
+                    </div>
+                  {%- when 'store_locations' -%}
+                    <div class="footer-store__brand">{{ block.settings.brand_name }}</div>
+                    <div class="footer-store-grid">
+                      {%- for store_index in (1..4) -%}
+                        {%- liquid
+                          assign name_key = 'store_' | append: store_index | append: '_name'
+                          assign address_key = 'store_' | append: store_index | append: '_address'
+                          assign url_key = 'store_' | append: store_index | append: '_url'
+                          assign store_name = block.settings[name_key]
+                          assign store_address = block.settings[address_key]
+                          assign store_url = block.settings[url_key]
+                        -%}
+                        {%- if store_name != blank -%}
+                          <div class="footer-store footer-block__details-content">
+                            {%- if store_url != blank -%}
+                              <a href="{{ store_url }}" target="_blank" rel="noopener noreferrer">
+                                {{- store_name | escape -}}
+                              </a>
+                            {%- else -%}
+                              <strong>{{ store_name | escape }}</strong>
+                            {%- endif -%}
+                            {%- if store_address != blank -%}
+                              <div class="footer-store__address">{{ store_address | escape | newline_to_br }}</div>
+                            {%- endif -%}
+                          </div>
+                        {%- endif -%}
+                      {%- endfor -%}
                     </div>
                   {%- when 'link_list' -%}
                     {%- if block.settings.menu != blank -%}
@@ -288,6 +324,101 @@
   "blocks": [
     {
       "type": "@app"
+    },
+    {
+      "type": "store_locations",
+      "name": "Store locations",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "heading",
+          "default": "Our stores",
+          "label": "Heading"
+        },
+        {
+          "type": "text",
+          "id": "brand_name",
+          "default": "The Rajhan Opticals",
+          "label": "Brand name"
+        },
+        {
+          "type": "header",
+          "content": "Store 1"
+        },
+        {
+          "type": "text",
+          "id": "store_1_name",
+          "label": "Area name"
+        },
+        {
+          "type": "textarea",
+          "id": "store_1_address",
+          "label": "Address"
+        },
+        {
+          "type": "url",
+          "id": "store_1_url",
+          "label": "Google Maps link"
+        },
+        {
+          "type": "header",
+          "content": "Store 2"
+        },
+        {
+          "type": "text",
+          "id": "store_2_name",
+          "label": "Area name"
+        },
+        {
+          "type": "textarea",
+          "id": "store_2_address",
+          "label": "Address"
+        },
+        {
+          "type": "url",
+          "id": "store_2_url",
+          "label": "Google Maps link"
+        },
+        {
+          "type": "header",
+          "content": "Store 3"
+        },
+        {
+          "type": "text",
+          "id": "store_3_name",
+          "label": "Area name"
+        },
+        {
+          "type": "textarea",
+          "id": "store_3_address",
+          "label": "Address"
+        },
+        {
+          "type": "url",
+          "id": "store_3_url",
+          "label": "Google Maps link"
+        },
+        {
+          "type": "header",
+          "content": "Store 4"
+        },
+        {
+          "type": "text",
+          "id": "store_4_name",
+          "label": "Area name"
+        },
+        {
+          "type": "textarea",
+          "id": "store_4_address",
+          "label": "Address"
+        },
+        {
+          "type": "url",
+          "id": "store_4_url",
+          "label": "Google Maps link"
+        }
+      ]
     },
     {
       "type": "link_list",
