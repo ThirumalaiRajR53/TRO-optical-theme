@@ -14,18 +14,23 @@
         "footer": {
             "type": "footer",
             "blocks": {
-                "footer-locations-primary": {
-                    "type": "text",
+                "footer-store-locations": {
+                    "type": "store_locations",
                     "settings": {
                         "heading": "OUR STORES",
-                        "subtext": "<p><strong>The Rajhan Opticals</strong></p><p><a href=\"https:\/\/maps.app.goo.gl\/nB47xGq9KRu236Yu8\" target=\"_blank\" rel=\"noopener noreferrer\">Ashok Nagar (Main Branch)<\/a><br>Shop No:65, 30, 7th Ave, near Hotel Manoj Bhavan,<br>Ashok Nagar, Chennai, Tamil Nadu 600083<\/p><p><a href=\"https:\/\/maps.app.goo.gl\/wUjybpYckWkeXahq8\" target=\"_blank\" rel=\"noopener noreferrer\">Velachery<\/a><br>G-4, Paramount Park, 187, Velachery Road, Vijay Nagar,<br>Velachery, Chennai, Tamil Nadu 600042<\/p>"
-                    }
-                },
-                "footer-locations-secondary": {
-                    "type": "text",
-                    "settings": {
-                        "heading": "",
-                        "subtext": "<p><a href=\"https:\/\/maps.app.goo.gl\/NsC8pToJq26mEBMm6\" target=\"_blank\" rel=\"noopener noreferrer\">Nanganallur<\/a><br>9A, 2nd Main Road, Opp. Anjaneya Temple, Ram Nagar,<br>Nanganallur, Chennai, Tamil Nadu 600061<\/p><p><a href=\"https:\/\/maps.app.goo.gl\/BLLrcXPFWVMeK5fs9\" target=\"_blank\" rel=\"noopener noreferrer\">Iyappanthangal<\/a><br>40, Trunk Road, opposite to Reliance mall,<br>Iyappanthangal, Chennai, Tamil Nadu 600056<\/p>"
+                        "brand_name": "The Rajhan Opticals",
+                        "store_1_name": "Ashok Nagar (Main Branch)",
+                        "store_1_address": "Shop No:65, 30, 7th Ave, near Hotel Manoj Bhavan, Ashok Nagar, Chennai, Tamil Nadu 600083",
+                        "store_1_url": "https:\/\/maps.app.goo.gl\/nB47xGq9KRu236Yu8",
+                        "store_2_name": "Velachery",
+                        "store_2_address": "G-4, Paramount Park, 187, Velachery Road, Vijay Nagar, Velachery, Chennai, Tamil Nadu 600042",
+                        "store_2_url": "https:\/\/maps.app.goo.gl\/wUjybpYckWkeXahq8",
+                        "store_3_name": "Nanganallur",
+                        "store_3_address": "9A, 2nd Main Road, Opp. Anjaneya Temple, Ram Nagar, Nanganallur, Chennai, Tamil Nadu 600061",
+                        "store_3_url": "https:\/\/maps.app.goo.gl\/NsC8pToJq26mEBMm6",
+                        "store_4_name": "Iyappanthangal",
+                        "store_4_address": "40, Trunk Road, opposite to Reliance mall, Iyappanthangal, Chennai, Tamil Nadu 600056",
+                        "store_4_url": "https:\/\/maps.app.goo.gl\/BLLrcXPFWVMeK5fs9"
                     }
                 },
                 "footer-shop": {
@@ -51,8 +56,7 @@
                 }
             },
             "block_order": [
-                "footer-locations-primary",
-                "footer-locations-secondary",
+                "footer-store-locations",
                 "footer-shop",
                 "footer-help",
                 "footer-contact"
