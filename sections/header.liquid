@@ -294,26 +294,14 @@
       </a>
 
       {%- if shop.customer_accounts_enabled -%}
-        {% if customer %}
-          <a href="{{ routes.account_url }}" class="header__icon header__icon--account link focus-inset">
-              {% render 'icon-account' %}
-          </a>
-        {% else %}
-          <a href={{ routes.account_login_url }} class="signin__link twcss-w-[4.125rem]" >
-            <button class="twcss-font-semibold twcss-text-sm twcss-tracking-wider text-accent-1 twcss-w-auto twcss-ml-2.5 twcss-whitespace-nowrap">
-              {{ 'customer.login_page.sign_in' | t | upcase }}
-            </button>
-          </a> 
-        {% endif %}
-        <span class="visually-hidden">
-          {%- liquid
-            if customer
-              echo 'customer.account_fallback' | t
-            else
-              echo 'customer.log_in' | t
-            endif
-          -%}
-        </span>
+        <a
+          href="{{ routes.account_url }}"
+          class="header__icon header__icon--account link focus-inset"
+          rel="nofollow"
+        >
+          {% render 'icon-account' %}
+          <span class="visually-hidden">{{ 'customer.account_fallback' | t }}</span>
+        </a>
       {%- endif -%}
 
       {%- for block in section.blocks -%}
