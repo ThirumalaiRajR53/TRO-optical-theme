@@ -14,11 +14,18 @@
         "footer": {
             "type": "footer",
             "blocks": {
-                "footer-about": {
+                "footer-locations-primary": {
                     "type": "text",
                     "settings": {
-                        "heading": "ABOUT US",
-                        "subtext": "<p><strong>The Rajhan Opticals</strong><br>65\/30, 7th Avenue, Ashok Nagar<br>Chennai - 600083</p>"
+                        "heading": "OUR STORES",
+                        "subtext": "<p><strong>The Rajhan Opticals</strong></p><p><a href=\"https:\/\/maps.app.goo.gl\/nB47xGq9KRu236Yu8\" target=\"_blank\" rel=\"noopener noreferrer\">Ashok Nagar (Main Branch)<\/a><br>Shop No:65, 30, 7th Ave, near Hotel Manoj Bhavan,<br>Ashok Nagar, Chennai, Tamil Nadu 600083<\/p><p><a href=\"https:\/\/maps.app.goo.gl\/wUjybpYckWkeXahq8\" target=\"_blank\" rel=\"noopener noreferrer\">Velachery<\/a><br>G-4, Paramount Park, 187, Velachery Road, Vijay Nagar,<br>Velachery, Chennai, Tamil Nadu 600042<\/p>"
+                    }
+                },
+                "footer-locations-secondary": {
+                    "type": "text",
+                    "settings": {
+                        "heading": "",
+                        "subtext": "<p><a href=\"https:\/\/maps.app.goo.gl\/NsC8pToJq26mEBMm6\" target=\"_blank\" rel=\"noopener noreferrer\">Nanganallur<\/a><br>9A, 2nd Main Road, Opp. Anjaneya Temple, Ram Nagar,<br>Nanganallur, Chennai, Tamil Nadu 600061<\/p><p><a href=\"https:\/\/maps.app.goo.gl\/BLLrcXPFWVMeK5fs9\" target=\"_blank\" rel=\"noopener noreferrer\">Iyappanthangal<\/a><br>40, Trunk Road, opposite to Reliance mall,<br>Iyappanthangal, Chennai, Tamil Nadu 600056<\/p>"
                     }
                 },
                 "footer-shop": {
@@ -44,7 +51,8 @@
                 }
             },
             "block_order": [
-                "footer-about",
+                "footer-locations-primary",
+                "footer-locations-secondary",
                 "footer-shop",
                 "footer-help",
                 "footer-contact"
@@ -62,28 +70,8 @@
                 "padding_bottom": 40
             }
         }
-      },
-      "block_order": [
-        "footer-about",
-        "footer-shop",
-        "footer-help",
-        "footer-contact"
-      ],
-      "settings": {
-        "newsletter_heading": "",
-        "enable_follow_on_shop": false,
-        "show_social": true,
-        "enable_country_selector": false,
-        "enable_language_selector": false,
-        "payment_enable": true,
-        "show_policy": true,
-        "margin_top": 0,
-        "padding_top": 60,
-        "padding_bottom": 40
-      }
-    }
-  },
-  "order": [
-    "footer"
-  ]
+    },
+    "order": [
+        "footer"
+    ]
 }
