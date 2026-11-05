@@ -70,16 +70,78 @@
       },
       {
         "type": "color",
+        "id": "accent_color_3",
+        "default": "#070B2E",
+        "label": "t:settings_schema.colors.settings.accent_color_3.label"
+      },
+      {
+        "type": "color",
         "id": "border_color",
-        "default": "#000000",
+        "default": "#121A4A",
         "label": "t:settings_schema.colors.settings.border_color.label",
         "info": "t:settings_schema.colors.settings.border_color.info"
+      },
+      {
+        "type": "header",
+        "content": "t:settings_schema.colors.settings.header__2.content"
+      },
+      {
+        "type": "color",
+        "id": "background_color",
+        "default": "#F7F5F0",
+        "label": "Page background",
+        "info": "Used behind every section. Cards and product media stay white."
+      },
+      {
+        "type": "color",
+        "id": "main_background",
+        "default": "#F1EDE5",
+        "label": "t:settings_schema.colors.settings.main_background.label"
+      },
+      {
+        "type": "color",
+        "id": "white_color",
+        "default": "#FFFFFF",
+        "label": "t:settings_schema.colors.settings.white_color.label",
+        "info": "t:settings_schema.colors.settings.white_color.info"
+      },
+      {
+        "type": "color",
+        "id": "colors_outline_button_labels",
+        "default": "#121A4A",
+        "label": "t:settings_schema.colors.settings.colors_outline_button_labels.label",
+        "info": "t:settings_schema.colors.settings.colors_outline_button_labels.info"
+      },
+      {
+        "type": "color",
+        "id": "error",
+        "default": "#B3261E",
+        "label": "t:settings_schema.colors.settings.error.label"
+      },
+      {
+        "type": "color",
+        "id": "error_background",
+        "default": "#FBEDEB",
+        "label": "t:settings_schema.colors.settings.error_background.label"
+      },
+      {
+        "type": "color",
+        "id": "error_border",
+        "default": "#E7A39D",
+        "label": "t:settings_schema.colors.settings.error_border.label"
       }
     ]
   },
   {
     "name": "t:settings_schema.typography.name",
     "settings": [
+      {
+        "type": "checkbox",
+        "id": "use_brand_fonts",
+        "default": true,
+        "label": "Use TRO brand fonts",
+        "info": "Cormorant Garamond for headings and Inter for text, served from the theme. Untick to use the font pickers below instead."
+      },
       {
         "type": "header",
         "content": "t:settings_schema.typography.settings.header__1.content"
