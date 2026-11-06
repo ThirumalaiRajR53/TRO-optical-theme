@@ -1626,3 +1626,358 @@ a.product__text {
 .badge.color-inverse {
   background-color: rgb(var(--color-base-accent-1));
 }
+
+/* ======================================================================
+   TRO 2026 product page refinements (CSS only; IDs and JS hooks untouched)
+   ====================================================================== */
+.product.twcss-bg-slate-50,
+section[id^="MainProduct-"].twcss-bg-slate-50 {
+  background: transparent;
+}
+
+.product {
+  column-gap: 3.5rem;
+}
+
+/* Media gallery */
+.product__media-wrapper .product__media-item {
+  border-radius: var(--tro-r-lg);
+  overflow: hidden;
+}
+
+.product__media-wrapper .product__media,
+.product__media-wrapper .media {
+  background: #fff;
+  border-radius: var(--tro-r-lg);
+}
+
+.product__media-wrapper .product__media.global-media-settings,
+.product__media-wrapper .global-media-settings {
+  border: 0;
+  box-shadow: var(--tro-shadow-card);
+}
+
+.product__media-wrapper .product__media img {
+  mix-blend-mode: multiply;
+}
+
+.product__media-icon {
+  background: var(--tro-glass-bg-strong);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--tro-glass-border);
+  color: var(--tro-ink);
+  box-shadow: var(--tro-shadow-card);
+}
+
+.thumbnail-list__item .thumbnail {
+  border-radius: var(--tro-r-sm);
+  background: #fff;
+  border: 1px solid var(--tro-line);
+  box-shadow: none;
+  overflow: hidden;
+  transition: border-color var(--tro-dur-fast) var(--tro-ease);
+}
+
+.thumbnail-list__item .thumbnail:hover {
+  border-color: var(--tro-line-strong);
+}
+
+.thumbnail-list__item .thumbnail[aria-current] {
+  border-color: var(--tro-ink);
+  box-shadow: 0 0 0 1px var(--tro-ink);
+}
+
+.thumbnail img {
+  mix-blend-mode: multiply;
+}
+
+/* Info column */
+.product__info-container > * + * {
+  margin-top: 1.25rem;
+}
+
+.product__text.caption-with-letter-spacing,
+.product__text.caption-with-letter-spacing.light {
+  color: var(--tro-gold-deep);
+  opacity: 1;
+}
+
+.product__title {
+  margin-bottom: 0.25rem;
+}
+
+.product__title h1 {
+  font-size: clamp(1.75rem, 2.6vw, 2.5rem);
+  line-height: 1.08;
+  letter-spacing: -0.012em;
+  color: var(--tro-ink);
+}
+
+.product__title h1.twcss-text-\[1\.7rem\] {
+  font-size: clamp(1.75rem, 2.6vw, 2.5rem);
+}
+
+.product__info-container .product-price .price,
+.product__info-container .product-price .price .price-item {
+  font-family: var(--font-body-family);
+  font-size: 1.75rem;
+  font-weight: 600;
+  letter-spacing: 0;
+  color: var(--tro-ink);
+}
+
+.product__info-container .product-price .price--on-sale .price-item--regular {
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--tro-muted);
+}
+
+.product__info-container .price--large .price-item {
+  font-size: 1.75rem;
+}
+
+.product__tax {
+  color: var(--tro-muted);
+}
+
+.badge.price__badge-sale {
+  background: var(--tro-ink);
+  color: #fff;
+}
+
+/* Variant pills + quantity */
+.product-form__input .form__label {
+  font-family: var(--font-body-family);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--tro-ink);
+}
+
+.product-form__input input[type="radio"] + label {
+  border-radius: var(--variant-pills-radius);
+  border: 1px solid rgba(18, 26, 74, 0.25);
+  background: #fff;
+  color: var(--tro-ink);
+  font-family: var(--font-body-family);
+  font-size: 0.875rem;
+  font-weight: 500;
+  padding: 0.6rem 1rem;
+  box-shadow: none;
+  transition: border-color var(--tro-dur-fast) var(--tro-ease), box-shadow var(--tro-dur-fast) var(--tro-ease), background-color var(--tro-dur-fast) var(--tro-ease);
+}
+
+.product-form__input input[type="radio"]:checked + label {
+  background: #fff;
+  color: var(--tro-ink);
+  border-color: var(--tro-ink);
+  box-shadow: inset 0 0 0 1px var(--tro-ink);
+}
+
+.product-form__input input[type="radio"].disabled + label,
+.product-form__input input[type="radio"]:disabled + label {
+  color: var(--tro-stone);
+  text-decoration: line-through;
+  border-style: dashed;
+}
+
+.product-form__input input[type="radio"]:focus-visible + label {
+  outline: 2px solid var(--tro-indigo);
+  outline-offset: 2px;
+}
+
+.product-form__quantity .form__label {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--tro-ink);
+}
+
+.product__info-container .quantity {
+  border-radius: var(--tro-r-pill);
+  background: #fff;
+  min-height: 2.75rem;
+}
+
+.product__info-container .quantity:after {
+  border-radius: var(--tro-r-pill);
+  box-shadow: 0 0 0 1px var(--tro-line-strong);
+}
+
+.product__info-container .quantity:before {
+  display: none;
+}
+
+.product__info-container .quantity__button {
+  color: var(--tro-ink);
+}
+
+/* Buy buttons: Add to cart is the primary action, dynamic checkout the quiet one */
+.product-form__buttons {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.product-form__buttons .button[name="add"],
+.product-form__buttons .button[name="add"].button--secondary {
+  background-color: var(--tro-ink);
+  color: #fff;
+  min-height: 3.5rem;
+  font-size: 1rem;
+  --color-button: 18, 26, 74;
+  --color-button-text: 255, 255, 255;
+  box-shadow: 0 10px 24px -12px rgba(11, 19, 64, 0.65);
+}
+
+.product-form__buttons .button[name="add"]:hover {
+  background-color: var(--tro-ink-900);
+  color: #fff;
+}
+
+.product-form__buttons .button[name="add"][disabled],
+.product-form__buttons .button[name="add"][aria-disabled="true"] {
+  background-color: var(--tro-sand);
+  color: var(--tro-muted);
+  box-shadow: none;
+  --color-button: 230, 224, 212;
+}
+
+.product-form__buttons .shopify-payment-button {
+  margin-top: 0;
+}
+
+.product-form__buttons .shopify-payment-button__button--unbranded {
+  width: 100%;
+  min-height: 3.25rem;
+  border-radius: var(--buttons-radius);
+}
+
+.product-form__error-message-wrapper {
+  color: var(--tro-error);
+  font-size: 0.875rem;
+}
+
+/* Stock verification badge image under the buttons */
+product-form + img {
+  display: block;
+  margin-top: 1rem;
+  max-width: 28rem;
+  width: 100%;
+  height: auto;
+  border-radius: var(--tro-r-md);
+}
+
+/* Accordions */
+.product__accordion.accordion {
+  border-top: 1px solid var(--tro-line);
+  border-bottom: 1px solid var(--tro-line);
+  margin-top: 0;
+}
+
+.product__accordion.accordion + .product__accordion.accordion {
+  border-top: 0;
+}
+
+.product__accordion summary {
+  padding: 1rem 0;
+}
+
+.product__accordion .summary__title {
+  gap: 0.6rem;
+}
+
+.product__accordion .accordion__title,
+.product__accordion .summary__title p {
+  font-family: var(--font-body-family);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--tro-ink);
+  margin: 0;
+}
+
+.product__accordion .summary__title .icon-accordion {
+  width: 1.1rem;
+  height: 1.1rem;
+  color: var(--tro-gold-deep);
+}
+
+.product__accordion .accordion__content {
+  padding: 0 0 1.25rem;
+  color: var(--tro-muted);
+  font-size: 0.9375rem;
+  line-height: 1.65;
+}
+
+.product__accordion .icon-caret {
+  color: var(--tro-muted);
+}
+
+.product__view-details {
+  color: var(--tro-ink);
+}
+
+/* Share */
+.share-button__button,
+.share-button .button {
+  font-family: var(--font-body-family);
+  font-size: 0.8125rem;
+  color: var(--tro-muted);
+}
+
+/* Pickup availability */
+.product__pickup-availabilities {
+  margin-top: 1rem;
+}
+
+/* Mobile: the real buy buttons become a fixed glass bar (same elements, same JS) */
+@media screen and (max-width: 749px) {
+  .product {
+    row-gap: 1.25rem;
+  }
+
+  section[id^="MainProduct-"] {
+    padding-bottom: 6.5rem;
+  }
+
+  section[id^="MainProduct-"] .product-form__buttons {
+    position: fixed;
+    left: 0.75rem;
+    right: 0.75rem;
+    bottom: 0.75rem;
+    z-index: 50;
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    gap: 0.5rem;
+    padding: 0.6rem;
+    border-radius: var(--tro-r-md);
+    background: var(--tro-glass-bg-strong);
+    -webkit-backdrop-filter: blur(var(--tro-glass-blur)) saturate(160%);
+    backdrop-filter: blur(var(--tro-glass-blur)) saturate(160%);
+    border: 1px solid var(--tro-glass-border);
+    box-shadow: var(--tro-glass-shadow);
+  }
+
+  section[id^="MainProduct-"] .product-form__buttons:not(:has(.shopify-payment-button)) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  section[id^="MainProduct-"] .product-form__buttons .button[name="add"] {
+    min-height: 3rem;
+    font-size: 0.9375rem;
+    padding: 0 0.75rem;
+  }
+
+  section[id^="MainProduct-"] .product-form__buttons .shopify-payment-button__button--unbranded {
+    min-height: 3rem;
+    font-size: 0.875rem;
+    padding: 0 0.75rem;
+  }
+
+  .product__title h1 {
+    font-size: 1.75rem;
+  }
+
+  .product__info-container .product-price .price,
+  .product__info-container .product-price .price .price-item {
+    font-size: 1.5rem;
+  }
+}

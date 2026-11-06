@@ -1,18 +1,32 @@
-/* Lens selector modal — eyeglass power/lens/prescription wizard */
+/* Lens selector modal — eyeglass power type / lens package / prescription wizard.
+   Presentation only: every class below is referenced by lens-selector-modal.liquid or toggled by lens-selector.js. */
 
 .lens-modal {
-  border: none;
-  border-radius: 1rem;
-  padding: 0;
-  max-width: 720px;
-  width: 92vw;
+  width: min(48rem, calc(100vw - 2rem));
+  max-width: none;
   max-height: 90vh;
+  padding: 0;
+  border: 1px solid var(--tro-glass-border);
+  border-radius: var(--tro-r-lg);
   overflow: hidden;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  background: var(--tro-glass-bg-strong);
+  -webkit-backdrop-filter: blur(var(--tro-glass-blur)) saturate(160%);
+  backdrop-filter: blur(var(--tro-glass-blur)) saturate(160%);
+  box-shadow: var(--tro-shadow-float), inset 0 1px 0 rgba(255, 255, 255, 0.75);
+  color: var(--tro-slate);
+  font-family: var(--font-body-family);
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .lens-modal {
+    background: #fff;
+  }
 }
 
 .lens-modal::backdrop {
-  background: rgba(15, 23, 42, 0.5);
+  background: rgba(7, 11, 46, 0.45);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
 }
 
 .lens-modal__container {
@@ -26,68 +40,79 @@
   position: absolute;
   top: 1rem;
   right: 1rem;
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: #64748b;
-  padding: 0.25rem;
   z-index: 2;
+  display: inline-grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--tro-ink);
+  cursor: pointer;
   line-height: 0;
+  transition: background-color var(--tro-dur-fast) var(--tro-ease);
 }
 
 .lens-modal__close:hover {
-  color: #0f172a;
+  background: rgba(18, 26, 74, 0.06);
 }
 
 /* Header + stepper */
 .lens-modal__header {
-  padding: 1.5rem 1.5rem 1rem;
-  border-bottom: 1px solid #e2e8f0;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.75rem 1rem;
+  padding: 1.5rem 1.75rem 1.1rem;
+  border-bottom: 1px solid var(--tro-line);
 }
 
 .lens-modal__title {
-  font-size: 1.25rem;
-  font-weight: 700;
-  margin: 0;
   width: 100%;
-  color: #0f172a;
+  margin: 0;
+  padding-right: 3rem;
+  font-family: var(--font-heading-family);
+  font-size: 1.75rem;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  color: var(--tro-ink);
 }
 
 .lens-modal__stepper {
   display: flex;
   align-items: center;
-  gap: 0;
   flex: 1;
+  gap: 0;
 }
 
 .lens-modal__step {
   display: flex;
   align-items: center;
-  gap: 0.375rem;
+  gap: 0.45rem;
 }
 
 .lens-modal__step-dot {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  border: 2px solid #cbd5e1;
-  background: #fff;
-  flex-shrink: 0;
   position: relative;
+  flex-shrink: 0;
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 50%;
+  border: 2px solid var(--tro-stone);
+  background: #fff;
+  transition: background-color var(--tro-dur-fast) var(--tro-ease), border-color var(--tro-dur-fast) var(--tro-ease);
 }
 
 .lens-modal__step--active .lens-modal__step-dot {
-  border-color: #0ea5e9;
-  background: #0ea5e9;
+  border-color: var(--tro-ink);
+  background: var(--tro-ink);
 }
 
 .lens-modal__step--done .lens-modal__step-dot {
-  border-color: #10b981;
-  background: #10b981;
+  border-color: var(--tro-success);
+  background: var(--tro-success);
 }
 
 .lens-modal__step--done .lens-modal__step-dot::after {
@@ -104,40 +129,42 @@
 
 .lens-modal__step-label {
   font-size: 0.8125rem;
-  font-weight: 600;
-  color: #94a3b8;
+  font-weight: 500;
+  color: var(--tro-muted);
   white-space: nowrap;
 }
 
 .lens-modal__step--active .lens-modal__step-label {
-  color: #0f172a;
+  color: var(--tro-ink);
 }
 
-.lens-modal__step-line {
+.lens-modal__stepper .lens-modal__step-line {
+  display: block; /* base.css hides empty divs; the connector line is intentionally empty */
   flex: 1;
-  height: 2px;
-  background: #e2e8f0;
-  margin: 0 0.5rem;
   min-width: 1.5rem;
+  height: 1px;
+  margin: 0 0.6rem;
+  background: var(--tro-line-strong);
 }
 
 .lens-modal__price-tag {
-  font-size: 0.8125rem;
-  color: #64748b;
   text-align: right;
   white-space: nowrap;
+  font-size: 0.8125rem;
+  color: var(--tro-muted);
 }
 
 .lens-modal__price-tag strong {
   display: block;
-  font-size: 1.125rem;
-  color: #0f172a;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--tro-ink);
 }
 
 /* Step content */
 .lens-modal__step-content {
   display: none;
-  padding: 1.25rem 1.5rem 1.5rem;
+  padding: 1.25rem 1.75rem 1.75rem;
   overflow-y: auto;
   max-height: calc(90vh - 120px);
 }
@@ -147,13 +174,14 @@
 }
 
 .lens-modal__section-title {
-  font-size: 0.9375rem;
-  font-weight: 600;
-  color: #475569;
   margin: 0 0 1rem;
+  font-family: var(--font-heading-family);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--tro-ink);
 }
 
-/* Step 1: Power type cards */
+/* Step 1: power type cards */
 .lens-modal__power-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -161,8 +189,8 @@
 }
 
 .lens-modal__card {
-  cursor: pointer;
   display: block;
+  cursor: pointer;
 }
 
 .lens-modal__radio {
@@ -174,52 +202,65 @@
 .lens-modal__card-inner {
   display: flex;
   align-items: flex-start;
-  gap: 0.75rem;
+  gap: 0.85rem;
   padding: 1rem;
-  border: 1.5px solid #e2e8f0;
-  border-radius: 0.75rem;
+  border: 1px solid var(--tro-line);
+  border-radius: var(--tro-r-md);
   background: #fff;
-  transition: border-color 0.15s, box-shadow 0.15s;
-}
-
-.lens-modal__radio:checked ~ .lens-modal__card-inner {
-  border-color: #0ea5e9;
-  box-shadow: 0 0 0 1px #0ea5e9;
+  transition: border-color var(--tro-dur-fast) var(--tro-ease), box-shadow var(--tro-dur-fast) var(--tro-ease), transform var(--tro-dur-fast) var(--tro-ease);
 }
 
 .lens-modal__card:hover .lens-modal__card-inner {
-  border-color: #94a3b8;
+  border-color: var(--tro-line-strong);
+  transform: translateY(-1px);
+}
+
+.lens-modal__radio:checked ~ .lens-modal__card-inner {
+  border-color: var(--tro-ink);
+  box-shadow: inset 0 0 0 1px var(--tro-ink);
+}
+
+.lens-modal__radio:focus-visible ~ .lens-modal__card-inner {
+  outline: 2px solid var(--tro-indigo);
+  outline-offset: 2px;
 }
 
 .lens-modal__card-icon {
   flex-shrink: 0;
-  width: 48px;
-  height: 48px;
-  background: #f8fafc;
-  border-radius: 0.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: var(--tro-r-sm);
+  background: var(--tro-indigo-tint);
+}
+
+.lens-modal__card-icon svg {
+  width: 1.75rem;
+  height: 1.75rem;
+  stroke: var(--tro-indigo);
 }
 
 .lens-modal__card-text {
   display: flex;
   flex-direction: column;
-  gap: 0.125rem;
+  gap: 0.25rem;
 }
 
 .lens-modal__card-text strong {
   font-size: 0.9375rem;
-  color: #0f172a;
+  font-weight: 600;
+  color: var(--tro-ink);
 }
 
 .lens-modal__card-text span {
-  font-size: 0.75rem;
-  color: #64748b;
-  line-height: 1.4;
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  color: var(--tro-muted);
 }
 
-/* Step 2: Back + lens list */
+/* Step 2: lens packages */
 .lens-modal__step2-header {
   margin-bottom: 0.75rem;
 }
@@ -227,140 +268,33 @@
 .lens-modal__back {
   display: inline-flex;
   align-items: center;
-  gap: 0.375rem;
+  gap: 0.4rem;
+  padding: 0.25rem 0.5rem 0.25rem 0;
+  border: 0;
   background: none;
-  border: none;
+  font-family: var(--font-body-family);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--tro-ink);
   cursor: pointer;
-  font-size: 0.9375rem;
-  font-weight: 600;
-  color: #0f172a;
-  padding: 0;
 }
 
 .lens-modal__back:hover {
-  color: #0ea5e9;
+  color: var(--tro-indigo);
 }
 
-.lens-modal__lens-list {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+.lens-modal__back svg {
+  width: 1rem;
+  height: 1rem;
 }
 
-.lens-modal__lens-card {
-  border: 1.5px solid #e2e8f0;
-  border-radius: 0.75rem;
-  overflow: hidden;
-  background: #fff;
-}
-
-.lens-modal__lens-tag {
-  background: #fefce8;
-  border-bottom: 1px solid #fde68a;
-  padding: 0.375rem 1rem;
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: #92400e;
-}
-
-.lens-modal__lens-body {
-  padding: 1rem;
-}
-
-.lens-modal__lens-name {
-  font-size: 1.0625rem;
-  font-weight: 700;
-  margin: 0 0 0.25rem;
-  color: #0f172a;
-}
-
-.lens-modal__lens-desc {
-  font-size: 0.8125rem;
-  color: #64748b;
-  margin: 0 0 0.75rem;
-  line-height: 1.4;
-}
-
-.lens-modal__badges {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem 1rem;
-  margin-bottom: 0.75rem;
-}
-
-.lens-modal__badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.25rem;
-  font-size: 0.75rem;
-  color: #334155;
-}
-
-.lens-modal__badge svg {
-  flex-shrink: 0;
-}
-
-.lens-modal__lens-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-top: 0.5rem;
-}
-
-.lens-modal__lens-price {
-  font-size: 1.125rem;
-  font-weight: 700;
-  color: #0f172a;
-}
-
-.lens-modal__total-hint {
-  display: block;
-  font-size: 0.75rem;
-  color: #64748b;
-  font-weight: 400;
-}
-
-.lens-modal__add-btn {
-  background: #fff;
-  color: #0f172a;
-  border: 1.5px solid #0f172a;
-  border-radius: 2rem;
-  padding: 0.5rem 1.25rem;
-  font-size: 0.8125rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.15s, color 0.15s;
-}
-
-.lens-modal__add-btn:hover {
-  background: #0f172a;
-  color: #fff;
-}
-
-/* Step 2: Power toggle bar */
 .lens-modal__power-toggle-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 1rem;
+  flex-wrap: wrap;
   gap: 0.75rem;
-}
-
-.lens-modal__advanced-banner {
-  margin: 0 0 1rem;
-  padding: 0.5rem 0.75rem;
-  background: #f0f9ff;
-  border: 1px solid #bae6fd;
-  border-radius: 0.5rem;
-  color: #0c4a6e;
-  font-size: 0.8125rem;
-  font-weight: 600;
-  text-align: center;
-}
-
-.lens-modal__advanced-banner a {
-  color: inherit;
-  text-decoration: underline;
+  margin-bottom: 0.75rem;
 }
 
 .lens-modal__power-toggle-right {
@@ -370,57 +304,62 @@
 }
 
 .lens-modal__power-info-wrap {
-  font-size: 0.8125rem;
-  font-weight: 600;
-  color: #64748b;
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 0.25rem;
+  gap: 0.3rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--tro-muted);
 }
 
 .lens-modal__power-info {
   position: relative;
   display: inline-flex;
-  cursor: pointer;
-  color: #94a3b8;
+  color: var(--tro-muted);
+  cursor: help;
 }
 
 .lens-modal__power-info:hover {
-  color: #0ea5e9;
+  color: var(--tro-ink);
 }
 
 .lens-modal__power-tooltip {
-  display: none;
   position: absolute;
   right: 0;
-  top: 1.5rem;
-  width: 220px;
-  background: #0f172a;
+  top: calc(100% + 0.5rem);
+  z-index: 3;
+  width: 16rem;
+  padding: 0.75rem 0.9rem;
+  border-radius: var(--tro-r-sm);
+  background: var(--tro-ink-900);
   color: #fff;
   font-size: 0.75rem;
   font-weight: 400;
   line-height: 1.5;
-  padding: 0.75rem;
-  border-radius: 0.5rem;
-  z-index: 10;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  box-shadow: var(--tro-shadow-float);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--tro-dur-fast) var(--tro-ease), visibility var(--tro-dur-fast) var(--tro-ease);
 }
 
-.lens-modal__power-info:hover .lens-modal__power-tooltip {
-  display: block;
+.lens-modal__power-info:hover .lens-modal__power-tooltip,
+.lens-modal__power-info:focus-within .lens-modal__power-tooltip {
+  opacity: 1;
+  visibility: visible;
 }
 
+/* Low / High toggle */
 .lens-modal__toggle {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 0.375rem;
+  gap: 0.5rem;
   cursor: pointer;
 }
 
 .lens-modal__toggle-label {
   font-size: 0.8125rem;
-  font-weight: 600;
-  color: #64748b;
+  font-weight: 500;
+  color: var(--tro-muted);
 }
 
 .lens-modal__toggle-input {
@@ -431,12 +370,12 @@
 
 .lens-modal__toggle-track {
   position: relative;
-  width: 40px;
-  height: 22px;
-  background: #0ea5e9;
-  border-radius: 11px;
-  transition: background 0.2s;
   flex-shrink: 0;
+  width: 2.5rem;
+  height: 1.375rem;
+  border-radius: var(--tro-r-pill);
+  background: var(--tro-stone);
+  transition: background-color var(--tro-dur-fast) var(--tro-ease);
 }
 
 .lens-modal__toggle-track::after {
@@ -444,31 +383,171 @@
   position: absolute;
   top: 2px;
   left: 2px;
-  width: 18px;
-  height: 18px;
-  background: #fff;
+  width: 1.125rem;
+  height: 1.125rem;
   border-radius: 50%;
-  transition: transform 0.2s;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(11, 19, 64, 0.3);
+  transition: transform var(--tro-dur-fast) var(--tro-ease);
 }
 
 .lens-modal__toggle-input:checked ~ .lens-modal__toggle-track {
-  background: #0ea5e9;
+  background: var(--tro-ink);
 }
 
 .lens-modal__toggle-input:checked ~ .lens-modal__toggle-track::after {
-  transform: translateX(18px);
+  transform: translateX(1.125rem);
 }
 
-/* Empty bundle state */
+.lens-modal__toggle-input:focus-visible ~ .lens-modal__toggle-track {
+  outline: 2px solid var(--tro-indigo);
+  outline-offset: 2px;
+}
+
+.lens-modal__advanced-banner {
+  margin: 0 0 1rem;
+  font-size: 0.8125rem;
+  color: var(--tro-muted);
+}
+
+.lens-modal__advanced-banner a {
+  color: var(--tro-indigo);
+  font-weight: 500;
+}
+
+.lens-modal__lens-list {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.lens-modal__lens-card {
+  padding: 1.1rem 1.25rem;
+  border: 1px solid var(--tro-line);
+  border-radius: var(--tro-r-md);
+  background: #fff;
+  transition: border-color var(--tro-dur-fast) var(--tro-ease), box-shadow var(--tro-dur-fast) var(--tro-ease);
+}
+
+.lens-modal__lens-card:hover {
+  border-color: var(--tro-line-strong);
+}
+
+.lens-modal__lens-tag {
+  display: inline-block;
+  margin-bottom: 0.5rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 999px;
+  background: var(--tro-gold-tint);
+  color: var(--tro-gold-deep);
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.lens-modal__lens-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.lens-modal__lens-name {
+  margin: 0;
+  font-family: var(--font-body-family);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--tro-ink);
+}
+
+.lens-modal__lens-desc {
+  margin: 0;
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  color: var(--tro-muted);
+}
+
+.lens-modal__badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.lens-modal__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.3rem 0.55rem;
+  border-radius: 6px;
+  background: var(--tro-porcelain);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  color: var(--tro-ink);
+}
+
+.lens-modal__badge svg {
+  width: 0.75rem;
+  height: 0.75rem;
+  flex-shrink: 0;
+}
+
+.lens-modal__lens-footer {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 0.25rem;
+}
+
+.lens-modal__lens-price {
+  display: block;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--tro-ink);
+}
+
+.lens-modal__total-hint {
+  display: block;
+  margin-top: 0.15rem;
+  font-size: 0.75rem;
+  color: var(--tro-muted);
+}
+
+.lens-modal__add-btn {
+  min-height: 2.5rem;
+  padding: 0 1.1rem;
+  border: 1px solid rgba(18, 26, 74, 0.45);
+  border-radius: var(--tro-r-sm);
+  background: #fff;
+  font-family: var(--font-body-family);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--tro-ink);
+  cursor: pointer;
+  transition: background-color var(--tro-dur-fast) var(--tro-ease), color var(--tro-dur-fast) var(--tro-ease);
+}
+
+.lens-modal__add-btn:hover {
+  background: var(--tro-ink);
+  color: #fff;
+}
+
 .lens-modal__empty {
-  text-align: center;
   padding: 2rem 1rem;
-  color: #64748b;
+  border-radius: var(--tro-r-md);
+  background: #fff;
+  border: 1px dashed var(--tro-line-strong);
+  text-align: center;
   font-size: 0.9375rem;
   line-height: 1.6;
+  color: var(--tro-muted);
 }
 
-/* Step 3: Prescription */
+.lens-modal__empty strong {
+  color: var(--tro-ink);
+}
+
+/* Step 3: prescription */
 .lens-modal__manual-rx {
   display: none;
   margin-bottom: 1rem;
@@ -481,154 +560,181 @@
 .lens-modal__rx-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
+  gap: 0.85rem;
 }
 
 .lens-modal__rx-eye {
-  border: 1px solid #e2e8f0;
-  border-radius: 0.75rem;
-  padding: 1rem;
   margin: 0;
+  padding: 1rem;
+  border: 1px solid var(--tro-line);
+  border-radius: var(--tro-r-sm);
+  background: #fff;
 }
 
 .lens-modal__rx-eye legend {
-  font-size: 0.875rem;
-  font-weight: 700;
-  color: #0f172a;
-  padding: 0 0.25rem;
+  padding: 0 0.3rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--tro-ink);
 }
 
 .lens-modal__rx-fields {
-  display: flex;
-  flex-direction: column;
-  gap: 0.625rem;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.6rem;
   margin-top: 0.5rem;
 }
 
 .lens-modal__rx-field {
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  gap: 0.3rem;
+  min-width: 0;
 }
 
 .lens-modal__rx-field label {
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: #64748b;
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  color: var(--tro-muted);
 }
 
 .lens-modal__rx-select,
 .lens-modal__rx-input {
   width: 100%;
-  padding: 0.5rem 0.625rem;
-  border: 1.5px solid #e2e8f0;
-  border-radius: 0.5rem;
-  font-size: 0.875rem;
-  color: #0f172a;
+  min-height: 2.75rem;
+  padding: 0 0.6rem;
+  border: 1px solid var(--tro-line-strong);
+  border-radius: var(--tro-r-sm);
   background: #fff;
+  font-family: var(--font-body-family);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--tro-ink);
   appearance: auto;
+  transition: border-color var(--tro-dur-fast) var(--tro-ease), box-shadow var(--tro-dur-fast) var(--tro-ease);
 }
 
 .lens-modal__rx-select:focus,
 .lens-modal__rx-input:focus {
   outline: none;
-  border-color: #0ea5e9;
-  box-shadow: 0 0 0 1px #0ea5e9;
+  border-color: var(--tro-indigo);
+  box-shadow: 0 0 0 4px rgba(59, 57, 137, 0.18);
 }
 
 .lens-modal__rx-error {
-  background: #fef2f2;
-  border: 1px solid #fecaca;
-  color: #991b1b;
-  padding: 0.5rem 0.75rem;
-  border-radius: 0.5rem;
-  font-size: 0.8125rem;
   margin-bottom: 1rem;
+  padding: 0.65rem 0.85rem;
+  border-radius: var(--tro-r-sm);
+  background: rgba(179, 38, 30, 0.08);
+  color: var(--tro-error);
+  font-size: 0.8125rem;
+  font-weight: 500;
 }
 
 .lens-modal__submit-btn {
   width: 100%;
-  padding: 0.875rem;
-  background: #0f172a;
+  min-height: 3.25rem;
+  padding: 0 1rem;
+  border: 0;
+  border-radius: var(--tro-r-sm);
+  background: var(--tro-ink);
   color: #fff;
-  border: none;
-  border-radius: 0.5rem;
+  font-family: var(--font-body-family);
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 500;
   cursor: pointer;
-  transition: background 0.15s;
+  box-shadow: 0 10px 24px -12px rgba(11, 19, 64, 0.65);
+  transition: background-color var(--tro-dur-fast) var(--tro-ease), transform var(--tro-dur-fast) var(--tro-ease);
 }
 
 .lens-modal__submit-btn:hover {
-  background: #1e293b;
+  background: var(--tro-ink-900);
+  transform: translateY(-1px);
 }
 
 .lens-modal__skip-btn {
   width: 100%;
+  margin-top: 0.6rem;
   padding: 0.75rem;
-  margin-top: 0.625rem;
+  border: 0;
   background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 0.9375rem;
-  font-weight: 700;
-  color: #0f172a;
+  font-family: var(--font-body-family);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--tro-muted);
   text-align: center;
   text-decoration: underline;
-  text-underline-offset: 2px;
+  text-underline-offset: 3px;
+  cursor: pointer;
 }
 
 .lens-modal__skip-btn:hover {
-  color: #0ea5e9;
+  color: var(--tro-indigo);
 }
 
-/* Mobile */
+/* Mobile: full-height sheet */
 @media (max-width: 600px) {
   .lens-modal {
     width: 100vw;
     max-width: 100vw;
     max-height: 100vh;
-    border-radius: 0;
     margin: 0;
+    border-radius: 0;
+    border: 0;
   }
 
   .lens-modal__container {
     max-height: 100vh;
   }
 
-  .lens-modal__power-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .lens-modal__rx-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .lens-modal__step-content {
-    max-height: calc(100vh - 120px);
-    padding: 1rem;
-  }
-
   .lens-modal__header {
-    padding: 1rem;
+    padding: 1.1rem 1.1rem 0.9rem;
+  }
+
+  .lens-modal__title {
+    font-size: 1.5rem;
   }
 
   .lens-modal__step-label {
     font-size: 0.6875rem;
   }
+
+  .lens-modal__step--done .lens-modal__step-label {
+    display: none;
+  }
+
+  .lens-modal__step-content {
+    max-height: calc(100vh - 120px);
+    padding: 1rem 1.1rem 1.25rem;
+  }
+
+  .lens-modal__power-grid,
+  .lens-modal__rx-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .lens-modal__lens-footer {
+    flex-wrap: wrap;
+  }
+
+  .lens-modal__add-btn {
+    flex: 1 1 auto;
+  }
 }
 
-/* Loading overlay */
+/* Loading overlay while the lens package is added */
 .lens-loading-overlay {
   position: fixed;
   inset: 0;
   z-index: 99999;
-  background: rgba(15, 23, 42, 0.5);
+  display: none;
   align-items: center;
   justify-content: center;
-  display: none;
+  background: rgba(7, 11, 46, 0.45);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
 }
 
 .lens-loading-overlay:not([hidden]) {
@@ -636,11 +742,12 @@
 }
 
 .lens-loading-overlay__text {
-  background: #fff;
-  color: #0f172a;
-  font-size: 1rem;
-  font-weight: 700;
   padding: 1rem 2rem;
-  border-radius: 0.5rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-radius: var(--tro-r-md);
+  background: #fff;
+  color: var(--tro-ink);
+  font-family: var(--font-body-family);
+  font-size: 1rem;
+  font-weight: 500;
+  box-shadow: var(--tro-shadow-float);
 }

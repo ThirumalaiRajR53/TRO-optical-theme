@@ -107,7 +107,8 @@
 .banner__media--focus-right .banner__image { object-position: right center; }
 .banner__media--focus-top .banner__image { object-position: center top; }
 
-.banner__scrim {
+.banner-wrapper .banner__scrim {
+  display: block; /* base.css hides empty divs */
   position: absolute;
   inset: 0;
   background: linear-gradient(90deg, rgba(247, 245, 240, 0.55) 0%, rgba(247, 245, 240, 0.12) 45%, rgba(7, 11, 46, 0.22) 100%);
