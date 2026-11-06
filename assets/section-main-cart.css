@@ -91,7 +91,7 @@ hr {
 }
 
 .cart-page .cart-drawer__option-name {
-  color: var(--tro-stone);
+  color: var(--tro-muted);
   margin-right: 0.25rem;
 }
 

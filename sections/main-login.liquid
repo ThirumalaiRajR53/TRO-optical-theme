@@ -237,7 +237,7 @@
       </div>
     </div>
 
-    <h1 id="login" tabindex="" class="twcss-hidden">
+    <h1 id="login" tabindex="-1" class="visually-hidden">
       {{ 'customer.login_page.title' | t }}
     </h1>
 
@@ -302,7 +302,7 @@
                   type="button"
                   id="toggle-pw-button"
                   class="twcss-h-full twcss-cursor-pointer "
-                  loading="lazy"
+                  aria-label="{{ 'customer.login_page.toggle_password' | t }}"
                   data-eye=" true"
                 >
                   <span class="eye-close">

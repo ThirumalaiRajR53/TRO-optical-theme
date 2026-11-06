@@ -303,7 +303,7 @@ details[open] > .header__menu-item--title::before {
 }
 
 .search-modal .search-input__field::placeholder {
-  color: var(--tro-stone);
+  color: var(--tro-muted);
 }
 
 .search-modal .modal__close-button {

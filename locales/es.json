@@ -400,6 +400,7 @@
     "log_in": "Iniciar sesión",
     "log_out": "Cerrar sesión",
     "login_page": {
+      "toggle_password": "Mostrar u ocultar la contraseña",
       "cancel": "Cancelar",
       "create_account": "Crear cuenta",
       "email": "Correo electrónico",

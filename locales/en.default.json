@@ -390,6 +390,7 @@
     "log_in": "SIGN IN",
     "log_out": "Log out",
     "login_page": {
+      "toggle_password": "Show or hide password",
       "cancel": "Cancel",
       "create_account": "Create account",
       "email": "Your username or email",

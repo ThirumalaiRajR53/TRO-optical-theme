@@ -1164,6 +1164,11 @@ input:checked ~ .facet-checkbox__label .facet-shape-icon {
   white-space: nowrap;
 }
 
+/* Dawn's .light dims the whole count to 0.7 — below AA on muted text. */
+.product-count.light {
+  opacity: 1;
+}
+
 /* Filter button */
 .mobile-facets__open-wrapper {
   display: inline-flex;
