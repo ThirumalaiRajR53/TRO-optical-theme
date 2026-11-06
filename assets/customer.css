@@ -783,3 +783,46 @@ li[data-address] > h2 {
 .eye-open {
   display: none;
 }
+
+/* ---------- TRO 2026 customer pages ---------- */
+.customer h1,
+.customer h2 {
+  color: var(--tro-ink);
+}
+
+.customer .field input,
+.customer select,
+.input-border {
+  border-radius: var(--inputs-radius);
+  font-family: var(--font-body-family);
+}
+
+.customer a:not(.button) {
+  color: var(--tro-indigo);
+}
+
+.customer button,
+.customer .button {
+  font-family: var(--font-body-family);
+}
+
+.customer table {
+  font-family: var(--font-body-family);
+}
+
+.customer th {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--tro-muted);
+}
+
+.customer td,
+.customer th {
+  border-color: var(--tro-line);
+}
+
+.customer .pagination-wrapper {
+  margin-top: 2rem;
+}
