@@ -1044,8 +1044,15 @@
             "label": "Centrado en el medio"
           }
         },
+        "nav_source": {
+          "label": "Origen de la navegación",
+          "info": "La navegación del tema se define en snippets/theme-menu.liquid y se despliega con el código (megamenú de escritorio y cajón móvil). Elige el menú de navegación de Shopify para usar el menú seleccionado abajo.",
+          "options__1": { "label": "Navegación del tema (definida en el código)" },
+          "options__2": { "label": "Menú de navegación de Shopify" }
+        },
         "menu": {
-          "label": "Menú"
+          "label": "Menú",
+          "info": "Solo se usa cuando el origen de la navegación es el menú de navegación de Shopify."
         },
         "show_line_separator": {
           "label": "Mostrar línea separadora"

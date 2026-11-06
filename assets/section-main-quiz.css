@@ -173,3 +173,135 @@
   text-align: center;
   align-items: center;
 }
+
+/* ---------- TRO 2026: frame-finder quiz page on the design tokens ---------- */
+.quiz {
+  background-color: var(--tro-porcelain);
+}
+
+/* Slide card (the Tailwind bg utility is the hook the sections share) */
+.quiz .twcss-bg-\[rgb\(var\(--color-base-background-1\)\)\] {
+  background: #fff;
+  border-radius: var(--tro-r-lg);
+  box-shadow: var(--tro-shadow-card);
+}
+
+.quiz h1 {
+  font-family: var(--font-heading-family);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--tro-ink);
+}
+
+.quiz .quiz-nav-button,
+.quiz .quiz-answer-option,
+.quiz .quiz-answer-details,
+.quiz .quiz-status {
+  font-family: var(--font-body-family);
+}
+
+/* Primary answers (intro choices): bordered cards */
+.quiz-answer {
+  border: 1px solid var(--tro-line-strong);
+  border-radius: var(--tro-r-md);
+  background: #fff;
+  color: var(--tro-ink);
+  font-weight: 600;
+  transition: border-color var(--tro-dur-fast) var(--tro-ease), background-color var(--tro-dur-fast) var(--tro-ease), box-shadow var(--tro-dur-fast) var(--tro-ease);
+}
+
+.quiz-answer-option:hover .quiz-answer,
+.quiz-answer-option:focus-visible .quiz-answer {
+  border-color: var(--tro-indigo-soft);
+  background: var(--tro-indigo-tint);
+  box-shadow: none;
+}
+
+.quiz-answer-details {
+  color: var(--tro-muted);
+}
+
+/* Secondary answers (one per block): the button itself is the card */
+.secondary-quiz-answer {
+  border: 1px solid var(--tro-line-strong) !important;
+  border-radius: var(--tro-r-md);
+  background: #fff;
+  color: var(--tro-ink);
+  transition: border-color var(--tro-dur-fast) var(--tro-ease), background-color var(--tro-dur-fast) var(--tro-ease), box-shadow var(--tro-dur-fast) var(--tro-ease);
+}
+
+.secondary-quiz-answer:hover,
+.secondary-quiz-answer:focus-visible {
+  border-color: var(--tro-indigo-soft) !important;
+  background: var(--tro-indigo-tint);
+}
+
+.secondary-quiz-answer img {
+  border-radius: 50%;
+}
+
+.secondary-quiz-answer .twcss-font-bold {
+  font-weight: 600;
+}
+
+.highlighted-answer,
+.highlighted-answer:hover,
+.quiz-answer-option.highlighted-answer .quiz-answer {
+  border-color: var(--tro-indigo) !important;
+  background: var(--tro-indigo-tint);
+  box-shadow: 0 0 0 2px var(--tro-indigo);
+}
+
+/* Progress bar + Back / Reset */
+.progress-section.twcss-bg-\[rgb\(var\(--color-base-background-1\)\)\] {
+  background: var(--tro-glass-bg-strong);
+  -webkit-backdrop-filter: blur(var(--tro-glass-blur)) saturate(160%);
+  backdrop-filter: blur(var(--tro-glass-blur)) saturate(160%);
+  border-top: 1px solid var(--tro-line);
+}
+
+#bar {
+  background-color: var(--tro-line);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+#progress.twcss-bg-\[rgb\(var\(--color-base-text\)\)\] {
+  background: var(--tro-ink);
+  border-radius: 999px;
+  transition: width var(--tro-dur-slow) var(--tro-ease);
+}
+
+.progress-section .twcss-font-bold {
+  font-family: var(--font-body-family);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--tro-muted);
+}
+
+.quiz-nav-button {
+  color: var(--tro-ink);
+  white-space: nowrap;
+  transition: color var(--tro-dur-fast) var(--tro-ease);
+}
+
+.quiz-nav-button:hover {
+  color: var(--tro-indigo);
+  text-decoration: none;
+}
+
+.quiz-nav-button svg path {
+  fill: currentColor;
+}
+
+.quiz-status {
+  color: var(--tro-muted);
+}
+
+@media screen and (max-width: 749px) {
+  .quiz .twcss-p-\[3\.75rem\] {
+    padding: 2rem 1.25rem;
+  }
+}

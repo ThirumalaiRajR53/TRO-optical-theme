@@ -1,0 +1,281 @@
+{%- comment -%}
+  Theme-defined main navigation. The repository is the source of truth: edit the lists below and
+  deploy; no Shopify navigation menu is needed (Header > "Navigation source" switches back to one).
+
+  Format, one top-level item per `append` line:  Title|URL|children
+    children = Title>URL;Title>URL   (omit for a plain link; "[NEW]" / "[SALE]" in a title renders a badge)
+    children = brands               (renders the brand link grid + the brand logo tiles)
+  Every URL below exists on the store today (collection handles, tag routes, storefront filters).
+
+  Accepts:
+  - layout: {String} 'desktop' (mega menu <li>s) or 'drawer' (mobile drawer <li>s)
+
+  Usage:
+  {% render 'theme-menu', layout: 'desktop' %}
+{%- endcomment -%}
+{%- liquid
+  assign nav = 'Home|/'
+  assign nav = nav | append: "~Eyeglasses|/collections/eyeglasses|Men's Eyeglasses>/collections/mens-eyeglasses;Women's Eyeglasses>/collections/womens-eyeglasses;Kids Eyeglasses>/collections/kids-eyeglasses;Unisex Frames>/collections/unisex;Full-Rimmed>/collections/full-rimmed-frames;Semi-Rimmed>/collections/semi-rimmed-frames;Rimless>/collections/rimless-frames"
+  assign nav = nav | append: "~Sunglasses|/collections/sunglasses|Men's Sunglasses>/collections/sunglasses?filter.p.m.custom.gender=Men;Unisex Sunglasses>/collections/sunglasses?filter.p.m.custom.gender=Unisex;Aviator>/collections/sunglasses?filter.p.m.custom.shape=Aviator;Square>/collections/sunglasses?filter.p.m.custom.shape=Square;Rectangle>/collections/sunglasses?filter.p.m.custom.shape=Rectangle"
+  assign nav = nav | append: '~Contact Lenses|/collections/contact-lenses|Daily Disposable>/collections/contact-lenses/daily-contact;Monthly>/collections/contact-lenses/monthly;Yearly>/collections/contact-lenses/yearly-contact;Lens Solution>/collections/accessories/lens-solution;Acuvue>/collections/contact-lenses?filter.p.vendor=Acuvue;CooperVision>/collections/contact-lenses?filter.p.vendor=CooperVision;Bausch+Lomb>/collections/contact-lenses?filter.p.vendor=Bausch%2BLomb;Alcon>/collections/contact-lenses?filter.p.vendor=Alcon'
+  assign nav = nav | append: '~Reading Glasses|/collections/reading-glasses'
+  assign nav = nav | append: '~Brands|/collections/all|brands'
+
+  assign brand_vendors = 'IDEE;IRUS;FILA;POLICE;Acuvue;Bausch+Lomb;Celebration;PolyLite;CooperVision;Alcon' | split: ';'
+  comment
+    Brand tiles: Label>asset file>vendor filter value. A blank file renders a typographic wordmark.
+  endcomment
+  assign brand_tiles = 'Ray-Ban>brand-ray-ban.svg>Ray-Ban;FILA>brand-fila.svg>FILA;ACUVUE>brand-acuvue.svg>Acuvue;CooperVision>>CooperVision' | split: ';'
+
+  assign items = nav | split: '~'
+  assign current_path = request.path
+-%}
+{%- for item in items -%}
+  {%- liquid
+    assign parts = item | split: '|'
+    assign title = parts[0]
+    assign url = parts[1]
+    assign children_raw = parts[2]
+    assign is_brands = false
+    assign children = '' | split: ','
+    if children_raw == 'brands'
+      assign is_brands = true
+    elsif children_raw != blank
+      assign children = children_raw | split: ';'
+    endif
+    assign item_path = url | split: '?' | first
+    assign is_active = false
+    if current_path == item_path
+      assign is_active = true
+    endif
+    assign child_active = false
+    for child in children
+      assign child_path = child | split: '>' | last | split: '?' | first
+      if child_path == current_path
+        assign child_active = true
+      endif
+    endfor
+    assign has_panel = false
+    if children.size > 0 or is_brands
+      assign has_panel = true
+    endif
+    assign handle = title | handleize
+  -%}
+  <li>
+    {%- if layout == 'drawer' -%}
+      {%- if has_panel -%}
+        <details id="Details-menu-drawer-menu-item-{{ forloop.index }}">
+          <summary class="menu-drawer__menu-item list-menu__item link focus-inset{% if child_active %} menu-drawer__menu-item--active{% endif %}">
+            {{ title | escape }}
+            {% render 'icon-caret' %}
+          </summary>
+          <div
+            id="link-{{ handle }}"
+            class="menu-drawer__submenu has-submenu gradient motion-reduce"
+            tabindex="-1">
+            <div class="menu-drawer__inner-submenu">
+              <button class="menu-drawer__close-button link focus-inset" aria-expanded="true">
+                {% render 'icon-caret' %}
+                {{ title | escape }}
+              </button>
+              <ul class="menu-drawer__menu menu-drawer__menu--level-2" role="list" tabindex="-1">
+                {%- if is_brands -%}
+                  {%- for vendor in brand_vendors -%}
+                    <li>
+                      <a href="{{ routes.all_products_collection_url }}?filter.p.vendor={{ vendor | url_encode }}" class="menu-drawer__menu-item link list-menu__item focus-inset">
+                        {{- vendor | escape -}}
+                      </a>
+                    </li>
+                  {%- endfor -%}
+                {%- else -%}
+                  {%- for child in children -%}
+                    {%- liquid
+                      assign child_parts = child | split: '>'
+                      assign child_title = child_parts[0] | remove: '[NEW]' | remove: '[SALE]' | strip
+                      assign child_url = child_parts[1]
+                      assign child_path = child_url | split: '?' | first
+                    -%}
+                    <li>
+                      <a
+                        href="{{ child_url }}"
+                        class="menu-drawer__menu-item link list-menu__item focus-inset{% if child_path == current_path %} menu-drawer__menu-item--active{% endif %}"
+                        {% if child_path == current_path %}aria-current="page"{% endif %}>
+                        {{ child_title | escape }}
+                      </a>
+                    </li>
+                  {%- endfor -%}
+                  <li>
+                    <a href="{{ url }}" class="menu-drawer__menu-item link list-menu__item focus-inset menu-drawer__menu-item--shop-all">
+                      Shop All {{ title | escape }} &rarr;
+                    </a>
+                  </li>
+                {%- endif -%}
+              </ul>
+              {%- unless is_brands -%}
+                <div class="menu-drawer__images-wrapper">
+                  {%- assign tile_count = 0 -%}
+                  {%- for block in section.blocks -%}
+                    {%- if block.type == 'mega-menu-image' and block.settings['top-menu-name'] == title and block.settings.image != blank and tile_count < 2 -%}
+                      {%- assign tile_count = tile_count | plus: 1 -%}
+                      <div class="menu-drawer__image-block">
+                        <a href="{{ block.settings.link }}">
+                          <div class="menu-drawer__image-wrapper">
+                            <img
+                              src="{{ block.settings.image | image_url: width: 400 }}"
+                              alt="{{ block.settings.image.alt | default: block.settings.heading | escape }}"
+                              loading="lazy"
+                              width="400"
+                              height="300"
+                            >
+                          </div>
+                          <div class="menu-drawer__image-block-info">
+                            <span class="menu-drawer__image-heading twcss-block twcss-font-semibold">{{ block.settings.heading }}</span>
+                            <span class="menu-drawer__image-subheading twcss-block twcss-font-semibold">{{ block.settings.subheading | upcase }}</span>
+                          </div>
+                        </a>
+                      </div>
+                    {%- endif -%}
+                  {%- endfor -%}
+                </div>
+              {%- endunless -%}
+            </div>
+          </div>
+        </details>
+      {%- else -%}
+        <a
+          href="{{ url }}"
+          class="menu-drawer__menu-item list-menu__item link focus-inset{% if is_active %} menu-drawer__menu-item--active{% endif %}"
+          {% if is_active %}aria-current="page"{% endif %}>
+          {{ title | escape }}
+        </a>
+      {%- endif -%}
+    {%- else -%}
+      {%- if has_panel -%}
+        <header-menu>
+          <details id="Details-HeaderMenu-{{ forloop.index }}" class="mega-menu">
+            <summary class="header__menu-item list-menu__item link focus-inset">
+              <span class="header__menu-item--title twcss-font-semibold{% if child_active %} header__active-menu-item{% endif %}">
+                {{- title | escape -}}
+              </span>
+              {% render 'icon-caret' %}
+            </summary>
+            <div
+              id="MegaMenu-Content-{{ forloop.index }}"
+              class="mega-menu__content gradient motion-reduce global-settings-popup twcss-flex twcss-flex-1"
+              tabindex="-1"
+            >
+              {%- if is_brands -%}
+                <ul class="mega-menu__brands-grid list-unstyled" role="list">
+                  {%- for vendor in brand_vendors -%}
+                    <li>
+                      <a href="{{ routes.all_products_collection_url }}?filter.p.vendor={{ vendor | url_encode }}" class="mega-menu__link link">
+                        {{- vendor | escape -}}
+                      </a>
+                    </li>
+                  {%- endfor -%}
+                  <li class="mega-menu__shop-all">
+                    <a href="{{ url }}" class="mega-menu__link mega-menu__link--shop-all link">
+                      Shop All Brands &rarr;
+                    </a>
+                  </li>
+                </ul>
+                <div class="mega-menu__brand-tiles">
+                  {%- for tile in brand_tiles -%}
+                    {%- liquid
+                      assign tile_parts = tile | split: '>'
+                      assign tile_label = tile_parts[0]
+                      assign tile_file = tile_parts[1]
+                      assign tile_vendor = tile_parts[2]
+                    -%}
+                    <a class="brand-tile" href="{{ routes.all_products_collection_url }}?filter.p.vendor={{ tile_vendor | url_encode }}">
+                      {%- if tile_file != blank -%}
+                        <img class="brand-tile__logo" src="{{ tile_file | asset_url }}" alt="" width="160" height="56" loading="lazy">
+                        <span class="visually-hidden">{{ tile_label | escape }}</span>
+                      {%- else -%}
+                        <span class="brand-tile__wordmark">{{ tile_label | escape }}</span>
+                      {%- endif -%}
+                    </a>
+                  {%- endfor -%}
+                </div>
+              {%- else -%}
+                <ul class="mega-menu__list mega-menu__list--condensed" role="list">
+                  {%- for child in children -%}
+                    {%- liquid
+                      assign child_parts = child | split: '>'
+                      assign child_title_raw = child_parts[0]
+                      assign child_title = child_title_raw | remove: '[NEW]' | remove: '[SALE]' | strip
+                      assign child_url = child_parts[1]
+                      assign child_path = child_url | split: '?' | first
+                      assign badge = ''
+                      if child_title_raw contains '[NEW]'
+                        assign badge = 'NEW'
+                      elsif child_title_raw contains '[SALE]'
+                        assign badge = 'SALE'
+                      endif
+                    -%}
+                    <li>
+                      <a
+                        href="{{ child_url }}"
+                        class="mega-menu__link mega-menu__link--level-2 link twcss-font-semibold"
+                        {% if child_path == current_path %}aria-current="page"{% endif %}
+                      >
+                        {{ child_title | escape }}
+                        {%- if badge != blank -%}
+                          <span class="mega-menu__badge mega-menu__badge--{{ badge | downcase }}">{{ badge }}</span>
+                        {%- endif -%}
+                      </a>
+                    </li>
+                  {%- endfor -%}
+                  <li class="mega-menu__shop-all">
+                    <a href="{{ url }}" class="mega-menu__link mega-menu__link--shop-all link twcss-font-semibold">
+                      Shop All {{ title | escape }} &rarr;
+                    </a>
+                  </li>
+                </ul>
+                <div class="mega-menu__images-wrapper">
+                  {%- assign tile_count = 0 -%}
+                  {%- for block in section.blocks -%}
+                    {%- if block.type == 'mega-menu-image' and block.settings['top-menu-name'] == title and block.settings.image != blank and tile_count < 2 -%}
+                      {%- assign tile_count = tile_count | plus: 1 -%}
+                      <div class="mega-menu__image-block">
+                        <a href="{{ block.settings.link }}">
+                          <div class="image-wrapper">
+                            <img
+                              src="{{ block.settings.image | image_url: width: 400 }}"
+                              alt="{{ block.settings.image.alt | default: block.settings.heading | escape }}"
+                              loading="lazy"
+                              width="400"
+                              height="300"
+                            >
+                          </div>
+                          <div class="mega-menu__image-info">
+                            <span class="mega-menu__image-heading twcss-block twcss-font-semibold">
+                              {{- block.settings.heading -}}
+                            </span>
+                            <span class="mega-menu__image-subheading twcss-block twcss-font-semibold">
+                              {{- block.settings.subheading | upcase -}}
+                            </span>
+                          </div>
+                        </a>
+                      </div>
+                    {%- endif -%}
+                  {%- endfor -%}
+                </div>
+              {%- endif -%}
+            </div>
+          </details>
+        </header-menu>
+      {%- else -%}
+        <a
+          href="{{ url }}"
+          class="header__menu-item list-menu__item link link--text focus-inset"
+          {% if is_active %}aria-current="page"{% endif %}
+        >
+          <span class="header__menu-item--title twcss-font-semibold{% if is_active %} header__active-menu-item{% endif %}">
+            {{- title | escape -}}
+          </span>
+        </a>
+      {%- endif -%}
+    {%- endif -%}
+  </li>
+{%- endfor -%}

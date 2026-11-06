@@ -94,9 +94,9 @@ const filters = {
   shopify_asset_url: () => '',
   stylesheet_tag: (u, ...a) => `<link rel="stylesheet" href="${u}" media="all">`,
   preload_tag: () => '',
-  image_url: (v, ...a) => { const o = kw(a); return srcOf(v) || `/img/black-glasses-frames-sit-up-on-surface.jpg`; },
+  image_url: (v, ...a) => { const o = kw(a); return srcOf(v) || null; }, // blank image -> nil, like Shopify (no stand-in picture)
   img_url: (v) => srcOf(v), product_img_url: (v) => srcOf(v), collection_img_url: (v) => srcOf(v),
-  image_tag: (src, ...a) => { const o = kw(a); if (o.alt === undefined || o.alt === null) o.alt = ''; const attrs = Object.entries(o).filter(([k, v]) => !['widths', 'preload'].includes(k) && v !== null && v !== undefined && (v !== '' || k === 'alt')).map(([k, v]) => `${k}="${String(v).replace(/"/g, '&quot;')}"`).join(' '); return `<img src="${src}" ${attrs}>`; },
+  image_tag: (src, ...a) => { if (!src) return ''; const o = kw(a); if (o.alt === undefined || o.alt === null) o.alt = ''; const attrs = Object.entries(o).filter(([k, v]) => !['widths', 'preload'].includes(k) && v !== null && v !== undefined && (v !== '' || k === 'alt')).map(([k, v]) => `${k}="${String(v).replace(/"/g, '&quot;')}"`).join(' '); return `<img src="${src}" ${attrs}>`; },
   money, money_with_currency: (v) => money(v) + ' INR', money_without_currency: (v) => money(v).replace('Rs. ', ''), money_without_trailing_zeros: (v) => money(v).replace(/\.00$/, ''),
   font_face: () => '', font_modify: (f) => f, font_url: () => '',
   placeholder_svg_tag: (n, cls = 'placeholder-svg') => `<svg class="${cls}" viewBox="0 0 525 525" xmlns="http://www.w3.org/2000/svg"><rect width="525" height="525" fill="#E6E0D4"/><path d="M160 300a60 40 0 1 0 0-1zm210 0a60 40 0 1 0 0-1zM220 285h85" fill="none" stroke="#9A7B3C" stroke-width="8"/></svg>`,

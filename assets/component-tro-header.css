@@ -127,8 +127,9 @@
 }
 
 /* ---------- Desktop navigation ---------- */
+/* Six items + logo + icons must fit a single row from 1350px up; the gap scales with the viewport */
 .header__inline-menu .list-menu--inline > li {
-  margin-inline: 0.75rem;
+  margin-inline: clamp(0.35rem, 2.6vw - 1.7rem, 0.75rem);
 }
 
 .header__menu-item {

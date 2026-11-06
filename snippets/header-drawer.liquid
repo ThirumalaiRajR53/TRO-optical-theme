@@ -35,6 +35,10 @@ Usage:
         <div class="menu-drawer__navigation-container">
           <nav class="menu-drawer__navigation">
             <ul class="menu-drawer__menu has-submenu list-menu" role="list">
+              {%- if section.settings.nav_source != 'shopify' -%}
+                {%- render 'theme-menu', layout: 'drawer' -%}
+              {%- endif -%}
+              {%- if section.settings.nav_source == 'shopify' -%}
               {%- for link in section.settings.menu.links -%}
                 <li>
                   {%- if link.links != blank -%}
@@ -182,6 +186,7 @@ Usage:
                   {%- endif -%}
                 </li>
               {%- endfor -%}
+              {%- endif -%}
             </ul>
           </nav>
           {%- if shop.customer_accounts_enabled -%}
