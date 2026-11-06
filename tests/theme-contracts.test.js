@@ -81,7 +81,6 @@ const contracts = {
   "sections/main-quiz.liquid": ["quiz-slide-section"],
   "sections/secondary-quiz-slide.liquid": ["quiz-slide-section", "quiz-answer-option", "next-button", "skip-button", "quiz-status"],
   "sections/quiz-progress.liquid": ['id="back-button"', 'id="progress"'],
-  "sections/main-collection-product-grid.liquid": ["FacetSortForm", 'id="product-grid"', "ProductCount"],
   "snippets/facets.liquid": [
     "FacetFiltersForm",
     "FacetFiltersFormMobile",
@@ -100,6 +99,9 @@ const contracts = {
   "snippets/facets-active-pills.liquid": ["<facet-remove>", "active-facets__button", "url_to_remove", "price_range"],
   "snippets/facets-filter-value.liquid": ["'-mobile-'", "'-no-js'", "facet-checkbox", "mobile-facets__checkbox", "facet-swatch", "facet-shape-icons", "value.param_name"],
   "snippets/facets-price-inputs.liquid": ["<price-range", "-GTE", "-LTE", "field__input", "min_value.param_name", "max_value.param_name"],
+  "snippets/facets-quick-filters.liquid": ["filter.p.m.custom.shape", "url_to_add", "url_to_remove", "facet-shape-icons"],
+  "sections/main-collection-product-grid.liquid": ["FacetSortForm", 'id="product-grid"', "ProductCount", "show_shape_quick_filters", "render 'facets-quick-filters'"],
+  "sections/footer.liquid": ["show_brand_column", "payment_badges", "footer-store__directions", "render 'social-icons'", "enabled_payment_types"],
   "snippets/card-product.liquid": ["card__heading", "quick-add"],
   "sections/header.liquid": ["header-drawer", "cart-icon-bubble", "header__icon--cart"],
   "layout/theme.liquid": ["tro-tokens.css", "cart-drawer", "global.min.js", "pubsub.js", "quiz.js", "sections 'header-group'"],

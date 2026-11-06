@@ -1,0 +1,17 @@
+{
+  "name": "tro-theme-preview",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Offline preview of the TRO Shopify theme (liquidjs + mock storefront objects)",
+  "type": "module",
+  "scripts": {
+    "start": "node serve.mjs",
+    "render": "node render.mjs"
+  },
+  "dependencies": {
+    "liquidjs": "10.30.1"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

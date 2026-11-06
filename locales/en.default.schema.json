@@ -1151,6 +1151,20 @@
         "payment_enable": {
           "label": "Show payment icons"
         },
+        "payment_badges": {
+          "label": "Payment methods (text badges)",
+          "info": "Comma-separated. Shown when Shopify has no payment icons for the store's gateways (for example UPI or RuPay)."
+        },
+        "header__brand": {
+          "content": "Brand column",
+          "info": "Uses the brand image and description from Theme settings > Brand information, plus the social links."
+        },
+        "show_brand_column": {
+          "label": "Show brand column"
+        },
+        "brand_tagline": {
+          "label": "Brand tagline"
+        },
         "header__8": {
           "content": "Policy links",
           "info": "To add store policies, go to your [policy settings](/admin/settings/legal)."
@@ -1765,6 +1779,10 @@
         },
         "enable_sorting": {
           "label": "Enable sorting"
+        },
+        "show_shape_quick_filters": {
+          "label": "Show frame-shape quick filters",
+          "info": "A row of shape pills under the filter bar. Uses the \"Shape\" filter (custom.shape metafield); hidden when the collection has no shape filter."
         },
         "image_ratio": {
           "label": "Image ratio",
@@ -2448,6 +2466,9 @@
     "multicolumn": {
       "name": "Multicolumn",
       "settings": {
+        "eyebrow": {
+          "label": "Eyebrow (small label above the heading)"
+        },
         "title": {
           "label": "Heading"
         },
@@ -2543,6 +2564,17 @@
           "settings": {
             "image": {
               "label": "Image"
+            },
+            "icon": {
+              "label": "Icon (used when the column has no image)",
+              "info": "Line icon shown above the column heading.",
+              "options__1": { "label": "None" },
+              "options__2": { "label": "Sparkle" },
+              "options__3": { "label": "Shield" },
+              "options__4": { "label": "Delivery truck" },
+              "options__5": { "label": "Leaf" },
+              "options__6": { "label": "Eye" },
+              "options__7": { "label": "Lenses" }
             },
             "title": {
               "label": "Heading"

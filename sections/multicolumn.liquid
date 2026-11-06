@@ -41,6 +41,9 @@
     class="page-width section-{{ section.id }}-padding isolate{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
     data-cascade
   >
+    {%- if section.settings.eyebrow != blank -%}
+      <p class="multicolumn__eyebrow tro-eyebrow tro-eyebrow--gold">{{ section.settings.eyebrow | escape }}</p>
+    {%- endif -%}
     {%- unless section.settings.title == blank -%}
       <div class="title-wrapper-with-link title-wrapper--self-padded-mobile title-wrapper--no-top-margin">
         <h2 class="title inline-richtext {{ section.settings.heading_size }}">
@@ -133,6 +136,9 @@
                 </div>
               {%- endif -%}
               <div class="multicolumn-card__info">
+                {%- if block.settings.image == blank and block.settings.icon != blank and block.settings.icon != 'none' -%}
+                  <span class="multicolumn-card__icon">{% render 'icon-offer', icon: block.settings.icon %}</span>
+                {%- endif -%}
                 {%- if block.settings.title != blank -%}
                   <h3 class="inline-richtext twcss-text-[1.25rem] twcss-font-bold twcss-leading-[1.75rem]">
                     {{ block.settings.title }}
@@ -213,6 +219,11 @@
     "groups": ["header", "footer"]
   },
   "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "t:sections.multicolumn.settings.eyebrow.label"
+    },
     {
       "type": "inline_richtext",
       "id": "title",
@@ -428,6 +439,22 @@
           "type": "image_picker",
           "id": "image",
           "label": "t:sections.multicolumn.blocks.column.settings.image.label"
+        },
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "t:sections.multicolumn.blocks.column.settings.icon.label",
+          "info": "t:sections.multicolumn.blocks.column.settings.icon.info",
+          "default": "none",
+          "options": [
+            { "value": "none", "label": "t:sections.multicolumn.blocks.column.settings.icon.options__1.label" },
+            { "value": "sparkle", "label": "t:sections.multicolumn.blocks.column.settings.icon.options__2.label" },
+            { "value": "shield", "label": "t:sections.multicolumn.blocks.column.settings.icon.options__3.label" },
+            { "value": "truck", "label": "t:sections.multicolumn.blocks.column.settings.icon.options__4.label" },
+            { "value": "leaf", "label": "t:sections.multicolumn.blocks.column.settings.icon.options__5.label" },
+            { "value": "eye", "label": "t:sections.multicolumn.blocks.column.settings.icon.options__6.label" },
+            { "value": "lens", "label": "t:sections.multicolumn.blocks.column.settings.icon.options__7.label" }
+          ]
         },
         {
           "type": "inline_richtext",

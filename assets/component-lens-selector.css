@@ -571,18 +571,24 @@
   background: #fff;
 }
 
+/* float + width pulls the legend off the fieldset border so it sits inside the card like the
+   power selector's eye titles */
 .lens-modal__rx-eye legend {
-  padding: 0 0.3rem;
+  float: left;
+  width: 100%;
+  margin: 0 0 0.6rem;
+  padding: 0;
   font-size: 0.8125rem;
   font-weight: 600;
   color: var(--tro-ink);
 }
 
 .lens-modal__rx-fields {
+  clear: both;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 0.6rem;
-  margin-top: 0.5rem;
+  margin-top: 0;
 }
 
 .lens-modal__rx-field {

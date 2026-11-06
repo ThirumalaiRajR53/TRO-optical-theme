@@ -1,0 +1,40 @@
+{%- comment -%}
+  Renders a row of frame-shape quick-filter pills under the filter toolbar.
+  Plain links built from filter_value.url_to_add / url_to_remove, so Shopify applies the
+  filter server-side and facets.js is not involved.
+
+  Accepts:
+  - results: {Object} Collection or Search object
+
+  Usage:
+  {% render 'facets-quick-filters', results: collection %}
+{%- endcomment -%}
+{%- liquid
+  assign shape_filter = false
+  for filter in results.filters
+    if filter.param_name == 'filter.p.m.custom.shape'
+      assign shape_filter = filter
+      break
+    endif
+  endfor
+-%}
+{%- if shape_filter and shape_filter.values.size > 0 -%}
+  <nav class="facets-quick page-width" aria-label="{{ 'products.facets.quick_filters' | t }}">
+    <ul class="facets-quick__list" role="list">
+      {%- for value in shape_filter.values -%}
+        {%- if value.count > 0 or value.active -%}
+          <li>
+            <a
+              class="facets-quick__pill{% if value.active %} facets-quick__pill--active{% endif %}"
+              href="{% if value.active %}{{ value.url_to_remove }}{% else %}{{ value.url_to_add }}{% endif %}"
+              {% if value.active %}aria-current="true"{% endif %}
+            >
+              <span class="facets-quick__icon" aria-hidden="true">{% render 'facet-shape-icons', shape: value.label %}</span>
+              <span class="facets-quick__label">{{ value.label | escape }}</span>
+            </a>
+          </li>
+        {%- endif -%}
+      {%- endfor -%}
+    </ul>
+  </nav>
+{%- endif -%}

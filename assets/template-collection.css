@@ -134,3 +134,10 @@
   margin: 0.25rem 0 0;
   color: var(--tro-muted);
 }
+
+/* The heading row already links to the collection on desktop; keep the bottom button for mobile only */
+@media screen and (min-width: 750px) {
+  .collection__view-all--has-heading-link {
+    display: none;
+  }
+}

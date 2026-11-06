@@ -993,6 +993,20 @@
         "payment_enable": {
           "label": "Mostrar íconos de pago"
         },
+        "payment_badges": {
+          "label": "Formas de pago (etiquetas de texto)",
+          "info": "Separadas por comas. Se muestran cuando Shopify no tiene íconos para las pasarelas de la tienda (por ejemplo UPI o RuPay)."
+        },
+        "header__brand": {
+          "content": "Columna de marca",
+          "info": "Usa la imagen y la descripción de marca de Configuración del tema > Información de la marca, además de los enlaces sociales."
+        },
+        "show_brand_column": {
+          "label": "Mostrar columna de marca"
+        },
+        "brand_tagline": {
+          "label": "Lema de la marca"
+        },
         "margin_top": {
           "label": "Margen superior"
         },
@@ -1450,6 +1464,10 @@
         },
         "enable_sorting": {
           "label": "Habilitar ordenado"
+        },
+        "show_shape_quick_filters": {
+          "label": "Mostrar filtros rápidos por forma de montura",
+          "info": "Una fila de píldoras de formas debajo de la barra de filtros. Usa el filtro \"Shape\" (metacampo custom.shape); se oculta cuando la colección no tiene ese filtro."
         },
         "header__1": {
           "content": "Filtrado y ordenado"
@@ -2113,6 +2131,9 @@
     "multicolumn": {
       "name": "Multicolumna",
       "settings": {
+        "eyebrow": {
+          "label": "Antetítulo (etiqueta pequeña sobre el encabezado)"
+        },
         "title": {
           "label": "Título"
         },
@@ -2208,6 +2229,17 @@
           "settings": {
             "image": {
               "label": "Imagen"
+            },
+            "icon": {
+              "label": "Icono (se usa cuando la columna no tiene imagen)",
+              "info": "Icono de línea que se muestra sobre el encabezado de la columna.",
+              "options__1": { "label": "Ninguno" },
+              "options__2": { "label": "Destello" },
+              "options__3": { "label": "Escudo" },
+              "options__4": { "label": "Camión de reparto" },
+              "options__5": { "label": "Hoja" },
+              "options__6": { "label": "Ojo" },
+              "options__7": { "label": "Lentes" }
             },
             "title": {
               "label": "Título"

@@ -49,6 +49,28 @@
   --tro-dur-fast: 150ms;
   --tro-dur: 220ms;
   --tro-dur-slow: 320ms;
+
+  /* Layout geometry owned by the design system. These override the values theme.liquid derives
+     from the editor sliders (page width, corner radii, grid spacing) so the storefront renders the
+     redesign even when the store's saved settings lag behind the repository. */
+  --page-width: 1400px;
+  --page-width-margin: 0rem;
+  --grid-desktop-horizontal-spacing: 24px;
+  --grid-desktop-vertical-spacing: 32px;
+  --grid-mobile-horizontal-spacing: 12px;
+  --grid-mobile-vertical-spacing: 16px;
+  --buttons-radius: 10px;
+  --buttons-radius-outset: 11px;
+  --inputs-radius: 10px;
+  --inputs-radius-outset: 11px;
+  --variant-pills-radius: 40px;
+  --text-boxes-radius: 14px;
+  --media-radius: 16px;
+  --popup-corner-radius: 20px;
+  --product-card-corner-radius: 0.875rem;
+  --collection-card-corner-radius: 1.4rem;
+  --blog-card-corner-radius: 1.4rem;
+  --badge-corner-radius: 4rem;
 }
 
 @media screen and (max-width: 749px) {

@@ -1136,7 +1136,7 @@ input:checked ~ .facet-checkbox__label .facet-shape-icon {
   align-items: center;
   gap: 0.75rem 1rem;
   padding: 0.75rem 1rem !important;
-  margin: 0 0 1.5rem !important;
+  margin: 0 auto 1.5rem !important; /* auto keeps .page-width centred on wide screens */
   border-radius: var(--tro-r-md);
   background: rgba(255, 255, 255, 0.7);
   border: 1px solid var(--tro-line);
@@ -1400,6 +1400,80 @@ span.active-facets__button-inner,
 
 .mobile-facets__sort .select__select {
   font-family: var(--font-body-family);
+}
+
+/* Frame-shape quick filters (facets-quick-filters.liquid) */
+.facets-quick {
+  margin: -0.5rem auto 1.5rem;
+}
+
+.facets-quick__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.facets-quick__pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-height: 2.25rem;
+  padding: 0.35rem 0.9rem 0.35rem 0.7rem;
+  border-radius: 999px;
+  border: 1px solid var(--tro-line-strong);
+  background: #fff;
+  color: var(--tro-ink);
+  font-family: var(--font-body-family);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color var(--tro-dur-fast) var(--tro-ease), border-color var(--tro-dur-fast) var(--tro-ease), color var(--tro-dur-fast) var(--tro-ease);
+}
+
+.facets-quick__pill:hover {
+  background: var(--tro-indigo-tint);
+  border-color: var(--tro-indigo-soft);
+  color: var(--tro-indigo);
+}
+
+.facets-quick__pill--active,
+.facets-quick__pill--active:hover {
+  background: var(--tro-ink);
+  border-color: var(--tro-ink);
+  color: #fff;
+}
+
+.facets-quick__icon {
+  display: inline-flex;
+  align-items: center;
+}
+
+.facets-quick__pill .facet-shape-icon {
+  width: 1.75rem;
+  height: 1rem;
+  color: currentColor;
+}
+
+@media screen and (max-width: 749px) {
+  .facets-quick {
+    margin-bottom: 1rem;
+  }
+
+  .facets-quick__list {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 0.25rem;
+    scrollbar-width: none;
+  }
+
+  .facets-quick__list::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 /* Desktop facet popups (horizontal filter type): same glass panel as the sort dropdown */

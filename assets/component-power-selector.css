@@ -6,6 +6,8 @@
   border-radius: var(--tro-r-md);
   background: #fff;
   border: 1px solid var(--tro-line);
+  container-type: inline-size;
+  container-name: power-selector;
 }
 
 .power-selector__header {
@@ -40,16 +42,15 @@
   color: var(--tro-muted);
 }
 
+/* Layout follows the selector's own content width, not the viewport: the product info column is
+   ~450-510px wide on desktop, where two side-by-side eye cards squashed the selects to ~70px.
+   < 27rem: eyes stacked, fields 2x2 | 27-37rem: stacked, fields in one row | 37-55rem: eyes side
+   by side, fields 2x2 | >= 55rem: side by side, one row. Fallback without container queries:
+   stacked, 2x2. */
 .power-selector__grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 0.85rem;
-}
-
-@media screen and (min-width: 540px) {
-  .power-selector__grid {
-    grid-template-columns: 1fr 1fr;
-  }
 }
 
 .power-selector__eye {
@@ -58,8 +59,30 @@
   background: var(--tro-porcelain);
   border: 1px solid var(--tro-line);
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 0.6rem;
+}
+
+@container power-selector (min-width: 27rem) {
+  .power-selector__eye {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@container power-selector (min-width: 37rem) {
+  .power-selector__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .power-selector__eye {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@container power-selector (min-width: 55rem) {
+  .power-selector__eye {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
 }
 
 .power-selector__eye-title {
@@ -89,6 +112,7 @@
 
 .power-selector__select {
   width: 100%;
+  min-width: 0;
   min-height: 2.75rem;
   padding: 0 2rem 0 0.75rem;
   border-radius: var(--tro-r-sm);

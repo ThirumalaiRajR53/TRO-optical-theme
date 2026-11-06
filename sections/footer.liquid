@@ -68,7 +68,30 @@
               assign footer_grid_class = 'grid--3-col-tablet'
             endif
           -%}
-          <div class="footer__blocks-wrapper grid grid--1-col grid--2-col grid--4-col-tablet {{ footer_grid_class }}{% if has_store_locations %} footer__blocks-wrapper--store-layout{% endif %}">
+          <div class="footer__blocks-wrapper grid grid--1-col grid--2-col grid--4-col-tablet {{ footer_grid_class }}{% if has_store_locations %} footer__blocks-wrapper--store-layout{% endif %}{% if section.settings.show_brand_column %} footer__blocks-wrapper--has-brand{% endif %}">
+            {%- if section.settings.show_brand_column -%}
+              {%- liquid
+                assign footer_brand_image = settings.brand_image | default: settings.logo
+                assign footer_brand_alt = shop.name | escape
+              -%}
+              <div class="footer-block grid__item footer-block--brand">
+                {%- if footer_brand_image != blank -%}
+                  <a href="{{ routes.root_url }}" class="footer-brand__emblem" aria-label="{{ footer_brand_alt }}">
+                    {{ footer_brand_image | image_url: width: 160 | image_tag: width: 56, height: 56, loading: 'lazy', alt: '' }}
+                  </a>
+                {%- endif -%}
+                <p class="footer-brand__name">{{ shop.name }}</p>
+                {%- if section.settings.brand_tagline != blank -%}
+                  <p class="footer-brand__tagline">{{ section.settings.brand_tagline | escape }}</p>
+                {%- endif -%}
+                {%- if settings.brand_description != blank -%}
+                  <div class="footer-brand__description rte">{{ settings.brand_description }}</div>
+                {%- endif -%}
+                {%- if has_social_icons -%}
+                  {%- render 'social-icons' -%}
+                {%- endif -%}
+              </div>
+            {%- endif -%}
             {%- for block in section.blocks -%}
               <div
                 class="footer-block grid__item{% if block.type == 'link_list' %} footer-block--menu{% endif %}{% if block.type == 'store_locations' %} footer-block--store-locations{% endif %}"
@@ -101,15 +124,15 @@
                         -%}
                         {%- if store_name != blank -%}
                           <div class="footer-store footer-block__details-content">
-                            {%- if store_url != blank -%}
-                              <a href="{{ store_url }}" target="_blank" rel="noopener noreferrer">
-                                {{- store_name | escape -}}
-                              </a>
-                            {%- else -%}
-                              <strong>{{ store_name | escape }}</strong>
-                            {%- endif -%}
+                            <strong>{{ store_name | escape }}</strong>
                             {%- if store_address != blank -%}
                               <div class="footer-store__address">{{ store_address | escape | newline_to_br }}</div>
+                            {%- endif -%}
+                            {%- if store_url != blank -%}
+                              <a class="footer-store__directions" href="{{ store_url }}" target="_blank" rel="noopener noreferrer">
+                                {{- 'sections.footer.get_directions' | t -}}
+                                <span class="visually-hidden"> ({{ store_name | escape }})</span>
+                              </a>
                             {%- endif -%}
                           </div>
                         {%- endif -%}
@@ -300,13 +323,25 @@
         {%- if section.settings.payment_enable -%}
           <div class="footer__payment">
             <span class="visually-hidden">{{ 'sections.footer.payment' | t }}</span>
-            <ul class="list list-payment" role="list">
-              {%- for type in shop.enabled_payment_types -%}
-                <li class="list-payment__item">
-                  {{ type | payment_type_svg_tag: class: 'icon icon--full-color' }}
-                </li>
-              {%- endfor -%}
-            </ul>
+            {%- if shop.enabled_payment_types.size > 0 -%}
+              <ul class="list list-payment" role="list">
+                {%- for type in shop.enabled_payment_types -%}
+                  <li class="list-payment__item">
+                    {{ type | payment_type_svg_tag: class: 'icon icon--full-color' }}
+                  </li>
+                {%- endfor -%}
+              </ul>
+            {%- elsif section.settings.payment_badges != blank -%}
+              {%- assign payment_badges = section.settings.payment_badges | split: ',' -%}
+              <ul class="list list-payment list-payment--badges" role="list">
+                {%- for badge in payment_badges -%}
+                  {%- assign badge_label = badge | strip -%}
+                  {%- if badge_label != blank -%}
+                    <li class="list-payment__item list-payment__badge">{{ badge_label | escape }}</li>
+                  {%- endif -%}
+                {%- endfor -%}
+              </ul>
+            {%- endif -%}
           </div>
         {%- endif -%}
       </div>
@@ -523,6 +558,23 @@
   "settings": [
     {
       "type": "header",
+      "content": "t:sections.footer.settings.header__brand.content",
+      "info": "t:sections.footer.settings.header__brand.info"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_brand_column",
+      "default": true,
+      "label": "t:sections.footer.settings.show_brand_column.label"
+    },
+    {
+      "type": "text",
+      "id": "brand_tagline",
+      "default": "Estd. 1956",
+      "label": "t:sections.footer.settings.brand_tagline.label"
+    },
+    {
+      "type": "header",
       "content": "t:sections.footer.settings.header__1.content",
       "info": "t:sections.footer.settings.header__1.info"
     },
@@ -585,6 +637,13 @@
       "id": "payment_enable",
       "default": true,
       "label": "t:sections.footer.settings.payment_enable.label"
+    },
+    {
+      "type": "text",
+      "id": "payment_badges",
+      "default": "UPI, Visa, Mastercard, RuPay, Net Banking",
+      "label": "t:sections.footer.settings.payment_badges.label",
+      "info": "t:sections.footer.settings.payment_badges.info"
     },
     {
       "type": "header",
