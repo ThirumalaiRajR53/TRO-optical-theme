@@ -196,8 +196,10 @@
                                       <span class="facet-shape-icon-wrapper">
                                         {% render 'facet-shape-icons', shape: value.label %}
                                       </span>
+                                    {%- elsif filter.param_name == 'filter.p.m.custom.color' -%}
+                                      <span class="facet-swatch" style="background: {% render 'swatch-color', name: value.label %};"></span>
                                     {%- endif -%}
-                                    {{ value.label | escape }} ({{ value.count }})
+                                    {{ value.label | escape }} <span class="facet-count">({{ value.count }})</span>
                                   </span>
                                   <span class="visually-hidden">
                                     {{- value.label | escape }} (
@@ -703,7 +705,17 @@
 
                                   <span class="mobile-facets__highlight"></span>
 
-                                  <span aria-hidden="true">{{ value.label | escape }} ({{ value.count }})</span>
+                                  <span aria-hidden="true" class="mobile-facets__value">
+                                    {%- assign mobile_filter_label_lower = filter.label | downcase -%}
+                                    {%- if mobile_filter_label_lower contains 'shape' -%}
+                                      <span class="facet-shape-icon-wrapper">
+                                        {% render 'facet-shape-icons', shape: value.label %}
+                                      </span>
+                                    {%- elsif filter.param_name == 'filter.p.m.custom.color' -%}
+                                      <span class="facet-swatch" style="background: {% render 'swatch-color', name: value.label %};"></span>
+                                    {%- endif -%}
+                                    {{ value.label | escape }} <span class="facet-count">({{ value.count }})</span>
+                                  </span>
                                   <span class="visually-hidden">
                                     {{- value.label | escape }} (
                                     {%- if value.count == '1' -%}

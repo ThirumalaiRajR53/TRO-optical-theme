@@ -83,11 +83,31 @@
           {%- endif -%}
         {%- endunless -%}
         {%- if search.results_count == 0 and search.filters == empty -%}
-          <p class="twcss-mt-8 twcss-text-center" role="status">
+          <p class="template-search__status" role="status">
             {{ 'templates.search.no_results' | t: terms: search.terms }}
           </p>
         {%- endif -%}
       {%- endif -%}
+      {%- unless search.performed and search.results_count > 0 -%}
+        {%- comment -%} Visible search form so /search works without the header modal (same GET params as the header search) {%- endcomment -%}
+        <form action="{{ routes.search_url }}" method="get" role="search" class="template-search__form">
+          <label class="visually-hidden" for="Search-Page">{{ 'general.search.search' | t }}</label>
+          <div class="template-search__field">
+            {% render 'icon-search' %}
+            <input
+              id="Search-Page"
+              class="template-search__input"
+              type="search"
+              name="q"
+              value="{{ search.terms | escape }}"
+              placeholder="{{ 'search_modal.input.placeholder' | t }}"
+              autocomplete="off"
+            >
+            <input type="hidden" name="type" value="product">
+            <button type="submit" class="button button--primary template-search__submit">{{ 'general.search.search' | t }}</button>
+          </div>
+        </form>
+      {%- endunless -%}
     </div>
     {%- if search.performed -%}
       {%- if section.settings.enable_sorting

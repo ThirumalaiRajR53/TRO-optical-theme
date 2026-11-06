@@ -384,3 +384,24 @@ button.shopify-payment-button__button--unbranded:hover {
     scroll-behavior: auto !important;
   }
 }
+
+/* ---------- Breadcrumbs ---------- */
+.breadcrumbs nav {
+  font-family: var(--font-body-family);
+  font-size: 0.8125rem;
+  color: var(--tro-muted);
+}
+
+.breadcrumbs a {
+  color: var(--tro-muted);
+  text-decoration: none;
+}
+
+.breadcrumbs a:hover {
+  color: var(--tro-indigo);
+}
+
+.breadcrumbs [aria-current="page"] {
+  color: var(--tro-ink);
+  font-weight: 500;
+}

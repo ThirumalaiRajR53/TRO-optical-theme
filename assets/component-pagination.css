@@ -94,3 +94,51 @@ a.pagination__item:hover::after {
 .pagination__item-arrow:hover::after {
   display: none;
 }
+
+/* ---------- TRO 2026 pagination ---------- */
+.pagination-wrapper {
+  margin-top: 2.5rem;
+}
+
+.pagination__list > li {
+  flex: 0 0 2.75rem;
+  max-width: 2.75rem;
+}
+
+.pagination__list > li:not(:last-child) {
+  margin-right: 0.5rem;
+}
+
+.pagination__item {
+  height: 2.75rem;
+  border-radius: 50%;
+  border: 1px solid var(--tro-line);
+  background: #fff;
+  font-family: var(--font-body-family);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--tro-ink);
+  transition: background-color var(--tro-dur-fast) var(--tro-ease), color var(--tro-dur-fast) var(--tro-ease), border-color var(--tro-dur-fast) var(--tro-ease);
+}
+
+a.pagination__item:hover {
+  border-color: var(--tro-ink);
+}
+
+a.pagination__item:hover::after {
+  display: none;
+}
+
+.pagination__item--current {
+  background: var(--tro-ink);
+  color: #fff;
+  border-color: var(--tro-ink);
+}
+
+.pagination__item--current::after {
+  display: none;
+}
+
+.pagination__item .icon-caret {
+  height: 0.6rem;
+}

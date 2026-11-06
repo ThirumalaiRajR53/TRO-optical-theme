@@ -16,14 +16,14 @@
       {% capture breadcrumbs_arrow %}
         <span class="twcss-mx-2 twcss-flex twcss-items-center">
           <svg width="5" height="10" viewBox="0 0 5 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M4.9834 0.00585938L1.26465 10H0.143555L3.86914 0.00585938H4.9834Z" fill="#0F172A" fill-opacity="0.2"/>
+            <path d="M4.9834 0.00585938L1.26465 10H0.143555L3.86914 0.00585938H4.9834Z" fill="currentColor" fill-opacity="0.35"/>
           </svg>
         </span>
       {% endcapture %}
 
       <ol class="twcss-flex twcss-flex-wrap">
         <li>
-          <a href="/" title="Home">{{ 'general.home' | t }}</a>
+          <a href="{{ routes.root_url }}">{{ 'general.home' | t }}</a>
         </li>
 
         {% case t %}

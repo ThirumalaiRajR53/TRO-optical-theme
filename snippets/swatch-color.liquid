@@ -1,0 +1,63 @@
+{% comment %}
+  Outputs a CSS colour for an eyewear colour name (variant option value or filter value).
+  Matches the vocabulary used in the TRO catalogue (Havana, Gunmetal, Rose Gold, ...); unknown names
+  fall back to the name itself so plain CSS colours like "black" or "blue" still work.
+
+  Accepts:
+  - name: {String} colour name, e.g. "Matte Gunmetal / Grey"
+
+  Usage:
+  style="background: {% render 'swatch-color', name: color_value %};"
+{% endcomment %}
+{%- liquid
+  assign n = name | downcase
+  assign swatch = ''
+  if n contains 'rose gold'
+    assign swatch = '#c9a28c'
+  elsif n contains 'gold'
+    assign swatch = '#b99a5b'
+  elsif n contains 'gunmetal' or n contains 'ruthenium'
+    assign swatch = '#4b4f58'
+  elsif n contains 'palladium' or n contains 'silver' or n contains 'chrome' or n contains 'steel'
+    assign swatch = '#b8bcc4'
+  elsif n contains 'bronze' or n contains 'copper'
+    assign swatch = '#8b5a2b'
+  elsif n contains 'tortoise' or n contains 'havana' or n contains 'demi'
+    assign swatch = '#6b4423'
+  elsif n contains 'burgundy' or n contains 'bordeaux' or n contains 'wine' or n contains 'maroon'
+    assign swatch = '#6b2a33'
+  elsif n contains 'navy' or n contains 'dark blue'
+    assign swatch = '#1f2a5a'
+  elsif n contains 'blue'
+    assign swatch = '#3b5ba9'
+  elsif n contains 'olive' or n contains 'khaki'
+    assign swatch = '#6b6b3a'
+  elsif n contains 'green'
+    assign swatch = '#2f6b4a'
+  elsif n contains 'red'
+    assign swatch = '#b3261e'
+  elsif n contains 'pink'
+    assign swatch = '#e3a1b4'
+  elsif n contains 'purple' or n contains 'violet' or n contains 'lilac'
+    assign swatch = '#6d4b9e'
+  elsif n contains 'orange'
+    assign swatch = '#d97a2b'
+  elsif n contains 'yellow'
+    assign swatch = '#d9b63a'
+  elsif n contains 'brown' or n contains 'chocolate' or n contains 'coffee'
+    assign swatch = '#5c3a21'
+  elsif n contains 'beige' or n contains 'nude' or n contains 'cream' or n contains 'ivory' or n contains 'champagne'
+    assign swatch = '#e6d6c3'
+  elsif n contains 'clear' or n contains 'crystal' or n contains 'transparent'
+    assign swatch = '#eef1f4'
+  elsif n contains 'white'
+    assign swatch = '#f4f4f2'
+  elsif n contains 'grey' or n contains 'gray' or n contains 'graphite'
+    assign swatch = '#7a7f8a'
+  elsif n contains 'black'
+    assign swatch = '#1a1a1a'
+  else
+    assign swatch = n | replace: ' ', ''
+  endif
+  echo swatch
+-%}
