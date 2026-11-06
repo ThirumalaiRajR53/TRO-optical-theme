@@ -34,7 +34,7 @@
                           aria-current="page"
                         {% endif %}
                       >
-                        {{ childlink.title | escape }}
+                        {{ childlink.title | remove: '[NEW]' | remove: '[SALE]' | strip | escape }}
                         {%- if childlink.title contains '[NEW]' or childlink.title contains '[SALE]' -%}
                           {%- assign badge_text = '' -%}
                           {%- if childlink.title contains '[NEW]' -%}
@@ -56,7 +56,7 @@
                                   aria-current="page"
                                 {% endif %}
                               >
-                                {{ grandchildlink.title | escape }}
+                                {{ grandchildlink.title | remove: '[NEW]' | remove: '[SALE]' | strip | escape }}
                                 {%- if grandchildlink.title contains '[NEW]' or grandchildlink.title contains '[SALE]' -%}
                                   {%- assign gc_badge = '' -%}
                                   {%- if grandchildlink.title contains '[NEW]' -%}

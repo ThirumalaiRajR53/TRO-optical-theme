@@ -63,7 +63,7 @@
     "success": "Thanks for subscribing",
     "button_label": "Subscribe",
     "input_placeholder": "Email Address",
-    "input_validation_error":"Invalid email address"
+    "input_validation_error": "Invalid email address"
   },
   "accessibility": {
     "skip_to_text": "Skip to content",
@@ -102,11 +102,10 @@
       "success": "Your comment was posted successfully! Thank you!",
       "success_moderated": "Your comment was posted successfully. We will publish it in a little while, as our blog is moderated."
     },
-    "article_card":{
+    "article_card": {
       "by": "By",
-      "on":"On"
+      "on": "On"
     }
-
   },
   "onboarding": {
     "product_title": "Example product title",
@@ -269,7 +268,6 @@
       "announcement": "Announcement",
       "announcement_bar": "Announcement bar"
     },
-
     "header": {
       "announcement": "Announcement",
       "menu": "Menu",
@@ -502,27 +500,31 @@
       "button_label": "shop all"
     },
     "non_empty": {
-      "footer_buttons":{
-        "button_label-1":"View my cart",
-        "button_label-2":"Proceed to checkout"
+      "footer_buttons": {
+        "button_label-1": "View my cart",
+        "button_label-2": "Proceed to checkout"
       }
+    },
+    "item": {
+      "for_frame": "For frame",
+      "no_power": "No power",
+      "each": "each"
     }
   },
-  "search_modal":{
-     "input":{
+  "search_modal": {
+    "input": {
       "placeholder": "Search..."
-     }
+    }
   },
-  "cart_page":{
-    "heading":"Shopping Cart",
-    "remove_btn_label":"Remove",
-    "continue_shopping":"Continue shopping",
+  "cart_page": {
+    "heading": "Shopping Cart",
+    "remove_btn_label": "Remove",
+    "continue_shopping": "Continue shopping",
     "item_subtotal": "Sub Total",
     "subtotal": "Subtotal",
-    "items":"Items",
+    "items": "Items",
     "tax_note": "Taxes and shipping calculated at checkout",
-    "checkout":"Checkout"
-
+    "checkout": "Checkout"
   },
   "quiz": {
     "duplicate_email_error": "Email id already exists."

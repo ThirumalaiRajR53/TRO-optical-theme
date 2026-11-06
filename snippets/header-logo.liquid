@@ -1,0 +1,71 @@
+{% comment %}
+  Renders the header logo link in one of two styles (section setting `logo_style`):
+  - image:  the uploaded logo image at `logo_width` (original behaviour)
+  - emblem: a circular crop of `emblem_image` (falls back to the logo) beside the shop name and optional tagline
+
+  Accepts:
+  - sizes_mobile_first: {Boolean} use the mobile-first `sizes` attribute used by the centred layout (optional)
+
+  Usage:
+  {% render 'header-logo' %}
+{% endcomment %}
+
+{%- liquid
+  assign logo_alt = settings.logo.alt | default: shop.name | escape
+  assign emblem = section.settings.emblem_image | default: settings.logo
+-%}
+
+<a
+  href="{{ routes.root_url }}"
+  class="header__heading-link link link--text focus-inset{% if section.settings.logo_style == 'emblem' %} header__heading-link--emblem{% endif %}"
+>
+  {%- if section.settings.logo_style == 'emblem' -%}
+    {%- if emblem != blank -%}
+      {%- assign emblem_alt = emblem.alt | default: shop.name | escape -%}
+      <span class="header__emblem">
+        {{
+          emblem
+          | image_url: width: 200
+          | image_tag:
+            class: 'header__emblem-image',
+            widths: '96, 144, 200',
+            sizes: '48px',
+            width: 48,
+            height: 48,
+            alt: emblem_alt,
+            preload: true
+        }}
+      </span>
+    {%- endif -%}
+    <span class="header__wordmark">
+      <span class="header__wordmark-name">{{ shop.name }}</span>
+      {%- if section.settings.brand_tagline != blank -%}
+        <span class="header__wordmark-tagline">{{ section.settings.brand_tagline | escape }}</span>
+      {%- endif -%}
+    </span>
+  {%- elsif settings.logo != blank -%}
+    <div class="header__heading-logo-wrapper">
+      {%- assign logo_height = settings.logo_width | divided_by: settings.logo.aspect_ratio -%}
+      {%- if sizes_mobile_first -%}
+        {% capture sizes %}(min-width: 750px) {{ settings.logo_width }}px, 50vw{% endcapture %}
+      {%- else -%}
+        {% capture sizes %}(max-width: {{ settings.logo_width | times: 2 }}px) 50vw, {{ settings.logo_width }}px{% endcapture %}
+      {%- endif -%}
+      {% capture widths %}{{ settings.logo_width }}, {{ settings.logo_width | times: 1.5 | round }}, {{ settings.logo_width | times: 2 }}{% endcapture %}
+      {{
+        settings.logo
+        | image_url: width: 600
+        | image_tag:
+          class: 'header__heading-logo motion-reduce',
+          widths: widths,
+          height: logo_height,
+          width: settings.logo_width,
+          alt: logo_alt,
+          sizes: sizes,
+          preload: true
+      }}
+    </div>
+  {%- else -%}
+    <span class="h2">{{ shop.name }}</span>
+  {%- endif -%}
+</a>

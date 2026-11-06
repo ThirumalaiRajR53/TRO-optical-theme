@@ -642,3 +642,165 @@
     grid-column: span 2;
   }
 }
+
+/* ---------- TRO 2026 footer refinements (override the Dawn/Polo rules above) ---------- */
+.footer.color-accent-2 {
+  background: var(--tro-ink-900);
+  --color-foreground: 255, 255, 255;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.footer__content-top {
+  padding-top: 4rem;
+  padding-bottom: 3rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer .footer__blocks-wrapper {
+  row-gap: 2.5rem;
+}
+
+.footer-block__heading,
+.footer-block__heading.twcss-font-semibold,
+.footer .footer-block__heading.inline-richtext {
+  margin: 0 0 1.1rem;
+  font-family: var(--font-body-family);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  line-height: 1.2;
+  color: var(--tro-gold);
+}
+
+.footer .footer-block__details-content,
+.footer .footer-block__details-content p,
+.footer .footer-block__details-content .list-menu__item--link {
+  font-family: var(--font-body-family);
+  font-size: 0.875rem;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.footer .footer-block__details-content .list-menu__item--link {
+  padding: 0.25rem 0;
+  transition: color var(--tro-dur-fast) var(--tro-ease);
+}
+
+.footer .footer-block__details-content a:hover,
+.footer .footer-block__details-content .list-menu__item--link:hover {
+  color: #fff;
+  text-decoration-color: var(--tro-gold);
+}
+
+.footer .footer-block__details-content strong {
+  color: #fff;
+  font-weight: 600;
+}
+
+/* Store locations as cards */
+.footer-store__brand {
+  margin: 0 0 1rem;
+  padding: 0;
+  border: 0;
+  font-family: var(--font-heading-family);
+  font-size: 1.375rem;
+  font-weight: 500;
+  color: #fff;
+}
+
+.footer-store-grid {
+  gap: 0.75rem;
+}
+
+.footer-store.footer-block__details-content {
+  padding: 0.9rem 1rem;
+  border-radius: var(--tro-r-sm);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}
+
+.footer-store > a,
+.footer-store > strong {
+  display: block;
+  margin-bottom: 0.2rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #fff;
+  text-decoration: none;
+}
+
+.footer-store > a:hover {
+  color: var(--tro-gold);
+}
+
+.footer-store__address {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Brand block */
+.footer-block__brand-info .rte {
+  font-size: 0.875rem;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.footer-block__brand-info .footer-block__image-wrapper img {
+  border-radius: 50%;
+}
+
+/* Bottom bar */
+.footer__content-bottom {
+  border-top: 0;
+}
+
+.footer__content-bottom-wrapper {
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
+}
+
+.footer__copyright,
+.copyright__content,
+.copyright__content a,
+.policies li a {
+  font-family: var(--font-body-family);
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.copyright__content a:hover,
+.policies li a:hover {
+  color: #fff;
+}
+
+.policies li::before {
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.list-payment__item .icon {
+  border-radius: 4px;
+}
+
+@media screen and (min-width: 750px) {
+  .footer .footer-block__details-content {
+    font-size: 0.875rem;
+  }
+
+  .footer-store-grid {
+    column-gap: 0.75rem;
+    row-gap: 0.75rem;
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .footer__content-top {
+    padding-top: 2.75rem;
+    padding-bottom: 2rem;
+  }
+
+  .footer-store-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

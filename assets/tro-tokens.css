@@ -346,6 +346,27 @@ button.shopify-payment-button__button--unbranded:hover {
   border: 1px solid var(--tro-line);
 }
 
+/* ---------- Layout container ---------- */
+/* --page-width is now a real pixel max-width (settings.page_width), so side padding can be modest. */
+.page-width {
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
+
+@media screen and (min-width: 750px) {
+  .page-width {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .page-width {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+}
+
 /* ---------- Layout rhythm ---------- */
 .section-header + .shopify-section,
 .shopify-section-group-header-group ~ .shopify-section {
