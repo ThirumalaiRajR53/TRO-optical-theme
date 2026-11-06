@@ -537,6 +537,7 @@
     "checkout": "Verificar"
   },
   "quiz": {
-    "duplicate_email_error": "La identificación de correo electrónico ya existe."
+    "duplicate_email_error": "La identificación de correo electrónico ya existe.",
+    "frame_finder": "Buscador de monturas"
   }
 }

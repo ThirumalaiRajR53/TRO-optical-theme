@@ -527,6 +527,7 @@
     "checkout": "Checkout"
   },
   "quiz": {
-    "duplicate_email_error": "Email id already exists."
+    "duplicate_email_error": "Email id already exists.",
+    "frame_finder": "Frame finder"
   }
 }

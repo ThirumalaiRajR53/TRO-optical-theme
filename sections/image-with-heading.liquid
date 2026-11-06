@@ -14,32 +14,28 @@
     }
 {% endstyle %}
 <div class="page-width section-{{ section.id }}-padding image-with-heading-container">
-  <div class="twcss-flex twcss-flex-col twcss-flex-wrap twcss-gap-6  twcss-px-5 md:twcss-flex-row">
+  <ul class="trust-strip list-unstyled" role="list">
     {% for block in section.blocks %}
-      <div
-        class=" image-with-heading-content twcss-relative twcss-flex twcss-items-center "
-        {{ block.shopify_attributes }}
-      >
+      <li class="trust-strip__item image-with-heading-content" {{ block.shopify_attributes }}>
         {% if block.settings.image != blank %}
-          <div class="twcss-flex twcss-h-[3.75rem] twcss-w-[3.75rem] twcss-items-center twcss-rounded-full  twcss-bg-white twcss-ps-[0.625rem]">
-            <div class="twcss-h-[1.75rem] twcss-w-[1.75rem]">
-              {{
-                block.settings.image
-                | image_url: width: 300
-                | image_tag: class: 'twcss-h-full twcss-w-full twcss-object-contain', loading: 'lazy'
-              }}
-            </div>
-          </div>
+          <span class="trust-strip__icon">
+            {{
+              block.settings.image
+              | image_url: width: 120
+              | image_tag: widths: '60, 120', sizes: '28px', width: 28, height: 28, loading: 'lazy', alt: ''
+            }}
+          </span>
+        {% else %}
+          <span class="trust-strip__icon trust-strip__icon--default" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 5 6v6c0 4.5 3 7.5 7 9 4-1.5 7-4.5 7-9V6l-7-3Z"/><path d="m9 12 2 2 4-4"/></svg>
+          </span>
         {% endif %}
-
         {% if block.settings.title != blank %}
-          <p class="{% if block.settings.image != blank %}twcss-absolute twcss-left-11 {% endif %}  twcss-font-bold twcss-leading-[1.375rem]">
-            {{ block.settings.title }}
-          </p>
+          <p class="trust-strip__title">{{ block.settings.title }}</p>
         {% endif %}
-      </div>
+      </li>
     {% endfor %}
-  </div>
+  </ul>
 </div>
 {% schema %}
 {

@@ -91,3 +91,46 @@
 .collection .card__media .media img {
   object-fit: cover;
 }
+
+/* ---------- TRO 2026: section heading row for featured collections ---------- */
+.collection__title.title-wrapper {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.75rem;
+}
+
+.collection__title .title {
+  margin: 0;
+  color: var(--tro-ink);
+}
+
+.collection__title .title.twcss-pr-\[4\.375rem\] {
+  padding-right: 0;
+}
+
+.collection__title .link.twcss-uppercase {
+  text-transform: none;
+  font-family: var(--font-body-family);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--tro-ink);
+  text-decoration: none;
+  padding-bottom: 0.2rem;
+  border-bottom: 1px solid rgba(18, 26, 74, 0.35);
+  white-space: nowrap;
+  transition: color var(--tro-dur-fast) var(--tro-ease), border-color var(--tro-dur-fast) var(--tro-ease);
+}
+
+.collection__title .link.twcss-uppercase:hover {
+  color: var(--tro-indigo);
+  border-color: var(--tro-indigo);
+}
+
+.collection__description {
+  flex-basis: 100%;
+  margin: 0.25rem 0 0;
+  color: var(--tro-muted);
+}

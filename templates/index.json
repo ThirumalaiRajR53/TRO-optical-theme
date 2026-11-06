@@ -47,7 +47,9 @@
         "template--21453178798384__c92d5c5c-03dd-4203-a4eb-bbb13859689b-buttons-1"
       ],
       "settings": {
-        "image": "shopify://shop_images/close-up-of-eye-glasses-on-a-computer-desk.jpg"
+        "image": "shopify://shop_images/close-up-of-eye-glasses-on-a-computer-desk.jpg",
+        "layout": "full",
+        "image_focus": "center"
       }
     },
     "legacy_hero": {
@@ -88,7 +90,8 @@
         "legacy-buttons"
       ],
       "settings": {
-        "image": "shopify://shop_images/TRO_new.jpg"
+        "image": "shopify://shop_images/TRO_new.jpg",
+        "layout": "split"
       }
     },
     "category_showcase": {

@@ -247,3 +247,83 @@
 .multicolumn-list__item:hover {
   background-color: rgb(var(--color-base-background-1));
 }
+
+/* ---------- TRO 2026: "What we offer" columns ---------- */
+.multicolumn.color-accent-1 {
+  --color-foreground: var(--color-base-text);
+  color: rgb(var(--color-base-text));
+}
+
+.multicolumn .title-wrapper-with-link {
+  justify-content: center;
+  text-align: center;
+}
+
+.multicolumn .title {
+  color: var(--tro-ink);
+}
+
+.multicolumn .description-text {
+  max-width: 44rem;
+  margin: 0 auto 2.5rem;
+  text-align: center;
+  color: var(--tro-muted);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.multicolumn .description-text.twcss-px-5 {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.multicolumn-list__item {
+  border: 0 !important;
+}
+
+.multicolumn-card {
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--tro-line);
+  border-radius: 0;
+  background: transparent;
+}
+
+.multicolumn-list h3,
+.multicolumn-list h3.twcss-font-bold {
+  margin: 0 0 0.5rem;
+  font-family: var(--font-heading-family);
+  font-size: 1.375rem;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--tro-ink);
+}
+
+.multicolumn-card__info .rte {
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--tro-muted);
+}
+
+.multicolumn-card__info .link {
+  color: var(--tro-indigo);
+  font-weight: 500;
+}
+
+/* Use a real grid on desktop so the last column can never wrap from sub-pixel rounding */
+@media screen and (min-width: 990px) {
+  .multicolumn-list:not(.slider) {
+    display: grid;
+    gap: var(--grid-desktop-vertical-spacing) var(--grid-desktop-horizontal-spacing);
+  }
+
+  .multicolumn-list:not(.slider) > .grid__item {
+    width: auto;
+    max-width: none;
+  }
+
+  .multicolumn-list.grid--2-col-desktop:not(.slider) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .multicolumn-list.grid--3-col-desktop:not(.slider) { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .multicolumn-list.grid--4-col-desktop:not(.slider) { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .multicolumn-list.grid--5-col-desktop:not(.slider) { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  .multicolumn-list.grid--6-col-desktop:not(.slider) { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+}

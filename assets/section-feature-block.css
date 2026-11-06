@@ -1,0 +1,119 @@
+/* Feature block: two image tiles with glass captions */
+.feature-block {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1rem;
+}
+
+@media screen and (min-width: 990px) {
+  .feature-block {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+}
+
+.feature-tile {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  border-radius: var(--tro-r-lg);
+  background: var(--tro-linen);
+  box-shadow: var(--tro-shadow-card);
+  text-decoration: none;
+  color: var(--tro-ink);
+  height: 20rem;
+}
+
+.feature-block--small .feature-tile { height: 15rem; }
+.feature-block--large .feature-tile { height: 25rem; }
+
+@media screen and (min-width: 750px) {
+  .feature-tile { height: 30rem; }
+  .feature-block--small .feature-tile { height: 25rem; }
+  .feature-block--large .feature-tile { height: 36rem; }
+}
+
+.feature-tile__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--tro-dur-slow) var(--tro-ease);
+}
+
+a.feature-tile:hover .feature-tile__image {
+  transform: scale(1.03);
+}
+
+.feature-tile__caption {
+  position: absolute;
+  bottom: 1.25rem;
+  left: 1.25rem;
+  right: 1.25rem;
+  max-width: 22rem;
+  padding: 1.25rem 1.375rem;
+  border-radius: var(--tro-r-md);
+}
+
+.feature-tile--right .feature-tile__caption {
+  left: auto;
+}
+
+.feature-tile--center .feature-tile__caption {
+  left: 50%;
+  right: auto;
+  transform: translateX(-50%);
+  width: calc(100% - 2.5rem);
+}
+
+.feature-tile__eyebrow {
+  margin: 0 0 0.5rem;
+  font-family: var(--font-body-family);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--tro-gold-deep);
+}
+
+.feature-tile__title {
+  margin: 0 0 0.75rem;
+  font-size: 1.75rem;
+  line-height: 1.1;
+  color: var(--tro-ink);
+}
+
+.feature-tile__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding-bottom: 0.2rem;
+  border-bottom: 1px solid rgba(18, 26, 74, 0.35);
+  font-family: var(--font-body-family);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--tro-ink);
+}
+
+.feature-tile__cta .icon-arrow {
+  width: 0.9rem;
+  height: 0.9rem;
+  transition: transform var(--tro-dur-fast) var(--tro-ease);
+}
+
+a.feature-tile:hover .feature-tile__cta .icon-arrow {
+  transform: translateX(3px);
+}
+
+@media screen and (max-width: 749px) {
+  .feature-tile__caption {
+    left: 0.875rem;
+    right: 0.875rem;
+    bottom: 0.875rem;
+    max-width: none;
+    padding: 1rem 1.125rem;
+  }
+
+  .feature-tile__title {
+    font-size: 1.5rem;
+  }
+}

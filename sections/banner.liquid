@@ -1,70 +1,112 @@
 {{ 'section-banner.css' | asset_url | stylesheet_tag }}
 
-<section id="Banner-{{ section.id }}" class="banner-wrapper">
-  <div class="twcss-flex  twcss-flex-col twcss-gap-6 md:twcss-flex-row">
-    <div class="twcss-flex-col twcss-justify-center twcss-px-[0.625rem]  twcss-pt-4 md:twcss-flex md:twcss-w-1/2 md:twcss-pe-0 md:twcss-ps-[3.2rem] md:twcss-pt-0 lg:twcss-ps-36">
-      {%- for block in section.blocks -%}
-        {%- case block.type -%}
-          {%- when 'heading' -%}
-            <h1
-              class="twcss-text-navy-blue-900 twcss-mb-2 twcss-text-[2.25rem] twcss-font-bold md:twcss-mb-3 md:twcss-text-5xl md:twcss-leading-[3.75rem] lg:twcss-mb-4 lg:twcss-text-6xl lg:twcss-leading-[4.75rem]"
-              {{ block.shopify_attributes }}
+{%- liquid
+  assign layout = section.settings.layout | default: 'split'
+  assign heading_tag = 'h1'
+  if section.index > 1
+    assign heading_tag = 'h2'
+  endif
+  assign image_alt = section.settings.image.alt | escape
+-%}
+
+{%- capture banner_blocks -%}
+  {%- for block in section.blocks -%}
+    {%- case block.type -%}
+      {%- when 'heading' -%}
+        <{{ heading_tag }} class="banner__heading" {{ block.shopify_attributes }}>{{ block.settings.heading }}</{{ heading_tag }}>
+      {%- when 'text' -%}
+        <p class="banner__lede" {{ block.shopify_attributes }}>{{ block.settings.text }}</p>
+      {%- when 'text_2' -%}
+        {%- comment -%} Short lines read as an eyebrow above the heading; sentences stay a secondary paragraph {%- endcomment -%}
+        {%- assign text_2_plain = block.settings.text_2 | strip_html -%}
+        {%- if text_2_plain.size <= 40 -%}
+          <p class="banner__eyebrow" {{ block.shopify_attributes }}>{{ block.settings.text_2 }}</p>
+        {%- else -%}
+          <p class="banner__lede banner__lede--secondary" {{ block.shopify_attributes }}>{{ block.settings.text_2 }}</p>
+        {%- endif -%}
+      {%- when 'buttons' -%}
+        <div class="banner__buttons" {{ block.shopify_attributes }}>
+          {%- if block.settings.button_label_1 != blank -%}
+            <a
+              {% if block.settings.button_link_1 == blank %}
+                role="link" aria-disabled="true"
+              {% else %}
+                href="{{ block.settings.button_link_1 }}"
+              {% endif %}
+              class="button button--primary banner__button"
             >
-              {{ block.settings.heading }}
-            </h1>
-          {%- when 'text' -%}
-            <h2
-              class="text-color-opacity-80 twcss-mb-6 twcss-text-[1.25rem] twcss-font-light md:twcss-mb-12 md:twcss-text-[1.625rem] md:twcss-leading-[2.125rem]"
-              {{ block.shopify_attributes }}
+              {{- block.settings.button_label_1 | escape -}}
+            </a>
+          {%- endif -%}
+          {%- if block.settings.button_label_2 != blank -%}
+            <a
+              {% if block.settings.button_link_2 == blank %}
+                role="link" aria-disabled="true"
+              {% else %}
+                href="{{ block.settings.button_link_2 }}"
+              {% endif %}
+              class="button banner__button banner__button--glass"
             >
-              {{ block.settings.text }}
-            </h2>
-          {%- when 'text_2' -%}
-            <h5
-              class="text-color-opacity-80 twcss-mb-3 twcss-text-[1rem] twcss-font-medium md:twcss-mb-5 md:twcss-text-[1.25rem] md:twcss-leading-7"
-              {{ block.shopify_attributes }}
-            >
-              {{ block.settings.text_2 }}
-            </h5>
-          {%- when 'buttons' -%}
-            <div class="twcss-flex twcss-flex-wrap twcss-gap-4 twcss-break-words" {{ block.shopify_attributes }}>
-              {%- if block.settings.button_label_1 != blank -%}
-                <a
-                  {% if block.settings.button_link_1 == blank %}
-                    role="link" aria-disabled="true"
-                  {% else %}
-                    href="{{ block.settings.button_link_1 }}"
-                  {% endif %}
-                  class="button button--secondary twcss-w-full twcss-uppercase md:twcss-w-fit"
-                >
-                  {{- block.settings.button_label_1 | escape -}}
-                </a>
-              {%- endif -%}
-              {%- if block.settings.button_label_2 != blank -%}
-                <a
-                  {% if block.settings.button_link_2 == blank %}
-                    role="link" aria-disabled="true"
-                  {% else %}
-                    href="{{ block.settings.button_link_2 }}"
-                  {% endif %}
-                  class="button button--secondary twcss-w-full twcss-uppercase md:twcss-w-fit"
-                >
-                  {{- block.settings.button_label_2 | escape -}}
-                </a>
-              {%- endif -%}
-            </div>
-        {%- endcase -%}
-      {%- endfor -%}
-    </div>
-    <div class="banner-image-wrapper twcss-flex twcss-justify-center twcss-aspect-square md:twcss-w-1/2">
-      {% comment %} <img src="images/home-banner-image.jpg" /> {% endcomment %}
-      {%- if section.settings.image == blank -%}
-        {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg' }}
+              {{- block.settings.button_label_2 | escape -}}
+            </a>
+          {%- endif -%}
+        </div>
+    {%- endcase -%}
+  {%- endfor -%}
+{%- endcapture -%}
+
+<section
+  id="Banner-{{ section.id }}"
+  class="banner-wrapper banner-wrapper--{{ layout }}{% if section.settings.image == blank %} banner-wrapper--no-image{% endif %}"
+>
+  {%- if layout == 'full' -%}
+    <div class="banner__media banner__media--full banner__media--focus-{{ section.settings.image_focus | default: 'center' }}">
+      {%- if section.settings.image != blank -%}
+        {{
+          section.settings.image
+          | image_url: width: 2400
+          | image_tag:
+            class: 'banner__image',
+            widths: '600, 900, 1200, 1600, 2000, 2400',
+            sizes: '100vw',
+            loading: 'eager',
+            fetchpriority: 'high',
+            alt: image_alt
+        }}
       {%- else -%}
-        {{ section.settings.image | image_url: width: 750 | image_tag: fetchpriority: 'high' }}
+        {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg banner__image' }}
       {%- endif -%}
     </div>
-  </div>
+    <div class="banner__scrim" aria-hidden="true"></div>
+    <div class="page-width banner__inner banner__inner--full">
+      <div class="banner__card tro-glass">
+        {{ banner_blocks }}
+      </div>
+    </div>
+  {%- else -%}
+    <div class="page-width banner__inner banner__inner--split">
+      <div class="banner__content">
+        {{ banner_blocks }}
+      </div>
+      <div class="banner__media banner__media--split">
+        {%- if section.settings.image != blank -%}
+          {{
+            section.settings.image
+            | image_url: width: 1500
+            | image_tag:
+              class: 'banner__image',
+              widths: '400, 600, 800, 1000, 1200, 1500',
+              sizes: '(min-width: 750px) 50vw, 100vw',
+              loading: 'eager',
+              fetchpriority: 'high',
+              alt: image_alt
+          }}
+        {%- else -%}
+          {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg banner__image' }}
+        {%- endif -%}
+      </div>
+    </div>
+  {%- endif -%}
 </section>
 
 {% schema %}
@@ -75,6 +117,35 @@
       "type": "image_picker",
       "id": "image",
       "label": "t:sections.banner.settings.image.label"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "options": [
+        {
+          "value": "split",
+          "label": "Text beside image"
+        },
+        {
+          "value": "full",
+          "label": "Full-width image with glass panel"
+        }
+      ],
+      "default": "split",
+      "label": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "image_focus",
+      "options": [
+        { "value": "center", "label": "Center" },
+        { "value": "left", "label": "Left" },
+        { "value": "right", "label": "Right" },
+        { "value": "top", "label": "Top" }
+      ],
+      "default": "center",
+      "label": "Image focal point",
+      "info": "Used by the full-width layout"
     }
   ],
   "blocks": [
