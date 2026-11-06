@@ -64,45 +64,7 @@
                       </a>
                     </facet-remove>
                   </div>
-                  {%- for filter in results.filters -%}
-                    {%- for value in filter.active_values -%}
-                      <facet-remove>
-                        <a href="{{ value.url_to_remove }}" class="active-facets__button active-facets__button--light">
-                          <span class="active-facets__button-inner button button--tertiary">
-                            {{ filter.label }}: {{ value.label | escape }}
-                            {% render 'icon-close-small' %}
-                            <span class="visually-hidden">{{ 'products.facets.clear_filter' | t }}</span>
-                          </span>
-                        </a>
-                      </facet-remove>
-                    {%- endfor -%}
-                    {% if filter.type == 'price_range' %}
-                      {%- if filter.min_value.value != null or filter.max_value.value != null -%}
-                        <facet-remove>
-                          <a
-                            href="{{ filter.url_to_remove }}"
-                            class="active-facets__button active-facets__button--light"
-                          >
-                            <span class="active-facets__button-inner button button--tertiary">
-                              {%- if filter.min_value.value -%}
-                                {{ filter.min_value.value | money }}
-                              {%- else -%}
-                                {{ 0 | money }}
-                              {%- endif -%}
-                              -
-                              {%- if filter.max_value.value -%}
-                                {{ filter.max_value.value | money }}
-                              {%- else -%}
-                                {{ filter.range_max | money }}
-                              {%- endif -%}
-                              {% render 'icon-close-small' %}
-                              <span class="visually-hidden">{{ 'products.facets.clear_filter' | t }}</span>
-                            </span>
-                          </a>
-                        </facet-remove>
-                      {%- endif -%}
-                    {% endif %}
-                  {%- endfor -%}
+                  {%- render 'facets-active-pills', results: results, show_filter_label: true -%}
                 </div>
               {%- endif -%}
 
@@ -171,47 +133,7 @@
                             role="list"
                           >
                             {%- for value in filter.values -%}
-                              <li class="list-menu__item facets__item{% if forloop.index > 10 and filter_type == 'vertical' %} show-more-item hidden{% endif %}">
-                                <label
-                                  for="Filter-{{ filter.param_name | escape }}-{{ forloop.index }}"
-                                  class="facet-checkbox{% if value.count == 0 and value.active == false %} facet-checkbox--disabled{% endif %}"
-                                >
-                                  <input
-                                    type="checkbox"
-                                    name="{{ value.param_name }}"
-                                    value="{{ value.value }}"
-                                    id="Filter-{{ filter.param_name | escape }}-{{ forloop.index }}"
-                                    {% if value.active %}
-                                      checked
-                                    {% endif %}
-                                    {% if value.count == 0 and value.active == false %}
-                                      disabled
-                                    {% endif %}
-                                    class="twcss-mr-2 twcss-h-5 twcss-min-w-[1.25rem]"
-                                  >
-
-                                  <span aria-hidden="true" class="facet-checkbox__label">
-                                    {%- assign filter_label_lower = filter.label | downcase -%}
-                                    {%- if filter_label_lower contains 'shape' -%}
-                                      <span class="facet-shape-icon-wrapper">
-                                        {% render 'facet-shape-icons', shape: value.label %}
-                                      </span>
-                                    {%- elsif filter.param_name == 'filter.p.m.custom.color' -%}
-                                      <span class="facet-swatch" style="background: {% render 'swatch-color', name: value.label %};"></span>
-                                    {%- endif -%}
-                                    {{ value.label | escape }} <span class="facet-count">({{ value.count }})</span>
-                                  </span>
-                                  <span class="visually-hidden">
-                                    {{- value.label | escape }} (
-                                    {%- if value.count == 1 -%}
-                                      {{- 'products.facets.product_count_simple.one' | t: count: value.count -}}
-                                    {%- else -%}
-                                      {{- 'products.facets.product_count_simple.other' | t: count: value.count -}}
-                                    {%- endif -%}
-                                    )</span
-                                  >
-                                </label>
-                              </li>
+                              {%- render 'facets-filter-value', filter: filter, value: value, index: forloop.index, mode: 'desktop', filter_type: filter_type -%}
                             {%- endfor -%}
                           </ul>
                           {% comment %} No show more for no JS {% endcomment %}
@@ -220,36 +142,7 @@
                             role="list"
                           >
                             {%- for value in filter.values -%}
-                              <li class="list-menu__item facets__item">
-                                <label
-                                  for="Filter-{{ filter.param_name | escape }}-{{ forloop.index }}-no-js"
-                                  class="facet-checkbox{% if value.count == 0 and value.active == false %} facet-checkbox--disabled{% endif %}"
-                                >
-                                  <input
-                                    type="checkbox"
-                                    class="twcss-mr-2 twcss-h-5 twcss-min-w-[1.25rem] "
-                                    name="{{ value.param_name }}"
-                                    value="{{ value.value }}"
-                                    id="Filter-{{ filter.param_name | escape }}-{{ forloop.index }}-no-js"
-                                    {% if value.active %}
-                                      checked
-                                    {% endif %}
-                                    {% if value.count == 0 and value.active == false %}
-                                      disabled
-                                    {% endif %}
-                                  >
-                                  <span aria-hidden="true">{{ value.label | escape }} ({{ value.count }})</span>
-                                  <span class="visually-hidden">
-                                    {{- value.label | escape }} (
-                                    {%- if value.count == 1 -%}
-                                      {{- 'products.facets.product_count_simple.one' | t: count: value.count -}}
-                                    {%- else -%}
-                                      {{- 'products.facets.product_count_simple.other' | t: count: value.count -}}
-                                    {%- endif -%}
-                                    )</span
-                                  >
-                                </label>
-                              </li>
+                              {%- render 'facets-filter-value', filter: filter, value: value, index: forloop.index, mode: 'no-js' -%}
                             {%- endfor -%}
                           </ul>
                         </fieldset>
@@ -272,13 +165,6 @@
                       </div>
                     </details>
                   {% when 'price_range' %}
-                    {% liquid
-                      assign currencies_using_comma_decimals = 'ANG,ARS,BRL,BYN,BYR,CLF,CLP,COP,CRC,CZK,DKK,EUR,HRK,HUF,IDR,ISK,MZN,NOK,PLN,RON,RUB,SEK,TRY,UYU,VES,VND' | split: ','
-                      assign uses_comma_decimals = false
-                      if currencies_using_comma_decimals contains cart.currency.iso_code
-                        assign uses_comma_decimals = true
-                      endif
-                    %}
                     <details
                       id="Details-{{ forloop.index }}-{{ section.id }}"
                       class="{% if filter_type == 'horizontal' %}disclosure-has-popup facets__disclosure{% else %} facets__disclosure-vertical{% endif %} js-filter"
@@ -310,57 +196,7 @@
                             </facet-remove>
                           {%- endif -%}
                         </div>
-                        <price-range class="facets__price">
-                          <span class="field-currency">{{ cart.currency.symbol }}</span>
-                          <div class="field">
-                            <input
-                              class="field__input"
-                              name="{{ filter.min_value.param_name }}"
-                              id="Filter-{{ filter.label | escape }}-GTE"
-                              {%- if filter.min_value.value -%}
-                                {%- if uses_comma_decimals -%}
-                                  value="{{ filter.min_value.value | money_without_currency | replace: '.', '' | replace: ',', '.' }}"
-                                {%- else -%}
-                                  value="{{ filter.min_value.value | money_without_currency | replace: ',', '' }}"
-                                {%- endif %}
-                              {%- endif -%}
-                              type="number"
-                              placeholder="0"
-                              min="0"
-                              {%- if uses_comma_decimals -%}
-                                max="{{ filter.range_max | money_without_currency | replace: '.', '' | replace: ',', '.' }}"
-                              {%- else -%}
-                                max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
-                              {% endif %}
-                            >
-                          </div>
-                          {%- if filter_type != 'vertical' -%}
-                            <span class="field-currency">{{ cart.currency.symbol }}</span>
-                          {%- endif -%}
-                          <div class="field">
-                            <input
-                              class="field__input"
-                              name="{{ filter.max_value.param_name }}"
-                              id="Filter-{{ filter.label | escape }}-LTE"
-                              {%- if filter.max_value.value -%}
-                                {%- if uses_comma_decimals -%}
-                                  value="{{ filter.max_value.value | money_without_currency | replace: '.', '' | replace: ',', '.' }}"
-                                {%- else -%}
-                                  value="{{ filter.max_value.value | money_without_currency | replace: ',', '' }}"
-                                {%- endif %}
-                              {%- endif -%}
-                              type="number"
-                              min="0"
-                              {%- if uses_comma_decimals -%}
-                                placeholder="{{ filter.range_max | money_without_currency | replace: '.', '' | replace: ',', '.' }}"
-                                max="{{ filter.range_max | money_without_currency | replace: '.', '' | replace: ',', '.' }}"
-                              {%- else -%}
-                                placeholder="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
-                                max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
-                              {% endif %}
-                            >
-                          </div>
-                        </price-range>
+                        {% render 'facets-price-inputs', filter: filter, id_prefix: 'Filter-', filter_type: filter_type %}
                       </div>
                     </details>
                 {% endcase %}
@@ -430,42 +266,7 @@
               <p class="twcss-font-[700] twcss-leading-[1.625rem]">
                 {{ 'products.facets.filter_by_label' | t }}
               </p>
-              {%- for filter in results.filters -%}
-                {%- for value in filter.active_values -%}
-                  <facet-remove>
-                    <a href="{{ value.url_to_remove }}" class="active-facets__button active-facets__button--light">
-                      <span class="active-facets__button-inner button button--tertiary">
-                        {{ value.label | escape }}
-                        {% render 'icon-close-small' %}
-                        <span class="visually-hidden">{{ 'products.facets.clear_filter' | t }}</span>
-                      </span>
-                    </a>
-                  </facet-remove>
-                {%- endfor -%}
-                {% if filter.type == 'price_range' %}
-                  {%- if filter.min_value.value != null or filter.max_value.value != null -%}
-                    <facet-remove>
-                      <a href="{{ filter.url_to_remove }}" class="active-facets__button active-facets__button--light">
-                        <span class="active-facets__button-inner button button--tertiary">
-                          {%- if filter.min_value.value -%}
-                            {{ filter.min_value.value | money }}
-                          {%- else -%}
-                            {{ 0 | money }}
-                          {%- endif -%}
-                          -
-                          {%- if filter.max_value.value -%}
-                            {{ filter.max_value.value | money }}
-                          {%- else -%}
-                            {{ filter.range_max | money }}
-                          {%- endif -%}
-                          {% render 'icon-close-small' %}
-                          <span class="visually-hidden">{{ 'products.facets.clear_filter' | t }}</span>
-                        </span>
-                      </a>
-                    </facet-remove>
-                  {%- endif -%}
-                {% endif %}
-              {%- endfor -%}
+              {%- render 'facets-active-pills', results: results, show_filter_label: false -%}
               <facet-remove class="active-facets__button-wrapper">
                 <a href="{{ results_url }}" class="active-facets__button-remove underlined-link color-base-accent-1">
                   <span class="twcss-text-[0.875rem] twcss-font-semibold twcss-leading-5">
@@ -684,49 +485,7 @@
                           </button>
                           <ul class="mobile-facets__list list-unstyled" role="list">
                             {%- for value in filter.values -%}
-                              <li class="mobile-facets__item list-menu__item">
-                                <label
-                                  for="Filter-{{ filter.param_name | escape }}-mobile-{{ forloop.index }}"
-                                  class="mobile-facets__label{% if value.count == 0 and value.active == false %} mobile-facets__label--disabled{% endif %}"
-                                >
-                                  <input
-                                    class="mobile-facets__checkbox twcss-mr-2 twcss-h-5 twcss-min-w-[1.25rem] "
-                                    type="checkbox"
-                                    name="{{ value.param_name }}"
-                                    value="{{ value.value }}"
-                                    id="Filter-{{ filter.param_name | escape }}-mobile-{{ forloop.index }}"
-                                    {% if value.active %}
-                                      checked
-                                    {% endif %}
-                                    {% if value.count == 0 and value.active == false %}
-                                      disabled
-                                    {% endif %}
-                                  >
-
-                                  <span class="mobile-facets__highlight"></span>
-
-                                  <span aria-hidden="true" class="mobile-facets__value">
-                                    {%- assign mobile_filter_label_lower = filter.label | downcase -%}
-                                    {%- if mobile_filter_label_lower contains 'shape' -%}
-                                      <span class="facet-shape-icon-wrapper">
-                                        {% render 'facet-shape-icons', shape: value.label %}
-                                      </span>
-                                    {%- elsif filter.param_name == 'filter.p.m.custom.color' -%}
-                                      <span class="facet-swatch" style="background: {% render 'swatch-color', name: value.label %};"></span>
-                                    {%- endif -%}
-                                    {{ value.label | escape }} <span class="facet-count">({{ value.count }})</span>
-                                  </span>
-                                  <span class="visually-hidden">
-                                    {{- value.label | escape }} (
-                                    {%- if value.count == '1' -%}
-                                      {{- 'products.facets.product_count_simple.one' | t: count: value.count -}}
-                                    {%- else -%}
-                                      {{- 'products.facets.product_count_simple.other' | t: count: value.count -}}
-                                    {%- endif -%}
-                                    )</span
-                                  >
-                                </label>
-                              </li>
+                              {%- render 'facets-filter-value', filter: filter, value: value, index: forloop.index, mode: 'mobile' -%}
                             {%- endfor -%}
                           </ul>
 
@@ -785,58 +544,7 @@
                             {{ 'products.facets.max_price' | t: price: max_price_amount }}
                           </p>
 
-                          <price-range class="facets__price">
-                            <span class="field-currency">{{ cart.currency.symbol }}</span>
-                            <div class="field">
-                              <input
-                                class="field__input"
-                                name="{{ filter.min_value.param_name }}"
-                                id="Mobile-Filter-{{ filter.label | escape }}-GTE"
-                                {%- if filter.min_value.value -%}
-                                  {%- if uses_comma_decimals -%}
-                                    value="{{ filter.min_value.value | money_without_currency | replace: '.', '' | replace: ',', '.' }}"
-                                  {%- else -%}
-                                    value="{{ filter.min_value.value | money_without_currency | replace: ',', '' }}"
-                                  {%- endif %}
-                                {%- endif -%}
-                                type="number"
-                                placeholder="0"
-                                min="0"
-                                inputmode="decimal"
-                                {%- if uses_comma_decimals -%}
-                                  max="{{ filter.range_max | money_without_currency | replace: '.', '' | replace: ',', '.' }}"
-                                {%- else -%}
-                                  max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
-                                {% endif %}
-                              >
-                            </div>
-
-                            <span class="field-currency">{{ cart.currency.symbol }}</span>
-                            <div class="field">
-                              <input
-                                class="field__input"
-                                name="{{ filter.max_value.param_name }}"
-                                id="Mobile-Filter-{{ filter.label | escape }}-LTE"
-                                {%- if filter.max_value.value -%}
-                                  {%- if uses_comma_decimals -%}
-                                    value="{{ filter.max_value.value | money_without_currency | replace: '.', '' | replace: ',', '.' }}"
-                                  {%- else -%}
-                                    value="{{ filter.max_value.value | money_without_currency | replace: ',', '' }}"
-                                  {%- endif %}
-                                {%- endif -%}
-                                type="number"
-                                min="0"
-                                inputmode="decimal"
-                                {%- if uses_comma_decimals -%}
-                                  placeholder="{{ filter.range_max | money_without_currency | replace: '.', '' | replace: ',', '.' }}"
-                                  max="{{ filter.range_max | money_without_currency | replace: '.', '' | replace: ',', '.' }}"
-                                {%- else -%}
-                                  placeholder="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
-                                  max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
-                                {% endif %}
-                              >
-                            </div>
-                          </price-range>
+                          {% render 'facets-price-inputs', filter: filter, id_prefix: 'Mobile-Filter-', mobile: true %}
                           <div class="no-js-hidden mobile-facets__footer">
                             <facet-remove class="mobile-facets__clear-wrapper">
                               <a
@@ -946,43 +654,7 @@
   </menu-drawer>
 
   <div class="active-facets active-facets-mobile medium-hide large-up-hide twcss-mt-3">
-    {%- for filter in results.filters -%}
-      {%- for value in filter.active_values -%}
-        <facet-remove>
-          <a href="{{ value.url_to_remove }}" class="active-facets__button active-facets__button--light">
-            <span class="active-facets__button-inner button button--tertiary">
-              {{ value.label | escape }}
-              {% render 'icon-close-small' %}
-              <span class="visually-hidden">{{ 'products.facets.clear_filter' | t }}</span>
-            </span>
-          </a>
-        </facet-remove>
-      {%- endfor -%}
-
-      {%- if filter.type == 'price_range' -%}
-        {%- if filter.min_value.value != null or filter.max_value.value != null -%}
-          <facet-remove>
-            <a href="{{ filter.url_to_remove }}" class="active-facets__button active-facets__button--light">
-              <span class="active-facets__button-inner button button--tertiary">
-                {%- if filter.min_value.value -%}
-                  {{ filter.min_value.value | money }}
-                {%- else -%}
-                  {{ 0 | money }}
-                {%- endif -%}
-                -
-                {%- if filter.max_value.value -%}
-                  {{ filter.max_value.value | money }}
-                {%- else -%}
-                  {{ filter.range_max | money }}
-                {%- endif -%}
-                {% render 'icon-close-small' %}
-                <span class="visually-hidden">{{ 'products.facets.clear_filter' | t }}</span>
-              </span>
-            </a>
-          </facet-remove>
-        {%- endif -%}
-      {%- endif -%}
-    {%- endfor -%}
+    {%- render 'facets-active-pills', results: results, show_filter_label: false -%}
     <facet-remove class="active-facets__button-wrapper">
       <a href="{{ results_url }}" class="active-facets__button-remove underlined-link color-base-accent-1">
         <span class="twcss-text-[0.875rem] twcss-font-semibold twcss-leading-5">
@@ -1084,43 +756,7 @@
     <facet-filters-form class="facets facets-pill small-hide">
       <form id="FacetFiltersPillsForm" class="facets__form">
         <div class="active-facets active-facets-desktop">
-          {%- for filter in results.filters -%}
-            {%- for value in filter.active_values -%}
-              <facet-remove>
-                <a href="{{ value.url_to_remove }}" class="active-facets__button active-facets__button--light">
-                  <span class="active-facets__button-inner button button--tertiary">
-                    {{ filter.label }}: {{ value.label | escape }}
-                    {% render 'icon-close-small' %}
-                    <span class="visually-hidden">{{ 'products.facets.clear_filter' | t }}</span>
-                  </span>
-                </a>
-              </facet-remove>
-            {%- endfor -%}
-
-            {%- if filter.type == 'price_range' -%}
-              {%- if filter.min_value.value != null or filter.max_value.value != null -%}
-                <facet-remove>
-                  <a href="{{ filter.url_to_remove }}" class="active-facets__button active-facets__button--light">
-                    <span class="active-facets__button-inner button button--tertiary">
-                      {%- if filter.min_value.value -%}
-                        {{ filter.min_value.value | money }}
-                      {%- else -%}
-                        {{ 0 | money }}
-                      {%- endif -%}
-                      -
-                      {%- if filter.max_value.value -%}
-                        {{ filter.max_value.value | money }}
-                      {%- else -%}
-                        {{ filter.range_max | money }}
-                      {%- endif -%}
-                      {% render 'icon-close-small' %}
-                      <span class="visually-hidden">{{ 'products.facets.clear_filter' | t }}</span>
-                    </span>
-                  </a>
-                </facet-remove>
-              {%- endif -%}
-            {%- endif -%}
-          {%- endfor -%}
+          {%- render 'facets-active-pills', results: results, show_filter_label: true -%}
           <facet-remove class="active-facets__button-wrapper">
             <a
               href="{{ results_url }}"

@@ -23,9 +23,11 @@
 }
 
 .power-selector__title {
+  margin: 0;
   font-family: var(--font-heading-family);
   font-size: 1.25rem;
   font-weight: 600;
+  letter-spacing: 0;
   line-height: 1.1;
   color: var(--tro-ink);
 }

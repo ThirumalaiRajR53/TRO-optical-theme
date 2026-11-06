@@ -43,6 +43,15 @@
           "label": "Botón con contorno",
           "info": "También se utiliza para enlaces de texto."
         },
+        "error": {
+          "label": "Error"
+        },
+        "error_background": {
+          "label": "Fondo de error"
+        },
+        "error_border": {
+          "label": "Borde de error"
+        },
         "gradient_accent_1": {
           "label": "Degradado resaltado 1"
         },
@@ -1616,6 +1625,10 @@
             "show_gift_card_recipient": {
               "label": "Mostrar el formulario de información de la persona destinataria para las tarjetas de regalo",
               "info": "Opcionalmente, las tarjetas de regalo se pueden enviar directamente a una persona destinataria junto con un mensaje personal. [Más información](https://help.shopify.com/manual/online-store/themes/customizing-themes/add-gift-card-recipient-fields)"
+            },
+            "stock_badge": {
+              "label": "Insignia de verificación de stock",
+              "info": "Se muestra debajo de los botones de compra solo para productos etiquetados Contact Lens, Eyeglasses o Sunglasses."
             }
           }
         },
@@ -3316,6 +3329,12 @@
       },
       "presets": {
         "name": "Cajón del carro"
+      }
+    },
+    "main_cart": {
+      "name": "Carrito principal",
+      "presets": {
+        "name": "Carrito principal"
       }
     },
     "banner": {

@@ -1,0 +1,87 @@
+{%- comment -%}
+  Renders one facet value (checkbox + label) for the filter lists.
+
+  Accepts:
+  - filter: {Object} Filter object (an item of results.filters)
+  - value: {Object} Filter value object (an item of filter.values)
+  - index: {Number} 1-based position of the value inside filter.values (forloop.index)
+  - mode: {String} 'desktop' (JS list), 'no-js' (desktop fallback list) or 'mobile' (drawer)
+  - filter_type: {String} 'horizontal' | 'vertical' | 'drawer' — desktop only, drives the show-more threshold
+
+  Usage:
+  {% render 'facets-filter-value', filter: filter, value: value, index: forloop.index, mode: 'desktop', filter_type: filter_type %}
+{%- endcomment -%}
+{%- liquid
+  assign param_name = filter.param_name | escape
+  assign disabled = false
+  if value.count == 0 and value.active == false
+    assign disabled = true
+  endif
+  case mode
+    when 'mobile'
+      assign input_id = 'Filter-' | append: param_name | append: '-mobile-' | append: index
+      assign item_class = 'mobile-facets__item list-menu__item'
+      assign label_class = 'mobile-facets__label'
+      assign disabled_class = 'mobile-facets__label--disabled'
+      assign input_class = 'mobile-facets__checkbox twcss-mr-2 twcss-h-5 twcss-min-w-[1.25rem] '
+    when 'no-js'
+      assign input_id = 'Filter-' | append: param_name | append: '-' | append: index | append: '-no-js'
+      assign item_class = 'list-menu__item facets__item'
+      assign label_class = 'facet-checkbox'
+      assign disabled_class = 'facet-checkbox--disabled'
+      assign input_class = 'twcss-mr-2 twcss-h-5 twcss-min-w-[1.25rem] '
+    else
+      assign input_id = 'Filter-' | append: param_name | append: '-' | append: index
+      assign item_class = 'list-menu__item facets__item'
+      if index > 10 and filter_type == 'vertical'
+        assign item_class = item_class | append: ' show-more-item hidden'
+      endif
+      assign label_class = 'facet-checkbox'
+      assign disabled_class = 'facet-checkbox--disabled'
+      assign input_class = 'twcss-mr-2 twcss-h-5 twcss-min-w-[1.25rem]'
+  endcase
+  assign filter_label_lower = filter.label | downcase
+-%}
+<li class="{{ item_class }}">
+  <label for="{{ input_id }}" class="{{ label_class }}{% if disabled %} {{ disabled_class }}{% endif %}">
+    <input
+      type="checkbox"
+      class="{{ input_class }}"
+      name="{{ value.param_name }}"
+      value="{{ value.value }}"
+      id="{{ input_id }}"
+      {% if value.active %}
+        checked
+      {% endif %}
+      {% if disabled %}
+        disabled
+      {% endif %}
+    >
+    {%- if mode == 'mobile' %}
+      <span class="mobile-facets__highlight"></span>
+    {%- endif %}
+    {%- if mode == 'no-js' %}
+      <span aria-hidden="true">{{ value.label | escape }} ({{ value.count }})</span>
+    {%- else %}
+      <span aria-hidden="true" class="{% if mode == 'mobile' %}mobile-facets__value{% else %}facet-checkbox__label{% endif %}">
+        {%- if filter_label_lower contains 'shape' -%}
+          <span class="facet-shape-icon-wrapper">
+            {% render 'facet-shape-icons', shape: value.label %}
+          </span>
+        {%- elsif filter.param_name == 'filter.p.m.custom.color' -%}
+          <span class="facet-swatch" style="background: {% render 'swatch-color', name: value.label %};"></span>
+        {%- endif -%}
+        {{ value.label | escape }} <span class="facet-count">({{ value.count }})</span>
+      </span>
+    {%- endif %}
+    <span class="visually-hidden">
+      {{- value.label | escape }} (
+      {%- if value.count == 1 -%}
+        {{- 'products.facets.product_count_simple.one' | t: count: value.count -}}
+      {%- else -%}
+        {{- 'products.facets.product_count_simple.other' | t: count: value.count -}}
+      {%- endif -%}
+      )</span
+    >
+  </label>
+</li>

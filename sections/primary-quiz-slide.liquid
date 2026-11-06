@@ -22,7 +22,7 @@
     <div
       class="twcss-flex twcss-flex-col twcss-items-center twcss-bg-[rgb(var(--color-base-background-1))] twcss-p-[3.75rem] xl:twcss-w-[66%]"
     >
-      <h2 class="twcss-font-bold twcss-text-[2rem] twcss-text-center">{{ section.settings.question }}</h2>
+      <h1 class="twcss-font-bold twcss-text-[2rem] twcss-text-center">{{ section.settings.question }}</h1>
       <div class="twcss-mt-10 twcss-grid twcss-grid-cols-1{% if section.blocks.size >= 4 %} md:twcss-grid-cols-4 {% endif %}{% if section.blocks.size == 3 %} md:twcss-grid-cols-3 {% endif %}{% if section.blocks.size == 2 %} twcss-grid-cols-2 {% endif %}{% if section.blocks.size == 1 %} twcss-grid-cols-1 {% endif %} twcss-gap-5">
         {% for block in section.blocks %}
           {% case block.type %}

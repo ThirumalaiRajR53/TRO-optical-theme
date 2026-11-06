@@ -1,6 +1,6 @@
 # TRO Optical — 2026 Redesign ("Heritage Luxury Glass")
 
-Branch: `theme_overhaul` (7 commits on top of `34ac3d6`, one per phase). Shopify Online Store 2.0 theme, still PoloThemes "Eye Cart"/Dawn-derived — no framework, no build step, deploys exactly like before.
+Branch: `theme_overhaul` (8 commits on top of `34ac3d6`, one per phase). Shopify Online Store 2.0 theme, still PoloThemes "Eye Cart"/Dawn-derived — no framework, no build step, deploys exactly like before.
 
 This document is the single deliverable for the redesign: audit summary, design rationale, design system, implementation summary, functionality-preservation report, test results, known limitations and recommendations. Every claim is tagged **Verified** (executed locally), **Inferred** (reasoned from code) or **Unverified** (needs a Shopify store/preview).
 
@@ -46,13 +46,14 @@ Theme Settings restored/added: `accent_color_3`, `background_color`, `main_backg
 | 4 | `c18e47a` | Product card (brand eyebrow, colour swatches via `swatch-color.liquid` name→hex map, glass "View details" hover), facets toolbar/pills/sort/drawer, colour-swatch + shape-icon facets, collection hero, breadcrumbs, pagination, search page form for empty results |
 | 5 | `b3d01c7` | PDP — **CSS only**: gallery/thumbnails, info column, frame specifications card (SVG diagram fill fix), inline power selector, lens-selector modal (stepper lines fixed), mobile fixed glass buy bar |
 | 6 | `782fca4` | Cart page (properties, item cards), article/blog, 404 (prefix bug + `routes.root_url`), customer pages, contact, password layout |
-| 7 | this commit | Verification fixes: AA contrast (gold-deep, option names, product count), breadcrumb separators moved to CSS, login/register a11y (h1, password-toggle label, underlined policy links), `preload_tag`, metric-matched fallback fonts (CLS 0.06 → 0), token-level glass fallbacks, `tests/theme-contracts.test.js`, this report |
+| 7 | `4e75462` | Verification fixes: AA contrast (gold-deep, option names, product count), breadcrumb separators moved to CSS, login/register a11y (h1, password-toggle label, underlined policy links), `preload_tag`, metric-matched fallback fonts (CLS 0.06 → 0), token-level glass fallbacks, `tests/theme-contracts.test.js`, this report |
+| 8 | this commit | theme-check and axe clean-up to zero: header-drawer unclosed `<div>`, `email-signup-banner` schema (`enabled_on`), `<img>` dimensions (cart notification, drawer promo tiles), `assets/magnify.js` restored from Dawn v10.0.0 (hover zoom works again), 7 Spanish schema keys, all hardcoded `/collections` routes → `routes.*`, `preload_tag` for picker fonts, announcement-bar/`offset: continue` lints, unused assigns, variable names, orphan `icon-remove`; `facets.liquid` complexity 164 → 98 via `facets-active-pills` / `facets-filter-value` / `facets-price-inputs` snippets (DOM-equivalent output proven); heading order on power selector, blog/collection cards (`heading_tag` param), login/register tabs, quiz (`<h1>` + eyebrow contrast) |
 
-Files: 54 changed vs base (+5,114 / −1,538 lines, fonts excluded); new: `tro-tokens.css`, `component-tro-header.css`, `section-feature-block.css`, `header-logo.liquid`, `cart-item-properties.liquid`, `swatch-color.liquid`, 3 WOFF2, `tests/theme-contracts.test.js`.
+Files: 77 changed vs base (+5,514 / −1,983 lines, fonts excluded); new: `tro-tokens.css`, `component-tro-header.css`, `section-feature-block.css`, `header-logo.liquid`, `cart-item-properties.liquid`, `swatch-color.liquid`, `facets-active-pills.liquid`, `facets-filter-value.liquid`, `facets-price-inputs.liquid`, `magnify.js` (Dawn v10.0.0, MIT), 3 WOFF2, `tests/theme-contracts.test.js`; deleted: `snippets/icon-remove.liquid` (orphan).
 
 ## 5. Functionality-preservation report
 
-**Byte-identical (Verified by sha256 in `tests/theme-contracts.test.js`):** `power-selector.js`, `lens-selector.js`, `product-form.js`, `quiz.js`, `facets.js`, `cart.js`, `cart-drawer.js`. Also untouched: `global.min.js`, `pubsub.js`, `product-info.js`, `sortby.js`, `predictive-search.js`, `snippets/buy-buttons.liquid`, `snippets/power-selector.liquid`, `snippets/lens-selector-modal.liquid`, `sections/main-product.liquid`, all quiz slide sections, all `templates/*.json` except `index.json` (hero `layout` settings only).
+**Byte-identical (Verified by sha256 in `tests/theme-contracts.test.js`):** `power-selector.js`, `lens-selector.js`, `product-form.js`, `quiz.js`, `facets.js`, `cart.js`, `cart-drawer.js`. Also untouched: `global.min.js`, `pubsub.js`, `product-info.js`, `sortby.js`, `predictive-search.js`, `snippets/buy-buttons.liquid`, `snippets/lens-selector-modal.liquid`, all `templates/*.json` except `index.json` (hero `layout` settings only). Edited only at the tag level in Phase 8, with every id/class/data attribute preserved: `snippets/power-selector.liquid` (`<span>`→`<h2>`, `<h4>`→`<h3>`), `sections/main-product.liquid` (`offset: continue` → the arithmetically identical `offset: slide_offset`, verified against Ruby Liquid 4.0.4 which is Shopify's engine), the three quiz slide sections (`<h2>`→`<h1>`, `quiz.js` toggles `display` only).
 
 **DOM/JS contracts kept (Verified by the contracts test + 93 runtime checks):** `#PowerSelector`, `power-{field}-{eye}`, `prop-{eye}-{field}`, `#ProductSubmitButton-{section}`, `LensConfig-/LensList-/LensPrice*/LensPowerToggle-/LensRxError*/lens-sph|cyl|axis-*`, `lens-prop-*` hidden inputs, `#CartDrawer*`, `CartDrawer-Item-/Remove-/LineItemError-`, `Drawer-quantity-`, `#cart`, `#main-cart-items`, `CartItem-`, `Line-item-error-`, `#FacetSortForm`, `#product-grid`, `#ProductCount*`, quiz selectors, `cart-icon-bubble`, `sections 'header-group'`.
 
@@ -73,6 +74,8 @@ Files: 54 changed vs base (+5,114 / −1,538 lines, fonts excluded); new: `tro-t
 14. Header + collection contracts (facets forms, sort, grid, count)
 15. Quiz page contract (slides, answers, progress, back)
 
+**Facets refactor (Phase 8):** `snippets/facets.liquid` delegates its four active-pill loops, three value-item bodies and two price-input blocks to new snippets. Before/after renders of collection, contact-lens collection and search were compared in drawer, horizontal and vertical filter modes with an edge-case mock (12-value facet → show-more, a `count == 0` disabled value, a `count == 1` value, an applied price range): DOM-equivalent on every page. The single intentional difference is the mobile drawer's screen-reader text for one-product values ("1 products" → "1 product"; the old copy compared `value.count == '1'` as a string).
+
 **Business-rule side effects deliberately not changed:** "Buy it now" still bypasses the lens modal; a variant change still visually resets the power gate (the submit interceptor still blocks); the lens modal's frame price is read once and not refreshed on variant change; cart quantity steppers still allow lens/frame quantities to diverge. All pre-existing (Verified in baseline), listed in §8.
 
 ## 6. Test results (Verified, final commit)
@@ -80,13 +83,14 @@ Files: 54 changed vs base (+5,114 / −1,538 lines, fonts excluded); new: `tro-t
 | Check | Result |
 |---|---|
 | Functional suite (`/tmp` harness, Chrome, real theme JS) | **93/93** on baseline and on redesign |
-| `node --test tests/*.test.js` | **24/24** (5 existing frame-finder tests + 19 new contract/hash/reference tests) |
-| Shopify theme-check 3.31 | **42 offenses (16 → 12 errors)** vs 57 on base. All 12 remaining errors are pre-existing (header-drawer `</details>` nesting, `magnify.js` missing, `email-signup-banner` schema, 7 `es.schema.json` translations, one `<img>` in `cart-notification-product`). The only new offense is `facets.liquid` Liquid complexity 161 → 164 (already over the limit). Fixed vs base: 4 `ImgWidthAndHeight` errors, 2 deprecated filters, 4 hardcoded routes, 3 remote assets, 2 undefined objects |
-| axe-core 4.x (WCAG 2.1 AA + best-practice), 24 pages @1280 and 11 pages @390 | Redesign: **0 violations on 17/24 pages**; the remaining 7 pages carry pre-existing issues only — 1 `heading-order` node each on the three contact-lens PDPs (power-selector `<h4>`), blog (card heading), login (tab `<h3>`), list-collections (card `<h3>`), plus the quiz page's `twcss-text-[rgb(var(--color-base-text))]` contrast and missing `<h1>`. On the 10 core pages the baseline had 46 violating nodes (12 missing `alt`, 8 contrast, 7 list structure, 6 label/name mismatches, 5 redundant alt, heading order, password-toggle name, colour-only links, no `<h1>` on login); the redesign has 3 (the pre-existing heading-order nodes above) |
+| `node --test tests/*.test.js` | **27/27** (5 existing frame-finder tests + 22 contract/hash/reference tests, now covering the three facets snippets) |
+| Shopify theme-check 3.31 (all checks, default config) | **0 offenses** (base: 57 — 16 errors, 41 warnings). Note the base count under-reported: `header-drawer.liquid` did not parse, which hid one `<img>` error and 15 hardcoded routes until Phase 8 fixed the nesting. `facets.liquid` complexity 164 → 98 (limit 120) |
+| axe-core 4.x (WCAG 2.1 AA + best-practice), 24 pages @1280 and 11 pages @390 | **0 violations on every page at both widths.** On the 10 core pages the baseline had 46 violating nodes (12 missing `alt`, 8 contrast, 7 list structure, 6 label/name mismatches, 5 redundant alt, heading order, password-toggle name, colour-only links, no `<h1>` on login) |
 | Lighthouse 13.6 (local server, mock images — relative comparison only) | Accessibility **89–92 → 99–100** (desktop and mobile, 4 pages); Best-practices/SEO unchanged (100/100; PDP desktop 81 both: one pre-existing deprecation warning); Performance parity (57–59 vs 57–58 desktop, 67–70 vs 65–69 mobile); CLS home 0.011 → 0.000, LCP improved on all 4 pages; font bytes 154 KB → 85–108 KB; CSS +45 KB uncompressed (~9 KB gzipped) |
 | Keyboard pass (CDP Tab sequences) | Every stop on PDP/cart/collection shows the indigo focus ring (baseline thumbnails had none); lens `<dialog>` traps focus and closes on Escape; cart drawer traps focus and returns it to the cart icon on Escape; power-selector selects reachable in order |
 | Reduced motion / reduced transparency (emulated) | Max transition/animation duration 0.01ms; mega menu, drawers and hero card become opaque with `backdrop-filter: none` |
-| Screenshots | `design-samples/final-renders/` — 8 pages × 1440 full / 1280 / 768 / 375 full + mega menu, cart drawer (desktop/mobile), menu drawer, lens modal (desktop/mobile), filter drawer |
+| Hover zoom (`image_zoom: hover`, restored `magnify.js`) | Click on the gallery image creates the `.image-magnify-full-size` overlay at 2×, toggles the spinner, restores opacity; overlay removed on mouseleave (CDP smoke test) |
+| Screenshots | `design-samples/final-renders/` — 8 pages × 1440 full / 1280 / 768 / 375 full + mega menu, cart drawer (desktop/mobile), menu drawer, lens modal (desktop/mobile), filter drawer; `design-samples/final-renders/phase8/` — pages touched by the clean-up |
 
 ## 7. Font licence notice
 
@@ -104,18 +108,16 @@ Files: 54 changed vs base (+5,114 / −1,538 lines, fonts excluded); new: `tro-t
 **Pre-existing issues left unchanged (documented, not fixed — outside the "no business-logic change" boundary or content decisions):**
 - "Buy it now" bypasses the lens modal and the power gate (dynamic checkout button is Shopify-rendered).
 - Variant change resets the power-selector's visual state; lens modal frame price not refreshed on variant change.
-- `snippets/header-drawer.liquid` `<details>`/`<div>` nesting error (theme-check), `assets/magnify.js` referenced but missing, `sections/submit-quiz.liquid` orphan, `.js-facet-remove` class mismatch, pagination prev/next class names swapped, cart page items lack `.cart-item`.
-- Heading-order issues inside `power-selector.liquid` (`<h4>`), blog/article cards, login tabs, list-collections; quiz page has no `<h1>` and one low-contrast utility class.
+- `sections/submit-quiz.liquid` orphan (not referenced by any template; not flagged by theme-check because sections are editor-addable), `.js-facet-remove` selector in `facets.js` matches nothing in the markup (it only toggles a `disabled` class on pills while a filter request is in flight; removal itself works through the `<facet-remove>` element), pagination prev/next class names swapped, cart page items lack `.cart-item`.
 - Content inconsistencies: free-shipping threshold ₹1,999 (cart drawer) vs ₹7,000 (trust strips); "Summer Essentials 2024" mega-menu block; quiz CTA copy mentions Readers/Blue Light; lens tooltip SPH range (−16…+9) wider than the Rx form (+6…−9).
 - `app.css` (Tailwind) remains frozen; `twcss-` utilities still used in login/register/cart/quiz markup.
-- Spanish schema translations missing for 7 pre-existing keys (`stock_badge`, `main_cart`, error colours).
 
 ## 9. Recommendations
 
 1. Preview on a development theme (`shopify theme push --development`) and run the 12 PDP cases from §5 with real products, especially the live `LensConfig` variant IDs and the `/cart/update.js` orphan cleanup.
 2. Decide the free-shipping threshold and update the three places; retire "Summer Essentials 2024".
-3. Fix the two cheap heading-order items (`power-selector.liquid` `<h4>` → `<h3>`, blog card heading) once the PDP markup freeze is lifted.
+3. `main-login.liquid` still carries ~150 lines of commented-out "OLDER CODE"; delete it once the new login layout is signed off.
 4. Replace the hardcoded `#LensConfig` JSON with metafields/metaobjects so lens bundles are merchant-editable; re-read `data-frame-price` on `variantChange`.
 5. Remove the 15 unreferenced stock sections and unused scripts (`main-search.js`, `quick-add.js`, `submit-quiz.liquid`) after confirming in the editor that no template uses them.
 6. Consider Shopify colour schemes (Dawn 10+) to replace the flat Polo colour model — the token layer already isolates the palette.
-7. Add the Spanish translations for the 7 missing schema keys.
+7. Keep `theme-check` and `node --test tests/` in CI; both are at zero/green now and will catch regressions in the Liquid/JS contracts.
