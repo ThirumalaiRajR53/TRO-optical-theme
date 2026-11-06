@@ -154,6 +154,11 @@
       assign has_app_block = true
     endif
   endfor
+
+  assign has_menu = false
+  if section.settings.nav_source != 'shopify' or section.settings.menu != blank
+    assign has_menu = true
+  endif
 -%}
 
 <{% if section.settings.sticky_header_type != 'none' %}sticky-header data-sticky-type="{{ section.settings.sticky_header_type }}"{% else %}div{% endif %} class="header-wrapper color-background-1  gradient{% if section.settings.show_line_separator %} header-wrapper--border-bottom{% endif %}">
@@ -169,13 +174,13 @@
       assign localization_forms = true
     endif
   -%}
-  <header class="header header--{{ section.settings.logo_position }} header--mobile-{{ section.settings.mobile_logo_position }} page-width{% if section.settings.menu_type_desktop == 'drawer' %} drawer-menu{% endif %}{% if section.settings.menu != blank %} header--has-menu{% endif %}{% if has_app_block %} header--has-app{% endif %}{% if social_links %} header--has-social{% endif %}{% if shop.customer_accounts_enabled %} header--has-account{% endif %}{% if localization_forms %} header--has-localizations{% endif %}">
+  <header class="header header--{{ section.settings.logo_position }} header--mobile-{{ section.settings.mobile_logo_position }} page-width{% if section.settings.menu_type_desktop == 'drawer' %} drawer-menu{% endif %}{% if has_menu %} header--has-menu{% endif %}{% if has_app_block %} header--has-app{% endif %}{% if social_links %} header--has-social{% endif %}{% if shop.customer_accounts_enabled %} header--has-account{% endif %}{% if localization_forms %} header--has-localizations{% endif %}">
     {%- liquid
-      if section.settings.menu != blank
+      if has_menu
         render 'header-drawer'
       endif
 
-      if section.settings.logo_position == 'top-center' or section.settings.menu == blank
+      if section.settings.logo_position == 'top-center' or has_menu == false
         render 'header-search', input_id: 'Search-In-Modal-1'
       endif
     -%}
@@ -191,7 +196,7 @@
     {%- endif -%}
 
     {%- liquid
-      if section.settings.menu != blank
+      if has_menu
         render 'header-mega-menu'
       endif
     %}
@@ -492,10 +497,22 @@
       "info": "t:sections.header.settings.logo_help.content"
     },
     {
+      "type": "select",
+      "id": "nav_source",
+      "default": "theme",
+      "label": "t:sections.header.settings.nav_source.label",
+      "info": "t:sections.header.settings.nav_source.info",
+      "options": [
+        { "value": "theme", "label": "t:sections.header.settings.nav_source.options__1.label" },
+        { "value": "shopify", "label": "t:sections.header.settings.nav_source.options__2.label" }
+      ]
+    },
+    {
       "type": "link_list",
       "id": "menu",
       "default": "main-menu",
-      "label": "t:sections.header.settings.menu.label"
+      "label": "t:sections.header.settings.menu.label",
+      "info": "t:sections.header.settings.menu.info"
     },
     {
       "type": "select",

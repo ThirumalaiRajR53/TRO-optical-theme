@@ -37,91 +37,61 @@
                 "eyeglasses-menu-image-1": {
                     "type": "mega-menu-image",
                     "settings": {
+                        "image": "shopify://shop_images/close-up-of-eye-glasses-on-a-computer-desk.jpg",
                         "top-menu-name": "Eyeglasses",
-                        "heading": "Blue Light Blocking Collection",
+                        "heading": "Kids Eyeglasses",
                         "subheading": "Shop Now",
-                        "link": "shopify://collections/blue-light-glasses"
+                        "link": "shopify://collections/kids-eyeglasses"
                     }
                 },
                 "eyeglasses-menu-image-2": {
                     "type": "mega-menu-image",
                     "settings": {
+                        "image": "shopify://shop_images/black-glasses-frames-sit-up-on-surface.jpg",
                         "top-menu-name": "Eyeglasses",
-                        "heading": "Premium Titanium Frames",
+                        "heading": "Rimless Frames",
                         "subheading": "Explore",
-                        "link": "shopify://collections/titanium-frames"
+                        "link": "shopify://collections/rimless-frames"
                     }
                 },
                 "sunglasses-menu-image-1": {
                     "type": "mega-menu-image",
                     "settings": {
+                        "image": "shopify://shop_images/black-sunglasses-in-a-pile-of-grey-stones.jpg",
                         "top-menu-name": "Sunglasses",
-                        "heading": "Polarized Collection",
+                        "heading": "Aviators",
                         "subheading": "Shop Now",
-                        "link": "shopify://collections/polarized-sunglasses"
+                        "link": "/collections/sunglasses?filter.p.m.custom.shape=Aviator"
                     }
                 },
                 "sunglasses-menu-image-2": {
                     "type": "mega-menu-image",
                     "settings": {
+                        "image": "shopify://shop_images/summer-sunglasses.jpg",
                         "top-menu-name": "Sunglasses",
-                        "heading": "Summer Essentials 2024",
+                        "heading": "New Arrivals",
                         "subheading": "View All",
-                        "link": "shopify://collections/summer-sunglasses"
+                        "link": "shopify://collections/new-arrivals"
                     }
                 },
                 "contacts-menu-image-1": {
                     "type": "mega-menu-image",
                     "settings": {
+                        "image": "shopify://shop_images/9DailiesTotal1DailyContactLens.jpg",
                         "top-menu-name": "Contact Lenses",
                         "heading": "Daily Disposable Lenses",
                         "subheading": "Shop Now",
-                        "link": "shopify://collections/daily-contacts"
+                        "link": "/collections/contact-lenses/daily-contact"
                     }
                 },
                 "contacts-menu-image-2": {
                     "type": "mega-menu-image",
                     "settings": {
+                        "image": "shopify://shop_images/34CooperVisionBiofinityXRMonthlySiliconeHydrogelContactLens.jpg",
                         "top-menu-name": "Contact Lenses",
-                        "heading": "Colored Contact Lenses",
+                        "heading": "Monthly Lenses",
                         "subheading": "Explore",
-                        "link": "shopify://collections/colored-contacts"
-                    }
-                },
-                "reading-menu-image-1": {
-                    "type": "mega-menu-image",
-                    "settings": {
-                        "top-menu-name": "Reading Glasses",
-                        "heading": "Lightweight Readers",
-                        "subheading": "Shop Now",
-                        "link": "shopify://collections/reading-glasses"
-                    }
-                },
-                "reading-menu-image-2": {
-                    "type": "mega-menu-image",
-                    "settings": {
-                        "top-menu-name": "Reading Glasses",
-                        "heading": "Stylish Reading Collection",
-                        "subheading": "View All",
-                        "link": "shopify://collections/designer-readers"
-                    }
-                },
-                "accessories-menu-image-1": {
-                    "type": "mega-menu-image",
-                    "settings": {
-                        "top-menu-name": "Accessories",
-                        "heading": "Premium Eyewear Cases",
-                        "subheading": "Shop Now",
-                        "link": "shopify://collections/eyewear-cases"
-                    }
-                },
-                "accessories-menu-image-2": {
-                    "type": "mega-menu-image",
-                    "settings": {
-                        "top-menu-name": "Accessories",
-                        "heading": "Lens Care Essentials",
-                        "subheading": "View All",
-                        "link": "shopify://collections/lens-care"
+                        "link": "/collections/contact-lenses/monthly"
                     }
                 }
             },
@@ -131,11 +101,7 @@
                 "sunglasses-menu-image-1",
                 "sunglasses-menu-image-2",
                 "contacts-menu-image-1",
-                "contacts-menu-image-2",
-                "reading-menu-image-1",
-                "reading-menu-image-2",
-                "accessories-menu-image-1",
-                "accessories-menu-image-2"
+                "contacts-menu-image-2"
             ],
             "settings": {
                 "logo_position": "middle-left",

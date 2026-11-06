@@ -103,7 +103,23 @@ const contracts = {
   "sections/main-collection-product-grid.liquid": ["FacetSortForm", 'id="product-grid"', "ProductCount", "show_shape_quick_filters", "render 'facets-quick-filters'"],
   "sections/footer.liquid": ["show_brand_column", "payment_badges", "footer-store__directions", "render 'social-icons'", "enabled_payment_types"],
   "snippets/card-product.liquid": ["card__heading", "quick-add"],
-  "sections/header.liquid": ["header-drawer", "cart-icon-bubble", "header__icon--cart"],
+  "sections/header.liquid": ["header-drawer", "cart-icon-bubble", "header__icon--cart", "nav_source", "has_menu"],
+  "snippets/theme-menu.liquid": [
+    "Details-HeaderMenu-",
+    "MegaMenu-Content-",
+    "Details-menu-drawer-menu-item-",
+    "menu-drawer__close-button",
+    "menu-drawer__menu--level-2",
+    "mega-menu__content",
+    "mega-menu__brand-tiles",
+    "brand-ray-ban.svg",
+    "brand-fila.svg",
+    "brand-acuvue.svg",
+    "/collections/contact-lenses/daily-contact",
+    "filter.p.m.custom.shape=Aviator",
+  ],
+  "snippets/header-mega-menu.liquid": ["render 'theme-menu', layout: 'desktop'", "nav_source"],
+  "snippets/header-drawer.liquid": ["render 'theme-menu', layout: 'drawer'", "nav_source", 'id="menu-drawer"'],
   "layout/theme.liquid": ["tro-tokens.css", "cart-drawer", "global.min.js", "pubsub.js", "quiz.js", "sections 'header-group'"],
 };
 
@@ -114,6 +130,18 @@ for (const [file, tokens] of Object.entries(contracts)) {
     assert.deepEqual(missing, [], `${file} is missing: ${missing.join(", ")}`);
   });
 }
+
+test("theme-menu URLs are store-relative and use only known collection handles", () => {
+  const src = read("snippets/theme-menu.liquid");
+  const known = new Set(["eyeglasses", "mens-eyeglasses", "womens-eyeglasses", "kids-eyeglasses", "unisex", "full-rimmed-frames", "semi-rimmed-frames", "rimless-frames", "sunglasses", "contact-lenses", "reading-glasses", "accessories", "new-arrivals", "best-sellers", "all"]);
+  const urls = [...src.matchAll(/[>|](\/[^|;'"~]*)/g)].map((m) => m[1]);
+  assert.ok(urls.length >= 20, `expected the menu to define URLs, found ${urls.length}`);
+  for (const url of urls) {
+    assert.ok(url.startsWith("/"), `${url} is not store-relative`);
+    const m = /^\/collections\/([a-z0-9-]+)/.exec(url);
+    if (m) assert.ok(known.has(m[1]), `${url} points at an unknown collection handle`);
+  }
+});
 
 test("business-logic scripts are byte-identical to the pre-redesign theme", () => {
   // sha256 prefixes frozen on commit 34ac3d6. Any edit to these files must be

@@ -1205,8 +1205,15 @@
             "label": "Middle center"
           }
         },
+        "nav_source": {
+          "label": "Navigation source",
+          "info": "Theme navigation is defined in snippets/theme-menu.liquid and deploys with the code (desktop mega menu and mobile drawer). Choose Shopify navigation to use the menu selected below instead.",
+          "options__1": { "label": "Theme navigation (defined in code)" },
+          "options__2": { "label": "Shopify navigation menu" }
+        },
         "menu": {
-          "label": "Menu"
+          "label": "Menu",
+          "info": "Only used when Navigation source is set to Shopify navigation menu."
         },
         "menu_type_desktop": {
           "label": "Desktop menu type",
