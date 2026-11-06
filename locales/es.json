@@ -208,6 +208,7 @@
       "sort_by_label": "Ordenar por:",
       "to": "Para",
       "clear_filter": "Eliminar filtro",
+      "quick_filters": "Filtrar por forma de montura",
       "filter_selected_accessibility": "{{ type }} ({{ count }} filtros seleccionados)",
       "show_more": "Mostrar más",
       "show_less": "Mostrar menos"
@@ -309,7 +310,8 @@
       }
     },
     "footer": {
-      "payment": "Formas de pago"
+      "payment": "Formas de pago",
+      "get_directions": "Cómo llegar"
     },
     "featured_blog": {
       "view_all": "Ver todo",

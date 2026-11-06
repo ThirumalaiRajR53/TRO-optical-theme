@@ -1,0 +1,14 @@
+# Offline preview of this theme: `docker compose up preview` then open http://localhost:4000
+# Renders the JSON templates with liquidjs and mock storefront data (see preview/), serves the
+# theme's assets, and reloads open pages when files in this folder change. It never talks to
+# Shopify and never touches the live theme. Use `shopify theme dev` for store-accurate previews.
+services:
+  preview:
+    build: ./preview
+    ports:
+      - "4000:4000"
+    volumes:
+      - ./:/theme:ro
+    environment:
+      THEME: /theme
+      PORT: "4000"

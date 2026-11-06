@@ -206,7 +206,8 @@
       "sort_button": "Sort",
       "sort_by_label": "Sort by:",
       "to": "To",
-      "clear_filter": "Remove filter"
+      "clear_filter": "Remove filter",
+      "quick_filters": "Filter by frame shape"
     }
   },
   "templates": {
@@ -306,7 +307,8 @@
       }
     },
     "footer": {
-      "payment": "Payment methods"
+      "payment": "Payment methods",
+      "get_directions": "Get directions"
     },
     "featured_blog": {
       "view_all": "View all",

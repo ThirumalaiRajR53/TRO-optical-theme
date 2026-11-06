@@ -262,37 +262,41 @@
         "template--21453178798384__61c523b0-e63d-44ea-aeb3-8effc92d6d93-column-1": {
           "type": "column",
           "settings": {
-            "title": "Custom Eyewear",
-            "text": "<p>You have the opportunity to create a pair of glasses that is truly one-of-a-kind.</p>",
+            "title": "Custom eyewear",
+            "text": "<p>Create a pair of glasses that is truly one-of-a-kind.</p>",
             "link_label": "",
-            "link": ""
+            "link": "",
+            "icon": "sparkle"
           }
         },
         "template--21453178798384__61c523b0-e63d-44ea-aeb3-8effc92d6d93-column-2": {
           "type": "column",
           "settings": {
-            "title": "Quality Materials",
-            "text": "<p>We prioritize quality materials to ensure the durability, comfort, and style of our products.</p>",
+            "title": "Quality materials",
+            "text": "<p>Durability, comfort and style in every frame we select.</p>",
             "link_label": "",
-            "link": ""
+            "link": "",
+            "icon": "shield"
           }
         },
         "template--21453178798384__61c523b0-e63d-44ea-aeb3-8effc92d6d93-column-3": {
           "type": "column",
           "settings": {
-            "title": "Secure Shipping",
-            "text": "<p>Get your eyeglasses delivered right to your doorstep, no matter where you are.</p>",
+            "title": "Secure shipping",
+            "text": "<p>Delivered to your doorstep, wherever you are.</p>",
             "link_label": "",
-            "link": ""
+            "link": "",
+            "icon": "truck"
           }
         },
         "beeca686-d530-4468-97cd-26513a2abf86": {
           "type": "column",
           "settings": {
-            "title": "Eyewear with a Purpose",
-            "text": "<p>You can make a stylish statement while contributing to a meaningful cause.</p>",
+            "title": "Eyewear with a purpose",
+            "text": "<p>Make a stylish statement while contributing to a meaningful cause.</p>",
             "link_label": "",
-            "link": ""
+            "link": "",
+            "icon": "leaf"
           }
         }
       },
@@ -303,8 +307,8 @@
         "beeca686-d530-4468-97cd-26513a2abf86"
       ],
       "settings": {
-        "title": "What We Offer",
-        "description": "<p>We stock a wide range of glasses and sunglasses styles, from timeless classics to the latest trends – so whatever you are looking for, we have it.</p>",
+        "title": "Timeless classics to the latest trends",
+        "description": "<p>We stock a wide range of glasses and sunglasses styles — whatever you are looking for, we have it.</p>",
         "heading_size": "h0",
         "image_width": "fixed",
         "fixed_image_width": 7,
@@ -318,7 +322,8 @@
         "columns_mobile": "1",
         "swipe_on_mobile": false,
         "padding_top": 36,
-        "padding_bottom": 36
+        "padding_bottom": 36,
+        "eyebrow": "What we offer"
       }
     },
     "quiz_TwCPkA": {

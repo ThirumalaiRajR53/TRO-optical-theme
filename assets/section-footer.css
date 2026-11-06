@@ -804,3 +804,181 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
+
+/* ---------- TRO 2026: brand column, directions links, payment badges, bottom bar ---------- */
+.footer-block--brand {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.footer-brand__emblem {
+  display: inline-flex;
+  margin-bottom: 0.9rem;
+}
+
+.footer-brand__emblem img {
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.18);
+}
+
+.footer-brand__name {
+  margin: 0;
+  font-family: var(--font-heading-family);
+  font-size: 1.25rem;
+  font-weight: 500;
+  line-height: 1.2;
+  color: #fff;
+}
+
+.footer-brand__tagline {
+  margin: 0.2rem 0 0.9rem;
+  font-family: var(--font-body-family);
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--tro-gold);
+}
+
+.footer-brand__description,
+.footer-brand__description p {
+  margin: 0 0 1rem;
+  font-family: var(--font-body-family);
+  font-size: 0.875rem;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.footer-block--brand .list-social {
+  justify-content: flex-start;
+  margin: 0 -0.5rem;
+}
+
+.footer-block--brand .list-social__link {
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.footer-block--brand .list-social__link:hover {
+  color: #fff;
+}
+
+.footer-store__directions {
+  display: inline-block;
+  margin-top: 0.4rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--tro-gold);
+  text-decoration: none;
+}
+
+.footer-store__directions:hover {
+  color: #fff;
+  text-decoration: underline;
+  text-underline-offset: 0.2rem;
+}
+
+.list-payment--badges {
+  gap: 0.4rem;
+  margin: 0;
+  padding: 0;
+}
+
+.list-payment__badge {
+  padding: 0.3rem 0.6rem;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  font-family: var(--font-body-family);
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+/* Bottom bar: the section renders two stacked .page-width wrappers (copyright | localization +
+   payment). Turn the parent into the page-width row so copyright sits left and payment right. */
+.footer .footer__content-bottom {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem 2rem;
+  max-width: var(--page-width);
+  margin: 0 auto;
+  padding: 1.25rem 3rem;
+}
+
+.footer .footer__content-bottom > .footer__content-bottom-wrapper {
+  width: auto;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  flex: 0 1 auto;
+}
+
+.footer .footer__content-bottom > .footer__content-bottom-wrapper--center {
+  justify-content: flex-start;
+}
+
+/* The brand column now carries the brand name; drop the duplicate above the store cards */
+.footer__blocks-wrapper--has-brand .footer-store__brand {
+  display: none;
+}
+
+.footer__copyright {
+  margin-top: 0;
+  text-align: left;
+}
+
+.footer__column--info {
+  padding: 0;
+  align-items: flex-end;
+}
+
+.footer__payment {
+  margin-top: 0;
+}
+
+@media screen and (min-width: 990px) {
+  .footer__blocks-wrapper--store-layout.footer__blocks-wrapper--has-brand {
+    grid-template-columns:
+      minmax(0, 1fr) minmax(0, 1.1fr) minmax(0, 1.1fr)
+      repeat(3, minmax(0, 0.78fr));
+    column-gap: 2rem;
+  }
+}
+
+@media screen and (min-width: 750px) and (max-width: 989px) {
+  .footer-block--brand.grid__item {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .footer .footer__content-bottom {
+    justify-content: center;
+    padding: 1.25rem 1.25rem 1.5rem;
+  }
+
+  .footer .footer__content-bottom > .footer__content-bottom-wrapper {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .footer__copyright {
+    text-align: center;
+  }
+
+  .footer__column--info {
+    align-items: center;
+  }
+
+  .list-payment--badges {
+    justify-content: center;
+  }
+}

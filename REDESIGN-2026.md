@@ -1,6 +1,6 @@
 # TRO Optical — 2026 Redesign ("Heritage Luxury Glass")
 
-Branch: `theme_overhaul` (8 commits on top of `34ac3d6`, one per phase). Shopify Online Store 2.0 theme, still PoloThemes "Eye Cart"/Dawn-derived — no framework, no build step, deploys exactly like before.
+Branch: `theme_overhaul` (10 commits on top of `34ac3d6`, one per phase). Shopify Online Store 2.0 theme, still PoloThemes "Eye Cart"/Dawn-derived — no framework, no build step, deploys exactly like before.
 
 This document is the single deliverable for the redesign: audit summary, design rationale, design system, implementation summary, functionality-preservation report, test results, known limitations and recommendations. Every claim is tagged **Verified** (executed locally), **Inferred** (reasoned from code) or **Unverified** (needs a Shopify store/preview).
 
@@ -28,7 +28,7 @@ This document is the single deliverable for the redesign: audit summary, design 
 |---|---|
 | Palette | ink `#121A4A`, ink-900 `#070B2E`, indigo `#3B3989` (brand anchor, links/focus), indigo-soft `#5B59A8`, indigo-tint `#ECEBF6`, porcelain `#F7F5F0` (page), linen `#F1EDE5` (alt surface), stone `#BDB5A6` (disabled only), muted `#5B6172` (secondary text, 5.67:1 on porcelain), gold `#B99A5B` (on dark only, 6.2:1 on ink), gold-deep `#7A6230` (gold on light, 4.97:1 on linen), error `#B3261E` |
 | Glass | `--tro-glass-bg rgba(255,255,255,.66)`, `--tro-glass-bg-strong .86`, border `.65`, blur `18px` (12px under 750px), dark variant `rgba(10,16,52,.58)`; opaque overrides under `@supports not (backdrop-filter)` and `prefers-reduced-transparency: reduce` (which also removes every `backdrop-filter`) |
-| Geometry | radii 10px buttons/inputs, 14px cards, 16px media, 20px popups, 999px pills; `--page-width` 1400px with 1.25/2/3rem gutters |
+| Geometry | radii 10px buttons/inputs, 14px cards, 16px media, 20px popups, 999px pills; `--page-width` 1400px with 1.25/2/3rem gutters. Since Phase 9 these are **pinned in `tro-tokens.css`** (`--page-width`, `--buttons-radius`, `--inputs-radius`, card/media/popup radii, grid spacing) so the storefront renders the design even when the store's saved editor sliders differ; the Theme Settings sliders for those values no longer have an effect |
 | Motion | 150–250ms transform/opacity only; global `prefers-reduced-motion` kill-switch (0.01ms durations, single iteration) |
 | Type scale | Display headings via `--font-heading-family`, `.tro-eyebrow`/`.caption-with-letter-spacing` 11px/600/0.16em uppercase |
 | Focus | `*:focus-visible` 2px indigo outline + 2px offset (Tailwind-styled buttons previously had none) |
@@ -47,7 +47,9 @@ Theme Settings restored/added: `accent_color_3`, `background_color`, `main_backg
 | 5 | `b3d01c7` | PDP — **CSS only**: gallery/thumbnails, info column, frame specifications card (SVG diagram fill fix), inline power selector, lens-selector modal (stepper lines fixed), mobile fixed glass buy bar |
 | 6 | `782fca4` | Cart page (properties, item cards), article/blog, 404 (prefix bug + `routes.root_url`), customer pages, contact, password layout |
 | 7 | `4e75462` | Verification fixes: AA contrast (gold-deep, option names, product count), breadcrumb separators moved to CSS, login/register a11y (h1, password-toggle label, underlined policy links), `preload_tag`, metric-matched fallback fonts (CLS 0.06 → 0), token-level glass fallbacks, `tests/theme-contracts.test.js`, this report |
-| 8 | this commit | theme-check and axe clean-up to zero: header-drawer unclosed `<div>`, `email-signup-banner` schema (`enabled_on`), `<img>` dimensions (cart notification, drawer promo tiles), `assets/magnify.js` restored from Dawn v10.0.0 (hover zoom works again), 7 Spanish schema keys, all hardcoded `/collections` routes → `routes.*`, `preload_tag` for picker fonts, announcement-bar/`offset: continue` lints, unused assigns, variable names, orphan `icon-remove`; `facets.liquid` complexity 164 → 98 via `facets-active-pills` / `facets-filter-value` / `facets-price-inputs` snippets (DOM-equivalent output proven); heading order on power selector, blog/collection cards (`heading_tag` param), login/register tabs, quiz (`<h1>` + eyebrow contrast) |
+| 8 | `a0439cb` | theme-check and axe clean-up to zero: header-drawer unclosed `<div>`, `email-signup-banner` schema (`enabled_on`), `<img>` dimensions (cart notification, drawer promo tiles), `assets/magnify.js` restored from Dawn v10.0.0 (hover zoom works again), 7 Spanish schema keys, all hardcoded `/collections` routes → `routes.*`, `preload_tag` for picker fonts, announcement-bar/`offset: continue` lints, unused assigns, variable names, orphan `icon-remove`; `facets.liquid` complexity 164 → 98 via `facets-active-pills` / `facets-filter-value` / `facets-price-inputs` snippets (DOM-equivalent output proven); heading order on power selector, blog/collection cards (`heading_tag` param), login/register tabs, quiz (`<h1>` + eyebrow contrast) |
+| 8b | `0bcd28c` | Desktop facet popups (price, brands, colour…) as glass panels with rounded corners |
+| 9 | this commit | Live-site fixes and mockup parity: filter toolbar centred on wide screens (a `margin` override was cancelling `.page-width`'s auto margins) + frame-shape quick-filter pills (`facets-quick-filters.liquid`, link-based, `show_shape_quick_filters` setting); contact-lens power selector laid out by its own container width (eyes stack, fields in one row on desktop) instead of a viewport breakpoint; lens-modal eye legends inside the cards; geometry tokens pinned (see §3); "What we offer" rebuilt to the mockup (eyebrow + left-aligned serif heading + lede, line icons per column via `icon-offer.liquid`, no grey band, copy in `index.json`); duplicate bottom "View all" hidden on desktop; footer brand column (emblem, name, tagline, description, social icons), "Get directions" links on store cards, payment badges when Shopify has no gateway icons; shipping message "Free Shipping on orders ₹7000+"; offline Docker preview (`docker compose up preview`) |
 
 Files: 77 changed vs base (+5,514 / −1,983 lines, fonts excluded); new: `tro-tokens.css`, `component-tro-header.css`, `section-feature-block.css`, `header-logo.liquid`, `cart-item-properties.liquid`, `swatch-color.liquid`, `facets-active-pills.liquid`, `facets-filter-value.liquid`, `facets-price-inputs.liquid`, `magnify.js` (Dawn v10.0.0, MIT), 3 WOFF2, `tests/theme-contracts.test.js`; deleted: `snippets/icon-remove.liquid` (orphan).
 
@@ -76,21 +78,24 @@ Files: 77 changed vs base (+5,514 / −1,983 lines, fonts excluded); new: `tro-t
 
 **Facets refactor (Phase 8):** `snippets/facets.liquid` delegates its four active-pill loops, three value-item bodies and two price-input blocks to new snippets. Before/after renders of collection, contact-lens collection and search were compared in drawer, horizontal and vertical filter modes with an edge-case mock (12-value facet → show-more, a `count == 0` disabled value, a `count == 1` value, an applied price range): DOM-equivalent on every page. The single intentional difference is the mobile drawer's screen-reader text for one-product values ("1 products" → "1 product"; the old copy compared `value.count == '1'` as a string).
 
+**Phase 9 scope check:** the shape quick filters are plain `<a>` links built from Shopify's `filter_value.url_to_add` / `url_to_remove`, so the existing `facets.js` form logic is untouched; the power-selector change is CSS only (container queries on `.power-selector`; browsers without support get the stacked 2×2 fallback); the footer additions are new Liquid branches behind settings that default on; `featured-collection` only gains a modifier class.
+
 **Business-rule side effects deliberately not changed:** "Buy it now" still bypasses the lens modal; a variant change still visually resets the power gate (the submit interceptor still blocks); the lens modal's frame price is read once and not refreshed on variant change; cart quantity steppers still allow lens/frame quantities to diverge. All pre-existing (Verified in baseline), listed in §8.
 
 ## 6. Test results (Verified, final commit)
 
 | Check | Result |
 |---|---|
-| Functional suite (`/tmp` harness, Chrome, real theme JS) | **93/93** on baseline and on redesign |
-| `node --test tests/*.test.js` | **27/27** (5 existing frame-finder tests + 22 contract/hash/reference tests, now covering the three facets snippets) |
+| Functional suite (`preview/` harness, Chrome, real theme JS) | **93/93** on baseline and after every phase (last run after Phase 9) |
+| `node --test tests/*.test.js` | **29/29** (5 existing frame-finder tests + 24 contract/hash/reference tests, covering the facets snippets, quick filters and footer settings) |
 | Shopify theme-check 3.31 (all checks, default config) | **0 offenses** (base: 57 — 16 errors, 41 warnings). Note the base count under-reported: `header-drawer.liquid` did not parse, which hid one `<img>` error and 15 hardcoded routes until Phase 8 fixed the nesting. `facets.liquid` complexity 164 → 98 (limit 120) |
-| axe-core 4.x (WCAG 2.1 AA + best-practice), 24 pages @1280 and 11 pages @390 | **0 violations on every page at both widths.** On the 10 core pages the baseline had 46 violating nodes (12 missing `alt`, 8 contrast, 7 list structure, 6 label/name mismatches, 5 redundant alt, heading order, password-toggle name, colour-only links, no `<h1>` on login) |
+| axe-core 4.x (WCAG 2.1 AA + best-practice), 24 pages @1280 and 11 pages @390 | **0 violations on every page at both widths** (re-run on the Phase 9 pages: home, collections, contact-lens PDPs, frame PDP, cart). On the 10 core pages the baseline had 46 violating nodes (12 missing `alt`, 8 contrast, 7 list structure, 6 label/name mismatches, 5 redundant alt, heading order, password-toggle name, colour-only links, no `<h1>` on login) |
 | Lighthouse 13.6 (local server, mock images — relative comparison only) | Accessibility **89–92 → 99–100** (desktop and mobile, 4 pages); Best-practices/SEO unchanged (100/100; PDP desktop 81 both: one pre-existing deprecation warning); Performance parity (57–59 vs 57–58 desktop, 67–70 vs 65–69 mobile); CLS home 0.011 → 0.000, LCP improved on all 4 pages; font bytes 154 KB → 85–108 KB; CSS +45 KB uncompressed (~9 KB gzipped) |
 | Keyboard pass (CDP Tab sequences) | Every stop on PDP/cart/collection shows the indigo focus ring (baseline thumbnails had none); lens `<dialog>` traps focus and closes on Escape; cart drawer traps focus and returns it to the cart icon on Escape; power-selector selects reachable in order |
 | Reduced motion / reduced transparency (emulated) | Max transition/animation duration 0.01ms; mega menu, drawers and hero card become opaque with `backdrop-filter: none` |
 | Hover zoom (`image_zoom: hover`, restored `magnify.js`) | Click on the gallery image creates the `.image-magnify-full-size` overlay at 2×, toggles the spinner, restores opacity; overlay removed on mouseleave (CDP smoke test) |
-| Screenshots | `design-samples/final-renders/` — 8 pages × 1440 full / 1280 / 768 / 375 full + mega menu, cart drawer (desktop/mobile), menu drawer, lens modal (desktop/mobile), filter drawer; `design-samples/final-renders/phase8/` — pages touched by the clean-up |
+| Screenshots | `design-samples/final-renders/` — 8 pages × 1440 full / 1280 / 768 / 375 full + mega menu, cart drawer (desktop/mobile), menu drawer, lens modal (desktop/mobile), filter drawer; `design-samples/final-renders/phase8/` — pages touched by the clean-up; `design-samples/final-renders/phase9/` — toolbar at 1920/1440, power selector at 1920/1440/375, lens modal step 3, offers section, footer, cart drawer |
+| Live-site measurements (therajhanopticals.com, Chrome 1920px, before Phase 9) | Filter toolbar x=0 / 1200px wide while the grid started at x=408 (centring bug); contact-lens selects 66px wide ("Sel"); page width 1200, button/input radius 0 — the store had not applied `settings_data.json` / `header-group.json` from `main` even though templates had synced |
 
 ## 7. Font licence notice
 
@@ -105,6 +110,8 @@ Files: 77 changed vs base (+5,514 / −1,983 lines, fonts excluded); new: `tro-t
 - Real-device glass performance on low-end Android (blur is capped at 12px under 750px; no measurement possible here).
 - Theme editor behaviour for the new section settings (`logo_style`, `emblem_image`, `brand_tagline`, hero `layout`/`image_focus`).
 
+**Store settings that did not sync from GitHub (checklist for the theme editor):** the live theme is connected to `main`, but `config/settings_data.json` and `sections/header-group.json` were not applied by the store. Geometry is now pinned in CSS, so only these remain to be set by hand: Header → Logo style "Emblem", Emblem image `TRO_new.jpg`, Brand tagline "Estd. 1956 · Chennai"; Cart drawer → Shipping message "Free Shipping on orders ₹7000+"; Theme settings → Currency → untick "Show currency codes" (removes the "INR" suffix); optionally check the theme's GitHub sync status under Online Store → Themes.
+
 **Pre-existing issues left unchanged (documented, not fixed — outside the "no business-logic change" boundary or content decisions):**
 - "Buy it now" bypasses the lens modal and the power gate (dynamic checkout button is Shopify-rendered).
 - Variant change resets the power-selector's visual state; lens modal frame price not refreshed on variant change.
@@ -112,7 +119,13 @@ Files: 77 changed vs base (+5,514 / −1,983 lines, fonts excluded); new: `tro-t
 - Content inconsistencies: free-shipping threshold ₹1,999 (cart drawer) vs ₹7,000 (trust strips); "Summer Essentials 2024" mega-menu block; quiz CTA copy mentions Readers/Blue Light; lens tooltip SPH range (−16…+9) wider than the Rx form (+6…−9).
 - `app.css` (Tailwind) remains frozen; `twcss-` utilities still used in login/register/cart/quiz markup.
 
-## 9. Recommendations
+## 9. Local preview (offline, Docker)
+
+`docker compose up preview` from the theme root, then open http://localhost:4000. The container (`preview/`: `render.mjs`, `mock.mjs`, `serve.mjs`, 21 mock images, liquidjs 10.30.1 pinned) renders the JSON templates with mock products, collections, menus, blog and cart, serves the theme's `assets/` directly from the bind-mounted repo, and re-renders + reloads open pages when any theme file changes (mtime polling, so it works with Docker Desktop bind mounts). Without Docker: `cd preview && npm ci && npm start`.
+
+Caveats: this is liquidjs with emulated Shopify filters/objects, not Shopify's engine; data is mock; settings come from the repo's `settings_data.json`, not the store; cart/checkout requests are not executed; the storefront links the mock pages point at (collections, products, account) redirect to the index. Use it for layout and CSS review, and `shopify theme dev` for store-accurate previews.
+
+## 10. Recommendations
 
 1. Preview on a development theme (`shopify theme push --development`) and run the 12 PDP cases from §5 with real products, especially the live `LensConfig` variant IDs and the `/cart/update.js` orphan cleanup.
 2. Decide the free-shipping threshold and update the three places; retire "Summer Essentials 2024".
