@@ -103,9 +103,9 @@
       "success": "Tu comentario se publicó correctamente. ¡Gracias!",
       "success_moderated": "Tu comentario se publicó correctamente. Lo publicaremos en breve, cuando se modere nuestro blog."
     },
-    "article_card":{
+    "article_card": {
       "by": "Por",
-      "on":"En"
+      "on": "En"
     }
   },
   "onboarding": {
@@ -173,7 +173,8 @@
       "inventory_low_stock_show_count": "Bajas existencias: quedan {{ quantity }}",
       "inventory_out_of_stock": "Agotado",
       "inventory_out_of_stock_continue_selling": "En existencias",
-      "sku": "SKU"
+      "sku": "SKU",
+      "view_details": "Ver detalles"
     },
     "modal": {
       "label": "Galería multimedia"
@@ -399,6 +400,7 @@
     "log_in": "Iniciar sesión",
     "log_out": "Cerrar sesión",
     "login_page": {
+      "toggle_password": "Mostrar u ocultar la contraseña",
       "cancel": "Cancelar",
       "create_account": "Crear cuenta",
       "email": "Correo electrónico",
@@ -510,28 +512,34 @@
       "button_label": "mostrar todo"
     },
     "non_empty": {
-      "footer_buttons":{
-        "button_label-1":"Ver mi carrito",
-        "button_label-2":"Pasar por la caja"
+      "footer_buttons": {
+        "button_label-1": "Ver mi carrito",
+        "button_label-2": "Pasar por la caja"
       }
+    },
+    "item": {
+      "for_frame": "Para la montura",
+      "no_power": "Sin graduación",
+      "each": "cada uno"
     }
   },
-  "search_modal":{
-     "input":{
+  "search_modal": {
+    "input": {
       "placeholder": "Buscar..."
-     }
+    }
   },
-  "cart_page":{
-    "heading":"Carro de la compra",
-    "remove_btn_label":"Eliminar",
-    "continue_shopping":"Seguir comprando",
+  "cart_page": {
+    "heading": "Carro de la compra",
+    "remove_btn_label": "Eliminar",
+    "continue_shopping": "Seguir comprando",
     "item_subtotal": "Sub Total",
     "subtotal": "Subtotal",
-    "items":"Elementos",
+    "items": "Elementos",
     "tax_note": "Impuestos y envío calculados al finalizar la compra",
-    "checkout":"Verificar"
+    "checkout": "Verificar"
   },
   "quiz": {
-    "duplicate_email_error": "La identificación de correo electrónico ya existe."
+    "duplicate_email_error": "La identificación de correo electrónico ya existe.",
+    "frame_finder": "Buscador de monturas"
   }
 }

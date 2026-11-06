@@ -14,7 +14,7 @@
 {% if cart.item_count > 0 %}
   <section class="cart-page twcss-mx-[1.5rem] twcss-mb-[4.375rem] twcss-mt-7 md:twcss-mx-[3.2rem] lg:twcss-mx-36">
     <div>
-      <h1 class="twcss-leading-[3.125rem] twcss-mb-[1.875rem] twcss-text-[2.375rem] twcss-font-semibold">
+      <h1 class="cart-page__title">
         {{ 'cart_page.heading' | t }}
       </h1>
       <div class="twcss-flex  twcss-flex-col twcss-gap-6 sm:twcss-flex-row">
@@ -43,11 +43,11 @@
                                   tabindex="-1"
                                 >
                                   <div class=" cart-image__wrapper  gradient global-media-settings twcss-flex twcss-h-full twcss-w-full twcss-items-center twcss-overflow-hidden">
-                                    <img
-                                      src="{{ item.image | image_url}}"
-                                      class="twcss-w-full"
-                                      alt="{{ item.image.alt | escape }}"
-                                    >
+                                    {{
+                                      item.image
+                                      | image_url: width: 420
+                                      | image_tag: class: 'cart-page-item__image', widths: '210, 420', sizes: '208px', loading: 'lazy', alt: ''
+                                    }}
                                   </div>
                                 </a>
                               {% endif %}
@@ -153,6 +153,8 @@
                                   {%- endfor -%}
                                 </div>
                               {%- endif -%}
+
+                              {% render 'cart-item-properties', item: item %}
 
                               <div
                                 class="cart-item__error"

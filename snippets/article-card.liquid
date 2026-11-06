@@ -11,6 +11,7 @@
   - show_author: {String} The setting either show the article author or not. If it's not included it will not show the author by default
   - show_badge: {String} The setting either show the blog badge or not.
   - lazy_load: {Boolean} Image should be lazy loaded. Default: true (optional)
+  - heading_tag: {String} Heading level for the article title. Default: 'h3' (optional)
 
   Usage:
   {% render 'article-card' blog: blog, article: article, show_image: section.settings.show_image %}
@@ -18,6 +19,7 @@
 
 {%- if article and article != empty -%}
   {%- liquid
+    assign heading_tag = heading_tag | default: 'h3'
     assign ratio = 1
     if media_aspect_ratio != null
       assign ratio = media_aspect_ratio
@@ -75,11 +77,11 @@
         {%- endif -%}
         <div class="card__content">
           <div class="card__information">
-            <h3 class="card__heading{% if show_excerpt %} h2{% endif %}">
+            <{{ heading_tag }} class="card__heading{% if show_excerpt %} h2{% endif %}">
               <a href="{{ article.url }}" class="full-unstyled-link">
                 {{ article.title | truncate: 50 | escape }}
               </a>
-            </h3>
+            </{{ heading_tag }}>
             <div class="article-card__info caption-with-letter-spacing h5">
               {%- if show_date -%}
                 <span class="circle-divider">{{ article.published_at | time_tag: format: 'date' }}</span>
@@ -119,11 +121,11 @@
               <span class="twcss-text-[0.8125rem]">{{ tag }}</span> <span class="circle-divider"></span>
             {%- endfor %}
           </div>
-          <h3 class="card__heading twcss-text-2xl twcss-font-semibold">
+          <{{ heading_tag }} class="card__heading twcss-text-2xl twcss-font-semibold">
             <a href="{{ article.url }}" class="full-unstyled-link">
               {{ article.title | truncate: 50 | escape }}
             </a>
-          </h3>
+          </{{ heading_tag }}>
           <div class="twcss-mb-4 twcss-text-[0.875rem] twcss-leading-[1.375rem]">
             {%- if show_author -%}
               <span>{{ 'blogs.article_card.by' | t }}</span>

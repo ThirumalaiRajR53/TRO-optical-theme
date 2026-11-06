@@ -92,3 +92,74 @@
     min-height: 18.75rem;
   }
 }
+
+/* ---------- TRO 2026 collection hero ---------- */
+.collection-hero {
+  background: transparent;
+  margin-bottom: 0.5rem;
+}
+
+.collection-hero__inner {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+  padding-top: 2rem;
+  padding-bottom: 1.5rem;
+}
+
+.collection-hero__text-wrapper {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.collection-hero__title {
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.05;
+  color: var(--tro-ink);
+}
+
+.collection-hero__description {
+  margin-top: 0.75rem;
+  max-width: 56ch;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--tro-muted);
+}
+
+.collection-hero__description > p {
+  margin: 0;
+}
+
+.collection-hero--with-image .collection-hero__image-container {
+  flex: 0 0 38%;
+  max-width: 34rem;
+  aspect-ratio: 16 / 7;
+  border-radius: var(--tro-r-lg);
+  overflow: hidden;
+  background: var(--tro-linen);
+  box-shadow: var(--tro-shadow-card);
+}
+
+.collection-hero--with-image .collection-hero__image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media screen and (max-width: 749px) {
+  .collection-hero__inner {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+    padding-top: 1.25rem;
+    padding-bottom: 1rem;
+  }
+
+  .collection-hero--with-image .collection-hero__image-container {
+    order: -1;
+    flex-basis: auto;
+    max-width: none;
+    aspect-ratio: 16 / 7;
+  }
+}

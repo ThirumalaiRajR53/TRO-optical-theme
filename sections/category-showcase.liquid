@@ -17,49 +17,31 @@
     }
 
     .category-showcase__title {
-      font-size: 2rem;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-      color: var(--text-color, #0F172A);
+      margin: 0 0 0.5rem;
+      color: var(--tro-ink);
     }
 
     .category-showcase__subtitle {
+      margin: 0 0 2.25rem;
       font-size: 1rem;
-      color: rgba(15, 23, 42, 0.6);
-      margin-bottom: 2rem;
+      color: var(--tro-muted);
     }
 
     .category-showcase__grid {
-      display: flex;
-      justify-content: center;
-      gap: 1.5rem;
-      flex-wrap: wrap;
-      max-width: 1200px;
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 0.75rem;
+      max-width: 72rem;
       margin: 0 auto;
-      padding: 0 1.5rem;
-    }
-
-    @media screen and (min-width: 750px) {
-      .category-showcase__grid {
-        gap: 2.5rem;
-        flex-wrap: nowrap;
-      }
     }
 
     .category-showcase__item {
       display: flex;
       flex-direction: column;
       align-items: center;
+      min-width: 0;
       text-decoration: none;
-      transition: transform 0.2s ease;
-      width: calc(33.333% - 1rem);
-    }
-
-    @media screen and (min-width: 750px) {
-      .category-showcase__item {
-        width: auto;
-        flex: 1;
-      }
+      transition: transform var(--tro-dur) var(--tro-ease);
     }
 
     .category-showcase__item:hover {
@@ -67,54 +49,79 @@
     }
 
     .category-showcase__image-wrapper {
-      width: 100px;
-      height: 100px;
+      position: relative;
+      width: 100%;
+      max-width: 11rem;
+      aspect-ratio: 1;
       border-radius: 50%;
       overflow: hidden;
-      border: 3px solid rgba(59, 57, 137, 0.12);
-      margin-bottom: 0.75rem;
-      transition: border-color 0.2s ease, box-shadow 0.2s ease;
-      background: rgba(59, 57, 137, 0.04);
       display: flex;
       align-items: center;
       justify-content: center;
+      background: var(--tro-linen);
+      box-shadow: 0 0 0 1px rgba(18, 26, 74, 0.08), 0 24px 40px -28px rgba(11, 19, 64, 0.45);
+      transition: box-shadow var(--tro-dur) var(--tro-ease);
     }
 
-    @media screen and (min-width: 750px) {
-      .category-showcase__image-wrapper {
-        width: 130px;
-        height: 130px;
-      }
+    .category-showcase__image-wrapper::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      box-shadow: inset 0 0 0 5px rgba(255, 255, 255, 0.55);
+      pointer-events: none;
     }
 
     .category-showcase__item:hover .category-showcase__image-wrapper {
-      border-color: rgba(59, 57, 137, 0.4);
-      box-shadow: 0 4px 16px rgba(59, 57, 137, 0.15);
+      box-shadow: 0 0 0 1px rgba(18, 26, 74, 0.14), 0 28px 44px -24px rgba(11, 19, 64, 0.55);
     }
 
     .category-showcase__image-wrapper img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      transition: transform var(--tro-dur-slow) var(--tro-ease);
+    }
+
+    .category-showcase__item:hover .category-showcase__image-wrapper img {
+      transform: scale(1.05);
     }
 
     .category-showcase__image-wrapper svg {
       width: 40%;
       height: 40%;
-      color: rgba(59, 57, 137, 0.6);
+      color: var(--tro-indigo);
     }
 
     .category-showcase__label {
-      font-size: 0.8125rem;
+      margin-top: 1rem;
+      font-family: var(--font-body-family);
+      font-size: 0.75rem;
       font-weight: 600;
-      color: var(--text-color, #0F172A);
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      letter-spacing: 0.03em;
+      color: var(--tro-ink);
     }
 
     @media screen and (min-width: 750px) {
+      .category-showcase__grid {
+        gap: 1.75rem;
+      }
+
       .category-showcase__label {
-        font-size: 0.875rem;
+        font-size: 0.8125rem;
+      }
+    }
+
+    @media screen and (max-width: 749px) {
+      .category-showcase__image-wrapper::after {
+        box-shadow: inset 0 0 0 3px rgba(255, 255, 255, 0.55);
+      }
+
+      .category-showcase__label {
+        font-size: 0.5625rem;
+        letter-spacing: 0.04em;
+        margin-top: 0.6rem;
       }
     }
   {%- endstyle -%}
@@ -132,13 +139,17 @@
         <a href="{{ block.settings.link }}" class="category-showcase__item" {{ block.shopify_attributes }}>
           <div class="category-showcase__image-wrapper">
             {%- if block.settings.image != blank -%}
-              <img
-                src="{{ block.settings.image | image_url: width: 260 }}"
-                alt="{{ block.settings.label | escape }}"
-                width="130"
-                height="130"
-                loading="lazy"
-              >
+              {{
+                block.settings.image
+                | image_url: width: 520
+                | image_tag:
+                  widths: '180, 260, 360, 520',
+                  sizes: '(min-width: 750px) 176px, 20vw',
+                  width: 176,
+                  height: 176,
+                  loading: 'lazy',
+                  alt: ''
+              }}
             {%- else -%}
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                 <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>

@@ -195,3 +195,52 @@
   height: 1.125rem;
   width: 1.125rem;
 }
+
+/* ---------- TRO 2026 article ---------- */
+.article-template__hero-container,
+.article-template__title-wrapper {
+  background: transparent;
+}
+
+.article-template .caption-with-letter-spacing {
+  color: var(--tro-gold-deep);
+}
+
+.article-template__title {
+  color: var(--tro-ink);
+}
+
+.article-template__hero-medium,
+.article-template__hero-small,
+.article-template__hero-large,
+.article-template__hero-adapt {
+  border-radius: var(--tro-r-lg);
+  overflow: hidden;
+}
+
+.article-template__content.rte {
+  font-size: 1.0625rem;
+  line-height: 1.75;
+  color: #2a3042;
+}
+
+.article-template__content.rte h2,
+.article-template__content.rte h3 {
+  color: var(--tro-ink);
+}
+
+.article-template__content.rte blockquote {
+  margin: 2rem 0;
+  padding: 1.25rem 1.5rem;
+  border-left: 2px solid var(--tro-gold);
+  border-radius: 0 var(--tro-r-md) var(--tro-r-md) 0;
+  background: #fff;
+  font-family: var(--font-heading-family);
+  font-size: 1.375rem;
+  font-style: italic;
+  color: var(--tro-ink);
+}
+
+.article-template header {
+  background-color: transparent;
+}

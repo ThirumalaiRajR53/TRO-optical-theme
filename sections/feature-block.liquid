@@ -1,3 +1,5 @@
+{{ 'section-feature-block.css' | asset_url | stylesheet_tag }}
+
 {%- style -%}
   .section-{{ section.id }}-padding {
     padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
@@ -9,64 +11,53 @@
       padding-top: {{ section.settings.padding_top }}px;
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
-    }
-
-    .section-{{ section.id }}-title-lh {
-      line-height: 3.125rem;
-    }
+  }
 {%- endstyle -%}
 
 <section class="section-{{ section.id }}-padding">
-  <div class="page-width mx-auto">
-    <div class="twcss-grid twcss-gap-6 lg:twcss-grid-cols-2">
+  <div class="page-width">
+    <div class="feature-block feature-block--{{ section.settings.image_height }}">
       {%- for block in section.blocks -%}
         {%- case block.type -%}
           {%- when 'column' -%}
-            <div
+            {%- assign tile_tag = 'div' -%}
+            {%- if block.settings.button_link != blank -%}
+              {%- assign tile_tag = 'a' -%}
+            {%- endif -%}
+            <{{ tile_tag }}
+              {% if tile_tag == 'a' %}href="{{ block.settings.button_link }}"{% endif %}
+              class="feature-tile feature-tile--{{ block.settings.block_alignment | default: 'left' }}"
               {{ block.shopify_attributes }}
-              class="
-                twcss-relative twcss-overflow-hidden
-                {% if section.settings.image_height == "small" %}twcss-h-[15rem] md:twcss-h-[25rem]{% endif %}
-                {% if section.settings.image_height == "medium" %}twcss-h-[20rem] md:twcss-h-[30rem]{% endif %}
-                {% if section.settings.image_height == "large" %}twcss-h-[25rem] md:twcss-h-[36rem]{% endif %}
-              "
             >
               {%- if block.settings.block_image == blank -%}
-                {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg twcss-h-full twcss-w-full twcss-object-cover' }}
+                {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg feature-tile__image' }}
               {%- else -%}
                 {{
                   block.settings.block_image
-                  | image_url: width: 600
-                  | image_tag: class: 'twcss-h-full twcss-w-full twcss-object-cover', loading: 'lazy'
+                  | image_url: width: 1400
+                  | image_tag:
+                    class: 'feature-tile__image',
+                    widths: '400, 600, 800, 1000, 1400',
+                    sizes: '(min-width: 990px) 50vw, 100vw',
+                    loading: 'lazy',
+                    alt: block.settings.block_image.alt
                 }}
               {%- endif -%}
-              <div
-                class="
-                  blur-background twcss-absolute twcss-min-w-[11.75rem] twcss-py-5 twcss-pl-5 twcss-pr-2
-                  {% if block.settings.block_alignment == "left" %} twcss-bottom-[15%] twcss-left-7 twcss-w-3/4 sm:twcss-bottom-1/4 sm:twcss-w-2/5 md:twcss-bottom-[20%] md:twcss-w-3/4 lg:twcss-w-1/2 xl:twcss-w-1/3 {% endif %}
-                  {% if block.settings.block_alignment == "center" %} twcss-bottom-[10%] twcss-left-1/2 twcss-w-3/4 -twcss-translate-x-1/2 sm:twcss-w-2/5 md:twcss-w-3/4 lg:twcss-w-1/2 {% endif %}
-                  {% if block.settings.block_alignment == "right" %} twcss-bottom-[15%] twcss-right-5 twcss-w-3/4 sm:twcss-bottom-1/4 sm:twcss-w-2/5 md:twcss-bottom-[20%] md:twcss-w-3/4 lg:twcss-w-1/2 xl:twcss-w-1/3 {% endif %}
-                "
-              >
-                {%- if block.settings.announcement_checkbox -%}
-                  <p class="twcss-mb-4 twcss-w-fit twcss-bg-[rgb(var(--color-base-solid-button-labels))] twcss-p-2 twcss-text-sm twcss-font-semibold twcss-text-[rgb(var(--color-base-accent-1))]">
-                    <span>
-                      {{ block.settings.announcement_text | upcase }}
-                    </span>
-                  </p>
-                {% endif %}
-                <a href="{{ block.settings.button_link }}">
-                  <h3 class="section-{{ section.id }}-title-lh twcss-mb-5 twcss-text-2xl twcss-font-extrabold twcss-text-[rgb(var(--color-base-solid-button-labels))] md:twcss-text-4xl">
-                    {{ block.settings.title }}
-                  </h3>
-                </a>
-                <a href="{{ block.settings.button_link }}">
-                  <button class="twcss-border twcss-border-[rgb(var(--color-base-solid-button-labels))] twcss-px-8 twcss-py-3 twcss-text-sm twcss-text-[rgb(var(--color-base-solid-button-labels))] twcss-transition-all twcss-duration-500 hover:twcss-bg-[rgb(var(--color-base-solid-button-labels))] hover:twcss-text-[rgb(var(--color-base-accent-1))]">
-                    {{ block.settings.button_label | upcase }}
-                  </button>
-                </a>
+              <div class="feature-tile__caption tro-glass--strong">
+                {%- if block.settings.announcement_checkbox and block.settings.announcement_text != blank -%}
+                  <p class="feature-tile__eyebrow">{{ block.settings.announcement_text }}</p>
+                {%- endif -%}
+                {%- if block.settings.title != blank -%}
+                  <h3 class="feature-tile__title">{{ block.settings.title }}</h3>
+                {%- endif -%}
+                {%- if block.settings.button_label != blank -%}
+                  <span class="feature-tile__cta">
+                    {{ block.settings.button_label }}
+                    {% render 'icon-arrow' %}
+                  </span>
+                {%- endif -%}
               </div>
-            </div>
+            </{{ tile_tag }}>
         {%- endcase -%}
       {%- endfor -%}
     </div>

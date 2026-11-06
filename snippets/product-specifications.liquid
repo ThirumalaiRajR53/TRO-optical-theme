@@ -124,6 +124,8 @@
               <span class="product-specs__value">
                 {%- if cl_uv_protection == 'true' or cl_uv_protection == true -%}
                   <span class="product-specs__tag product-specs__tag--positive">Yes</span>
+                {%- elsif cl_uv_protection == 'false' or cl_uv_protection == false -%}
+                  <span class="product-specs__tag">No</span>
                 {%- else -%}
                   <span class="product-specs__tag">{{ cl_uv_protection }}</span>
                 {%- endif -%}

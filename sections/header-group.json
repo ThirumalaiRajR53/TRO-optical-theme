@@ -40,7 +40,7 @@
                         "top-menu-name": "Eyeglasses",
                         "heading": "Blue Light Blocking Collection",
                         "subheading": "Shop Now",
-                        "link": "shopify:\/\/collections\/blue-light-glasses"
+                        "link": "shopify://collections/blue-light-glasses"
                     }
                 },
                 "eyeglasses-menu-image-2": {
@@ -49,7 +49,7 @@
                         "top-menu-name": "Eyeglasses",
                         "heading": "Premium Titanium Frames",
                         "subheading": "Explore",
-                        "link": "shopify:\/\/collections\/titanium-frames"
+                        "link": "shopify://collections/titanium-frames"
                     }
                 },
                 "sunglasses-menu-image-1": {
@@ -58,7 +58,7 @@
                         "top-menu-name": "Sunglasses",
                         "heading": "Polarized Collection",
                         "subheading": "Shop Now",
-                        "link": "shopify:\/\/collections\/polarized-sunglasses"
+                        "link": "shopify://collections/polarized-sunglasses"
                     }
                 },
                 "sunglasses-menu-image-2": {
@@ -67,7 +67,7 @@
                         "top-menu-name": "Sunglasses",
                         "heading": "Summer Essentials 2024",
                         "subheading": "View All",
-                        "link": "shopify:\/\/collections\/summer-sunglasses"
+                        "link": "shopify://collections/summer-sunglasses"
                     }
                 },
                 "contacts-menu-image-1": {
@@ -76,7 +76,7 @@
                         "top-menu-name": "Contact Lenses",
                         "heading": "Daily Disposable Lenses",
                         "subheading": "Shop Now",
-                        "link": "shopify:\/\/collections\/daily-contacts"
+                        "link": "shopify://collections/daily-contacts"
                     }
                 },
                 "contacts-menu-image-2": {
@@ -85,7 +85,7 @@
                         "top-menu-name": "Contact Lenses",
                         "heading": "Colored Contact Lenses",
                         "subheading": "Explore",
-                        "link": "shopify:\/\/collections\/colored-contacts"
+                        "link": "shopify://collections/colored-contacts"
                     }
                 },
                 "reading-menu-image-1": {
@@ -94,7 +94,7 @@
                         "top-menu-name": "Reading Glasses",
                         "heading": "Lightweight Readers",
                         "subheading": "Shop Now",
-                        "link": "shopify:\/\/collections\/reading-glasses"
+                        "link": "shopify://collections/reading-glasses"
                     }
                 },
                 "reading-menu-image-2": {
@@ -103,7 +103,7 @@
                         "top-menu-name": "Reading Glasses",
                         "heading": "Stylish Reading Collection",
                         "subheading": "View All",
-                        "link": "shopify:\/\/collections\/designer-readers"
+                        "link": "shopify://collections/designer-readers"
                     }
                 },
                 "accessories-menu-image-1": {
@@ -112,7 +112,7 @@
                         "top-menu-name": "Accessories",
                         "heading": "Premium Eyewear Cases",
                         "subheading": "Shop Now",
-                        "link": "shopify:\/\/collections\/eyewear-cases"
+                        "link": "shopify://collections/eyewear-cases"
                     }
                 },
                 "accessories-menu-image-2": {
@@ -121,7 +121,7 @@
                         "top-menu-name": "Accessories",
                         "heading": "Lens Care Essentials",
                         "subheading": "View All",
-                        "link": "shopify:\/\/collections\/lens-care"
+                        "link": "shopify://collections/lens-care"
                     }
                 }
             },
@@ -147,7 +147,10 @@
                 "mobile_logo_position": "left",
                 "margin_bottom": 0,
                 "padding_top": 8,
-                "padding_bottom": 8
+                "padding_bottom": 8,
+                "logo_style": "emblem",
+                "emblem_image": "shopify://shop_images/TRO_new.jpg",
+                "brand_tagline": "Estd. 1956 · Chennai"
             }
         },
         "cart_drawer": {
@@ -178,7 +181,7 @@
                 "cart_collection-3"
             ],
             "settings": {
-                "shipping_message": "Free Shipping on orders \u20b91999+"
+                "shipping_message": "Free Shipping on orders ₹1999+"
             }
         }
     },

@@ -36,3 +36,185 @@ hr {
 .remove-btn {
   font-family: var(--font-heading-family);
 }
+
+/* ---------- TRO 2026 cart page ---------- */
+.cart-page__title {
+  margin: 0 0 1.75rem;
+  font-size: clamp(2rem, 3.5vw, 2.75rem);
+  color: var(--tro-ink);
+}
+
+.cart-page .card-border {
+  border: 1px solid var(--tro-line);
+  border-radius: var(--tro-r-md);
+  background: #fff;
+  box-shadow: var(--tro-shadow-card);
+}
+
+.cart-page .cart-page-item {
+  font-family: var(--font-body-family);
+}
+
+.cart-page .cart-image__wrapper {
+  background: var(--tro-linen);
+  border-radius: var(--tro-r-sm);
+  overflow: hidden;
+}
+
+.cart-page-item__image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+  padding: 0.5rem;
+}
+
+.cart-page .caption-with-letter-spacing {
+  color: var(--tro-gold-deep);
+  margin-bottom: 0.35rem;
+}
+
+.cart-page .cart-page-item > div > div > a:first-child {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--tro-slate);
+  text-decoration: none;
+}
+
+.cart-page .cart-page-item > div > div > a:first-child:hover {
+  color: var(--tro-indigo);
+}
+
+.cart-page .product-option {
+  font-size: 0.875rem;
+  color: var(--tro-muted);
+}
+
+.cart-page .cart-drawer__option-name {
+  color: var(--tro-muted);
+  margin-right: 0.25rem;
+}
+
+.cart-page .quantity {
+  border-radius: var(--tro-r-pill);
+  background: #fff;
+}
+
+.cart-page .quantity:after {
+  border-radius: var(--tro-r-pill);
+  box-shadow: 0 0 0 1px var(--tro-line-strong);
+}
+
+.cart-page .quantity:before {
+  display: none;
+}
+
+.cart-page .cart-item__properties {
+  margin-top: 0.25rem;
+  margin-bottom: 0.75rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem 0.4rem;
+  font-size: 0.75rem;
+  line-height: 1.3;
+}
+
+.cart-page .cart-item__property {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.3rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+  background: var(--tro-indigo-tint);
+  white-space: nowrap;
+}
+
+.cart-page .cart-item__property dt {
+  color: var(--tro-muted);
+}
+
+.cart-page .cart-item__property dt::after {
+  content: ":";
+}
+
+.cart-page .cart-item__property dd {
+  margin: 0;
+  color: var(--tro-ink);
+  font-weight: 500;
+}
+
+.cart-page .cart-item__pair {
+  display: inline-block;
+  margin: 0.25rem 0 0.75rem;
+  padding: 0.3rem 0.6rem;
+  border-radius: 6px;
+  background: var(--tro-gold-tint);
+  color: var(--tro-gold-deep);
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.cart-page .cart-item__pair-label {
+  font-weight: 400;
+}
+
+.cart-page .price,
+.cart-page .price--end {
+  font-family: var(--font-body-family);
+  color: var(--tro-ink);
+}
+
+.cart-page .cart-item__old-price {
+  color: var(--tro-muted);
+  font-weight: 400;
+}
+
+.cart-page hr {
+  background: var(--tro-line);
+  border: 0;
+}
+
+.cart-page .btn-text-sm,
+.cart-page .remove-btn {
+  font-family: var(--font-body-family);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--tro-muted);
+  text-transform: none;
+}
+
+.cart-page .remove-btn:hover {
+  color: var(--tro-error);
+  filter: none;
+}
+
+.cart-page .text-body-text {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--tro-ink);
+}
+
+.cart-page .tax-note {
+  font-size: 0.8125rem;
+  color: var(--tro-muted);
+}
+
+.cart-page .btn-text--primary-sm {
+  text-transform: none;
+  font-weight: 500;
+  font-size: 0.9375rem;
+}
+
+.cart__login-title {
+  color: var(--tro-ink);
+}
+
+.cart-page .cart-page-item .product-option {
+  white-space: nowrap;
+}
+
+@media screen and (max-width: 749px) {
+  .cart-page .cart-page-item .twcss-justify-between {
+    flex-wrap: wrap;
+  }
+}

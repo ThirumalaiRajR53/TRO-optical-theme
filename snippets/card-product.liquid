@@ -147,7 +147,7 @@
             <a
               href="{{ card_product.url | within: collection }}"
               id="CardLink-{{ section_id }}-{{ card_product.id }}"
-              class="full-unstyled-link  twcss-mb-1 twcss-text-[1rem] twcss-font-semibold md:twcss-text-xl"
+              class="full-unstyled-link"
 
               aria-labelledby="CardLink-{{ section_id }}-{{ card_product.id }} Badge-{{ section_id }}-{{ card_product.id }}"
             >
@@ -172,8 +172,8 @@
                   {%- if forloop.index <= 5 -%}
                     <span
                       class="card__color-dot"
-                      title="{{ color_value }}"
-                      style="background-color: {{ color_value | downcase | replace: ' ', '' }};"
+                      title="{{ color_value | escape }}"
+                      style="background: {% render 'swatch-color', name: color_value %};"
                     ></span>
                   {%- endif -%}
                 {%- endfor -%}
@@ -228,9 +228,12 @@
           <div class="quick-add no-js-hidden">
             <a
               href="{{ card_product.url | within: collection }}"
-              class="button button--full-width button--secondary"
+              class="button button--full-width card__details-button tro-glass--strong"
+              tabindex="-1"
+              aria-hidden="true"
             >
-              More Details
+              {{ 'products.product.view_details' | t }}
+              {% render 'icon-arrow' %}
             </a>
           </div>
         {%- endif -%}

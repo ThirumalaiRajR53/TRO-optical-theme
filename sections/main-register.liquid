@@ -31,24 +31,24 @@
       <div class="twcss-w-11/12 color-background-1 isolate md:twcss-w-3/4 lg:twcss-w-1/2">
         <div class="twcss-flex twcss-border-b twcss-border-slate-200">
           <a href="{{ routes.account_login_url }}" class="twcss-w-full twcss-py-5">
-            <h1 class="twcss-text-center twcss-text-lg twcss-font-semibold twcss-opacity-[0.7] md:twcss-text-xl">
+            <h2 class="twcss-text-center twcss-text-lg twcss-font-semibold twcss-opacity-[0.7] md:twcss-text-xl">
               {{ 'customer.login_page.sign_in' | t | upcase }}
-            </h1>
+            </h2>
           </a>
           <a
             href="{{ routes.account_register_url }}"
             class="section-{{ section.id }}-border  twcss-w-full twcss-border-b-2 twcss-py-5"
           >
-            <h1 class="twcss-text-heading twcss-text-center twcss-text-lg twcss-font-semibold md:twcss-text-xl">
+            <h2 class="twcss-text-heading twcss-text-center twcss-text-lg twcss-font-semibold md:twcss-text-xl">
               {{ 'customer.register.sign_up' | t | upcase }}
-            </h1>
+            </h2>
           </a>
         </div>
 
         <div class="twcss-px-5 twcss-py-10 lg:twcss-px-[4.375rem]">
-          <h2 class="twcss-text-heading twcss-mb-5 twcss-text-center twcss-text-2xl twcss-font-semibold twcss-leading-[2.625rem] md:twcss-text-[2rem]">
+          <h1 class="twcss-text-heading twcss-mb-5 twcss-text-center twcss-text-2xl twcss-font-semibold twcss-leading-[2.625rem] md:twcss-text-[2rem]">
             {{ 'customer.register.title' | t }}
-          </h2>
+          </h1>
           <p class="twcss-text-body-text twcss-mb-5 twcss-text-center twcss-text-sm ">
             {{ 'customer.register.sub_heading' | t }}
           </p>
@@ -131,6 +131,7 @@
                     type="button"
                     id="toggle-pw-signup-button"
                     class="twcss-h-full twcss-cursor-pointer "
+                    aria-label="{{ 'customer.login_page.toggle_password' | t }}"
                     data-eye=" true"
                   >
                     <span class="eye-close">

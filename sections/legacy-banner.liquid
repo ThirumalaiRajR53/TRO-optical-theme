@@ -1,78 +1,69 @@
 <section class="legacy-banner section-{{ section.id }}-padding">
   {%- style -%}
     .legacy-banner {
-      background: linear-gradient(135deg, var(--accent-color-2, #04032D) 0%, var(--accent-color-1, #3B3989) 100%);
+      position: relative;
+      overflow: hidden;
+      background: var(--tro-ink-900);
       color: #fff;
       text-align: center;
-      overflow: hidden;
-      position: relative;
     }
 
     .legacy-banner::before {
       content: '';
       position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(ellipse at center, rgba(255,255,255,0.03) 0%, transparent 70%);
-      animation: legacy-shimmer 8s ease-in-out infinite;
-    }
-
-    @keyframes legacy-shimmer {
-      0%, 100% { transform: translateX(-10%) translateY(-10%); }
-      50% { transform: translateX(10%) translateY(10%); }
+      inset: -40% -10% auto -10%;
+      height: 160%;
+      background:
+        radial-gradient(60% 50% at 18% 40%, rgba(91, 89, 168, 0.55), transparent 60%),
+        radial-gradient(40% 40% at 85% 70%, rgba(185, 154, 91, 0.28), transparent 60%);
+      filter: blur(12px);
+      pointer-events: none;
     }
 
     .legacy-banner__inner {
       position: relative;
       z-index: 1;
-      padding: 2.5rem 1.5rem;
-      max-width: 800px;
+      padding: 3rem 1.5rem;
+      max-width: 50rem;
       margin: 0 auto;
     }
 
     @media screen and (min-width: 750px) {
       .legacy-banner__inner {
-        padding: 3.5rem 2rem;
+        padding: 4rem 2rem;
       }
     }
 
     .legacy-banner__year {
-      font-size: 0.75rem;
+      margin: 0 0 0.75rem;
+      font-family: var(--font-body-family);
+      font-size: 0.6875rem;
       font-weight: 600;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      opacity: 0.7;
-      margin-bottom: 0.5rem;
+      color: var(--tro-gold);
     }
 
     .legacy-banner__heading {
-      font-size: 1.75rem;
-      font-weight: 700;
-      margin-bottom: 0.75rem;
-      line-height: 1.2;
-    }
-
-    @media screen and (min-width: 750px) {
-      .legacy-banner__heading {
-        font-size: 2.25rem;
-      }
-    }
-
-    .legacy-banner__text {
-      font-size: 1rem;
-      opacity: 0.85;
-      line-height: 1.6;
-      max-width: 600px;
-      margin: 0 auto;
+      margin: 0 0 0.75rem;
+      font-size: clamp(2rem, 4vw, 3.25rem);
+      line-height: 1.05;
+      color: #fff;
     }
 
     .legacy-banner__divider {
-      width: 60px;
-      height: 2px;
-      background: rgba(255,255,255,0.4);
-      margin: 1rem auto;
+      width: 3rem;
+      height: 1px;
+      margin: 1.25rem auto;
+      background: rgba(185, 154, 91, 0.7);
+    }
+
+    .legacy-banner__text {
+      margin: 0 auto;
+      max-width: 40rem;
+      font-size: 1rem;
+      line-height: 1.65;
+      color: rgba(255, 255, 255, 0.75);
     }
 
     .section-{{ section.id }}-padding {

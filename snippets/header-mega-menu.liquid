@@ -34,7 +34,7 @@
                           aria-current="page"
                         {% endif %}
                       >
-                        {{ childlink.title | escape }}
+                        {{ childlink.title | remove: '[NEW]' | remove: '[SALE]' | strip | escape }}
                         {%- if childlink.title contains '[NEW]' or childlink.title contains '[SALE]' -%}
                           {%- assign badge_text = '' -%}
                           {%- if childlink.title contains '[NEW]' -%}
@@ -56,7 +56,7 @@
                                   aria-current="page"
                                 {% endif %}
                               >
-                                {{ grandchildlink.title | escape }}
+                                {{ grandchildlink.title | remove: '[NEW]' | remove: '[SALE]' | strip | escape }}
                                 {%- if grandchildlink.title contains '[NEW]' or grandchildlink.title contains '[SALE]' -%}
                                   {%- assign gc_badge = '' -%}
                                   {%- if grandchildlink.title contains '[NEW]' -%}
@@ -135,16 +135,16 @@
                   tabindex="-1"
                 >
                   <div class="mega-menu__brands-grid">
-                    <a href="/collections/all?filter.p.vendor=IDEE" class="mega-menu__link mega-menu__link--level-2 link twcss-font-semibold">IDEE</a>
-                    <a href="/collections/all?filter.p.vendor=IRUS" class="mega-menu__link mega-menu__link--level-2 link twcss-font-semibold">IRUS</a>
-                    <a href="/collections/all?filter.p.vendor=FILA" class="mega-menu__link mega-menu__link--level-2 link twcss-font-semibold">FILA</a>
-                    <a href="/collections/all?filter.p.vendor=POLICE" class="mega-menu__link mega-menu__link--level-2 link twcss-font-semibold">POLICE</a>
-                    <a href="/collections/all?filter.p.vendor=Acuvue" class="mega-menu__link mega-menu__link--level-2 link twcss-font-semibold">Acuvue</a>
-                    <a href="/collections/all?filter.p.vendor=Bausch%2BLomb" class="mega-menu__link mega-menu__link--level-2 link twcss-font-semibold">Bausch+Lomb</a>
-                    <a href="/collections/all?filter.p.vendor=Celebration" class="mega-menu__link mega-menu__link--level-2 link twcss-font-semibold">Celebration</a>
-                    <a href="/collections/all?filter.p.vendor=PolyLite" class="mega-menu__link mega-menu__link--level-2 link twcss-font-semibold">PolyLite</a>
-                    <a href="/collections/all?filter.p.vendor=CooperVision" class="mega-menu__link mega-menu__link--level-2 link twcss-font-semibold">CooperVision</a>
-                    <a href="/collections/all?filter.p.vendor=Alcon" class="mega-menu__link mega-menu__link--level-2 link twcss-font-semibold">Alcon</a>
+                    <a href="{{ routes.all_products_collection_url }}?filter.p.vendor=IDEE" class="mega-menu__link mega-menu__link--level-2 link twcss-font-semibold">IDEE</a>
+                    <a href="{{ routes.all_products_collection_url }}?filter.p.vendor=IRUS" class="mega-menu__link mega-menu__link--level-2 link twcss-font-semibold">IRUS</a>
+                    <a href="{{ routes.all_products_collection_url }}?filter.p.vendor=FILA" class="mega-menu__link mega-menu__link--level-2 link twcss-font-semibold">FILA</a>
+                    <a href="{{ routes.all_products_collection_url }}?filter.p.vendor=POLICE" class="mega-menu__link mega-menu__link--level-2 link twcss-font-semibold">POLICE</a>
+                    <a href="{{ routes.all_products_collection_url }}?filter.p.vendor=Acuvue" class="mega-menu__link mega-menu__link--level-2 link twcss-font-semibold">Acuvue</a>
+                    <a href="{{ routes.all_products_collection_url }}?filter.p.vendor=Bausch%2BLomb" class="mega-menu__link mega-menu__link--level-2 link twcss-font-semibold">Bausch+Lomb</a>
+                    <a href="{{ routes.all_products_collection_url }}?filter.p.vendor=Celebration" class="mega-menu__link mega-menu__link--level-2 link twcss-font-semibold">Celebration</a>
+                    <a href="{{ routes.all_products_collection_url }}?filter.p.vendor=PolyLite" class="mega-menu__link mega-menu__link--level-2 link twcss-font-semibold">PolyLite</a>
+                    <a href="{{ routes.all_products_collection_url }}?filter.p.vendor=CooperVision" class="mega-menu__link mega-menu__link--level-2 link twcss-font-semibold">CooperVision</a>
+                    <a href="{{ routes.all_products_collection_url }}?filter.p.vendor=Alcon" class="mega-menu__link mega-menu__link--level-2 link twcss-font-semibold">Alcon</a>
                   </div>
                 </div>
               </details>
@@ -165,27 +165,27 @@
                 >
                   <ul class="mega-menu__list" role="list">
                     <li>
-                      <a href="/collections/eyeglasses" class="mega-menu__link mega-menu__link--level-2 link twcss-font-semibold">
+                      <a href="{{ routes.collections_url }}/eyeglasses" class="mega-menu__link mega-menu__link--level-2 link twcss-font-semibold">
                         Eyeglasses
                       </a>
                     </li>
                     <li>
-                      <a href="/collections/sunglasses" class="mega-menu__link mega-menu__link--level-2 link twcss-font-semibold">
+                      <a href="{{ routes.collections_url }}/sunglasses" class="mega-menu__link mega-menu__link--level-2 link twcss-font-semibold">
                         Sunglasses
                       </a>
                     </li>
                     <li>
-                      <a href="/collections/contact-lenses" class="mega-menu__link mega-menu__link--level-2 link twcss-font-semibold">
+                      <a href="{{ routes.collections_url }}/contact-lenses" class="mega-menu__link mega-menu__link--level-2 link twcss-font-semibold">
                         Contact Lenses
                       </a>
                     </li>
                     <li>
-                      <a href="/collections/reading-glasses" class="mega-menu__link mega-menu__link--level-2 link twcss-font-semibold">
+                      <a href="{{ routes.collections_url }}/reading-glasses" class="mega-menu__link mega-menu__link--level-2 link twcss-font-semibold">
                         Reading Glasses
                       </a>
                     </li>
                     <li>
-                      <a href="/collections/accessories" class="mega-menu__link mega-menu__link--level-2 link twcss-font-semibold">
+                      <a href="{{ routes.collections_url }}/accessories" class="mega-menu__link mega-menu__link--level-2 link twcss-font-semibold">
                         Accessories
                       </a>
                     </li>

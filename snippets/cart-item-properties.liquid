@@ -1,0 +1,52 @@
+{% comment %}
+  Renders the customer-visible line item properties for a cart item: prescription values,
+  power type, lens package and the frame/lens pairing. Display only — property names and
+  values are never changed here (orders, the lens modal and the power selector depend on them).
+
+  Hidden: blank values, properties starting with "_" (Shopify convention) and the internal "Pair ID".
+
+  Accepts:
+  - item: {Object} cart line item
+
+  Usage:
+  {% render 'cart-item-properties', item: item %}
+{% endcomment %}
+
+{%- liquid
+  assign visible_count = 0
+  for property in item.properties
+    assign first_char = property.first | slice: 0
+    if property.last != blank and first_char != '_' and property.first != 'Pair ID' and property.first != 'For Frame'
+      assign visible_count = visible_count | plus: 1
+    endif
+  endfor
+-%}
+
+{%- if item.properties['For Frame'] != blank -%}
+  <p class="cart-item__pair">
+    <span class="cart-item__pair-label">{{ 'cart_drawer.item.for_frame' | t }}</span>
+    {{ item.properties['For Frame'] | escape }}
+  </p>
+{%- endif -%}
+
+{%- if visible_count > 0 -%}
+  <dl class="cart-item__properties">
+    {%- for property in item.properties -%}
+      {%- assign first_char = property.first | slice: 0 -%}
+      {%- if property.last != blank and first_char != '_' and property.first != 'Pair ID' and property.first != 'For Frame' -%}
+        <div class="cart-item__property">
+          <dt>{{ property.first | escape }}</dt>
+          <dd>
+            {%- if property.last contains '/uploads/' -%}
+              <a href="{{ property.last }}" class="link" target="_blank" rel="noopener">{{ property.last | split: '/' | last }}</a>
+            {%- elsif property.last == 'no-power' -%}
+              {{ 'cart_drawer.item.no_power' | t }}
+            {%- else -%}
+              {{ property.last | escape }}
+            {%- endif -%}
+          </dd>
+        </div>
+      {%- endif -%}
+    {%- endfor -%}
+  </dl>
+{%- endif -%}

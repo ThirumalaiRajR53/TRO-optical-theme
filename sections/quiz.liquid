@@ -16,38 +16,37 @@
 
 <section class="section-{{ section.id }}-padding">
   <div class="page-width">
-    <div class="twcss-flex twcss-flex-col md:twcss-flex-row md:twcss-justify-end twcss-relative md:twcss-h-[32.5rem]">
+    <div class="quiz-cta{% if section.settings.image == blank %} quiz-cta--no-image{% endif %}">
       {% if section.settings.image != blank %}
-        <div class="twcss-h-[13.625rem] md:twcss-h-full md:twcss-w-[67%]">
-          {{
-            section.settings.image
-            | image_url: width: 850, height: 520
-            | image_tag: class: 'twcss-h-full twcss-object-cover', loading: 'lazy'
-          }}
-        </div>
+        {{
+          section.settings.image
+          | image_url: width: 2000
+          | image_tag:
+            class: 'quiz-cta__image',
+            widths: '600, 900, 1200, 1600, 2000',
+            sizes: '(min-width: 1400px) 1300px, 100vw',
+            loading: 'lazy',
+            alt: ''
+        }}
       {% endif %}
-
-      <div class="twcss-flex twcss-items-center md:twcss-absolute md:twcss-left-0 md:twcss-top-1/2 md:twcss-transform md:-twcss-translate-y-1/2 md:twcss-max-w-[28.375rem] twcss-bg-[rgb(var(--color-base-background-1))] quiz-info">
-        <div class="twcss-p-10 twcss-flex twcss-flex-col twcss-border twcss-border-blue-900 ">
-          <h2 class="twcss-font-semibold twcss-text-[1.625rem] md:twcss-text-[2.375rem]">
-            {{ section.settings.heading }}
-          </h2>
-          <div class="twcss-mt-5 twcss-mb-10">{{ section.settings.description }}</div>
-          {%- if section.settings.button_label != blank -%}
-            <div>
-              <a
-                {% if section.settings.button_link == blank %}
-                  role="link" aria-disabled="true"
-                {% else %}
-                  href="{{ section.settings.button_link }}"
-                {% endif %}
-                class="button button--primary button--small twcss-uppercase md:twcss-w-fit"
-              >
-                {{- section.settings.button_label | escape -}}
-              </a>
-            </div>
-          {%- endif -%}
-        </div>
+      <div class="quiz-cta__card tro-glass--strong quiz-info">
+        <p class="quiz-cta__eyebrow">{{ 'quiz.frame_finder' | t }}</p>
+        <h2 class="quiz-cta__heading">{{ section.settings.heading }}</h2>
+        <div class="quiz-cta__text rte">{{ section.settings.description }}</div>
+        {%- if section.settings.button_label != blank -%}
+          <div>
+            <a
+              {% if section.settings.button_link == blank %}
+                role="link" aria-disabled="true"
+              {% else %}
+                href="{{ section.settings.button_link }}"
+              {% endif %}
+              class="button button--primary quiz-cta__button"
+            >
+              {{- section.settings.button_label | escape -}}
+            </a>
+          </div>
+        {%- endif -%}
       </div>
     </div>
   </div>

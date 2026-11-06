@@ -1,0 +1,430 @@
+/* TRO Optical design tokens and base refinements (2026 redesign).
+   Loaded after base.css. Colours that merchants can change still flow in from
+   theme settings via the --color-base-* triplets; everything below adds the
+   extended palette, glass surfaces, geometry and motion rules. */
+
+:root {
+  /* Extended palette */
+  --tro-ink-900: #070b2e;
+  --tro-ink: #121a4a;
+  --tro-indigo: #3b3989;
+  --tro-indigo-soft: #5b59a8;
+  --tro-indigo-tint: #ecebf6;
+  --tro-porcelain: #f7f5f0;
+  --tro-linen: #f1ede5;
+  --tro-sand: #e6e0d4;
+  --tro-stone: #bdb5a6;
+  --tro-slate: #0f172a;
+  --tro-muted: #5b6172;
+  --tro-gold: #b99a5b;
+  --tro-gold-deep: #7a6230; /* 4.97:1 on linen — the lightest surface it sits on */
+  --tro-gold-tint: #f7efdd;
+  --tro-success: #1f7a4d;
+  --tro-success-tint: #e6f3ec;
+  --tro-error: #b3261e;
+  --tro-line: rgba(18, 26, 74, 0.1);
+  --tro-line-strong: rgba(18, 26, 74, 0.22);
+
+  /* Glass surfaces */
+  --tro-glass-bg: rgba(255, 255, 255, 0.66);
+  --tro-glass-bg-strong: rgba(255, 255, 255, 0.86);
+  --tro-glass-border: rgba(255, 255, 255, 0.65);
+  --tro-glass-blur: 18px;
+  --tro-glass-shadow: 0 12px 40px rgba(11, 19, 64, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.75);
+  --tro-glass-dark-bg: rgba(10, 16, 52, 0.58);
+  --tro-glass-dark-border: rgba(255, 255, 255, 0.16);
+  --tro-glass-dark-shadow: 0 20px 60px rgba(4, 8, 40, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+
+  /* Geometry */
+  --tro-r-sm: 10px;
+  --tro-r-md: 14px;
+  --tro-r-lg: 20px;
+  --tro-r-pill: 999px;
+  --tro-shadow-card: 0 1px 2px rgba(11, 19, 64, 0.05), 0 16px 40px -20px rgba(11, 19, 64, 0.22);
+  --tro-shadow-card-hover: 0 2px 4px rgba(11, 19, 64, 0.05), 0 28px 50px -24px rgba(11, 19, 64, 0.35);
+  --tro-shadow-float: 0 24px 60px -24px rgba(11, 19, 64, 0.35);
+
+  /* Motion */
+  --tro-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --tro-dur-fast: 150ms;
+  --tro-dur: 220ms;
+  --tro-dur-slow: 320ms;
+}
+
+@media screen and (max-width: 749px) {
+  :root {
+    --tro-glass-blur: 12px;
+  }
+}
+
+/* ---------- Typography ---------- */
+body {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4, h5,
+.h0, .h1, .h2, .h3, .h4, .h5, .hxl {
+  letter-spacing: -0.012em;
+  line-height: 1.1;
+}
+
+.hxl { font-size: calc(var(--font-heading-scale) * 2.75rem); }
+.h0 { font-size: calc(var(--font-heading-scale) * 2.25rem); }
+h1, .h1 { font-size: calc(var(--font-heading-scale) * 2rem); }
+h2, .h2 { font-size: calc(var(--font-heading-scale) * 1.75rem); }
+h3, .h3 { font-size: calc(var(--font-heading-scale) * 1.375rem); }
+h4, .h4 { font-size: calc(var(--font-heading-scale) * 1.125rem); }
+
+@media screen and (min-width: 750px) {
+  .hxl { font-size: calc(var(--font-heading-scale) * 3.75rem); }
+  .h0 { font-size: calc(var(--font-heading-scale) * 3rem); }
+  h1, .h1 { font-size: calc(var(--font-heading-scale) * 2.5rem); }
+  h2, .h2 { font-size: calc(var(--font-heading-scale) * 2.125rem); }
+  h3, .h3 { font-size: calc(var(--font-heading-scale) * 1.5rem); }
+}
+
+h1 em, h2 em, .h0 em, .h1 em, .h2 em, .hxl em {
+  font-style: italic;
+  font-weight: inherit;
+  color: var(--tro-indigo);
+}
+
+.tro-eyebrow,
+.caption-with-letter-spacing {
+  font-family: var(--font-body-family);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+
+.tro-eyebrow {
+  color: var(--tro-muted);
+}
+
+.tro-eyebrow--gold {
+  color: var(--tro-gold-deep);
+}
+
+.rte {
+  line-height: 1.7;
+}
+
+.text-body,
+.caption-large {
+  letter-spacing: 0;
+}
+
+/* ---------- Links ---------- */
+.link--text,
+.underlined-link {
+  text-underline-offset: 0.25em;
+  text-decoration-thickness: 1px;
+  transition: color var(--tro-dur-fast) var(--tro-ease);
+}
+
+.underlined-link:hover {
+  color: var(--tro-indigo);
+}
+
+/* ---------- Buttons ---------- */
+.button,
+.shopify-challenge__button,
+.customer button,
+.shopify-payment-button__button--unbranded {
+  font-family: var(--font-body-family);
+  font-weight: 500;
+  font-size: 0.9375rem;
+  letter-spacing: 0.01em;
+  text-transform: none;
+  min-height: 3rem;
+  padding: 0 1.5rem;
+  transition: background-color var(--tro-dur) var(--tro-ease), color var(--tro-dur) var(--tro-ease), transform var(--tro-dur) var(--tro-ease), box-shadow var(--tro-dur) var(--tro-ease);
+}
+
+.button--primary,
+.shopify-challenge__button {
+  background-color: var(--tro-ink);
+  color: #fff;
+  --color-button: 18, 26, 74;
+  box-shadow: 0 10px 24px -12px rgba(11, 19, 64, 0.65);
+}
+
+.button--primary:hover,
+.shopify-challenge__button:hover {
+  background-color: var(--tro-ink-900);
+  box-shadow: 0 14px 28px -12px rgba(11, 19, 64, 0.75);
+  transform: translateY(-1px);
+}
+
+.button--primary:hover:after,
+.shopify-challenge__button:hover:after {
+  box-shadow: 0 0 0 var(--buttons-border-width) rgba(var(--color-button), var(--alpha-button-background));
+}
+
+.button--secondary {
+  color: var(--tro-ink);
+  background-color: transparent;
+  --color-button: 18, 26, 74;
+  --color-button-text: 18, 26, 74;
+}
+
+.button--secondary:hover {
+  background-color: var(--tro-ink);
+  color: #fff;
+}
+
+.color-accent-1 .button--secondary,
+.color-accent-2 .button--secondary,
+.color-accent-3 .button--secondary,
+.color-inverse .button--secondary {
+  color: #fff;
+  --color-button: 255, 255, 255;
+  --color-button-text: 255, 255, 255;
+}
+
+.color-accent-1 .button--secondary:hover,
+.color-accent-2 .button--secondary:hover,
+.color-accent-3 .button--secondary:hover,
+.color-inverse .button--secondary:hover {
+  background-color: #fff;
+  color: var(--tro-ink);
+}
+
+.button--tertiary {
+  font-size: 0.875rem;
+  min-height: 2.5rem;
+  padding: 0 1.125rem;
+}
+
+.button[disabled],
+.button[aria-disabled="true"],
+.button.disabled {
+  background-color: var(--tro-sand);
+  color: var(--tro-muted);
+  box-shadow: none;
+  transform: none;
+  cursor: not-allowed;
+  --color-button: 230, 224, 212;
+}
+
+/* Dynamic checkout button becomes the quiet option; Add to cart stays primary */
+button.shopify-payment-button__button--unbranded {
+  background-color: transparent;
+  color: var(--tro-ink);
+  box-shadow: inset 0 0 0 1px var(--tro-line-strong);
+  --color-button: 18, 26, 74;
+  --color-button-text: 18, 26, 74;
+}
+
+button.shopify-payment-button__button--unbranded:hover {
+  background-color: var(--tro-indigo-tint);
+  box-shadow: inset 0 0 0 1px var(--tro-ink);
+}
+
+/* ---------- Form fields ---------- */
+.field__input,
+.select__select,
+.customer .field input,
+.customer select,
+.text-area {
+  font-size: 0.9375rem;
+  letter-spacing: 0;
+  font-family: var(--font-body-family);
+}
+
+.field__input,
+.select__select,
+.customer .field input,
+.customer select {
+  min-height: 3rem;
+}
+
+.field:after,
+.select:after,
+.customer .field:after,
+.customer select:after,
+.localization-form__select:after {
+  box-shadow: 0 0 0 var(--inputs-border-width) var(--tro-line-strong);
+  border-radius: var(--inputs-radius-outset);
+}
+
+.field:hover.field:after,
+.select:hover.select:after,
+.customer .field:hover.field:after,
+.customer select:hover.select:after {
+  box-shadow: 0 0 0 var(--inputs-border-width) rgba(18, 26, 74, 0.5);
+}
+
+.field__input:focus-visible,
+.select__select:focus-visible,
+.customer .field input:focus-visible,
+.customer select:focus-visible,
+.field__input:focus,
+.select__select:focus,
+.customer .field input:focus,
+.customer select:focus {
+  box-shadow: 0 0 0 var(--inputs-border-width) var(--tro-indigo), 0 0 0 4px rgba(59, 57, 137, 0.18);
+  outline: 0;
+  border-radius: var(--inputs-radius);
+}
+
+.form__label {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+/* ---------- Badges ---------- */
+.badge {
+  font-family: var(--font-body-family);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.4em 0.85em;
+  border: 0;
+  line-height: 1.2;
+}
+
+/* ---------- Focus (visible, indigo, no heavy halo) ---------- */
+*:focus-visible,
+.focus-inset:focus-visible,
+.focus-offset:focus-visible {
+  outline: 2px solid var(--tro-indigo);
+  outline-offset: 3px;
+  box-shadow: none;
+}
+
+.focus-inset:focus-visible {
+  outline-offset: -2px;
+}
+
+/* ---------- Glass utilities ---------- */
+.tro-glass,
+.tro-glass--strong,
+.tro-glass--dark {
+  -webkit-backdrop-filter: blur(var(--tro-glass-blur)) saturate(160%);
+  backdrop-filter: blur(var(--tro-glass-blur)) saturate(160%);
+}
+
+.tro-glass {
+  background: var(--tro-glass-bg);
+  border: 1px solid var(--tro-glass-border);
+  box-shadow: var(--tro-glass-shadow);
+}
+
+.tro-glass--strong {
+  background: var(--tro-glass-bg-strong);
+  border: 1px solid var(--tro-glass-border);
+  box-shadow: var(--tro-glass-shadow);
+}
+
+.tro-glass--dark {
+  background: var(--tro-glass-dark-bg);
+  border: 1px solid var(--tro-glass-dark-border);
+  box-shadow: var(--tro-glass-dark-shadow);
+  color: #fff;
+}
+
+/* Every glass surface in the theme reads these tokens, so one override here
+   covers header, mega menu, drawers, facets, lens modal and the hero card. */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  :root {
+    --tro-glass-bg: rgba(255, 255, 255, 0.97);
+    --tro-glass-bg-strong: rgba(255, 255, 255, 0.98);
+    --tro-glass-dark-bg: rgba(10, 16, 52, 0.96);
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  :root {
+    --tro-glass-bg: #fff;
+    --tro-glass-bg-strong: #fff;
+    --tro-glass-dark-bg: var(--tro-ink-900);
+    --tro-glass-blur: 0px;
+  }
+
+  *,
+  *::before,
+  *::after {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+}
+
+/* ---------- Surfaces ---------- */
+.tro-card {
+  background: #fff;
+  border-radius: var(--tro-r-md);
+  border: 1px solid var(--tro-line);
+}
+
+/* ---------- Layout container ---------- */
+/* --page-width is now a real pixel max-width (settings.page_width), so side padding can be modest. */
+.page-width {
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
+
+@media screen and (min-width: 750px) {
+  .page-width {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .page-width {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+}
+
+/* ---------- Layout rhythm ---------- */
+.section-header + .shopify-section,
+.shopify-section-group-header-group ~ .shopify-section {
+  scroll-margin-top: var(--header-height, 0px);
+}
+
+/* ---------- Motion: respect reduced motion everywhere ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ---------- Breadcrumbs ---------- */
+.breadcrumbs nav {
+  font-family: var(--font-body-family);
+  font-size: 0.8125rem;
+  color: var(--tro-muted);
+}
+
+.breadcrumbs a {
+  color: var(--tro-muted);
+  text-decoration: none;
+}
+
+.breadcrumbs a:hover {
+  color: var(--tro-indigo);
+}
+
+.breadcrumbs [aria-current="page"] {
+  color: var(--tro-ink);
+  font-weight: 500;
+}
+
+/* Separator lives in CSS so the <ol> only contains <li> (WCAG 1.3.1). */
+.breadcrumbs ol li + li::before {
+  content: "/";
+  margin: 0 0.6rem;
+  color: var(--tro-line-strong);
+}

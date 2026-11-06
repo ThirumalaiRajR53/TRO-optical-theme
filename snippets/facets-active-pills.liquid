@@ -1,0 +1,46 @@
+{%- comment -%}
+  Renders the active-filter pills: one per selected value, plus one for an applied price range.
+
+  Accepts:
+  - results: {Object} Collection or Search object
+  - show_filter_label: {Boolean} Prefix each pill with the filter label ("Brand: POLICE")
+
+  Usage:
+  {% render 'facets-active-pills', results: results, show_filter_label: true %}
+{%- endcomment -%}
+{%- for filter in results.filters -%}
+  {%- for value in filter.active_values -%}
+    <facet-remove>
+      <a href="{{ value.url_to_remove }}" class="active-facets__button active-facets__button--light">
+        <span class="active-facets__button-inner button button--tertiary">
+          {% if show_filter_label %}{{ filter.label }}: {% endif %}{{ value.label | escape }}
+          {% render 'icon-close-small' %}
+          <span class="visually-hidden">{{ 'products.facets.clear_filter' | t }}</span>
+        </span>
+      </a>
+    </facet-remove>
+  {%- endfor -%}
+  {%- if filter.type == 'price_range' -%}
+    {%- if filter.min_value.value != null or filter.max_value.value != null -%}
+      <facet-remove>
+        <a href="{{ filter.url_to_remove }}" class="active-facets__button active-facets__button--light">
+          <span class="active-facets__button-inner button button--tertiary">
+            {%- if filter.min_value.value -%}
+              {{ filter.min_value.value | money }}
+            {%- else -%}
+              {{ 0 | money }}
+            {%- endif -%}
+            -
+            {%- if filter.max_value.value -%}
+              {{ filter.max_value.value | money }}
+            {%- else -%}
+              {{ filter.range_max | money }}
+            {%- endif -%}
+            {% render 'icon-close-small' %}
+            <span class="visually-hidden">{{ 'products.facets.clear_filter' | t }}</span>
+          </span>
+        </a>
+      </facet-remove>
+    {%- endif -%}
+  {%- endif -%}
+{%- endfor -%}
