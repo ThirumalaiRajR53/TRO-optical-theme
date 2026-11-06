@@ -1402,9 +1402,83 @@ span.active-facets__button-inner,
   font-family: var(--font-body-family);
 }
 
+/* Desktop facet popups (horizontal filter type): same glass panel as the sort dropdown */
+.facets__display {
+  top: calc(100% + 0.5rem);
+  width: 21.875rem;
+  max-height: 30rem;
+  overflow-y: auto;
+  padding: 0;
+  border-radius: var(--tro-r-md);
+  background: var(--tro-glass-bg-strong);
+  -webkit-backdrop-filter: blur(var(--tro-glass-blur)) saturate(160%);
+  backdrop-filter: blur(var(--tro-glass-blur)) saturate(160%);
+  border: 1px solid var(--tro-glass-border);
+  box-shadow: var(--tro-shadow-float);
+}
+
+.facets__header {
+  padding: 0.85rem 1.1rem;
+  border-bottom: 1px solid var(--tro-line);
+  background: rgba(255, 255, 255, 0.85);
+  font-family: var(--font-body-family);
+  font-size: 0.8125rem;
+  color: var(--tro-muted);
+}
+
+.facets__header .facets__selected {
+  color: var(--tro-muted);
+}
+
+.facets__header .facets__reset {
+  color: var(--tro-indigo);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.facets__header .facets__reset:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.facets__list {
+  padding: 0.4rem 0.6rem 0.5rem;
+  color: inherit;
+}
+
+.facets__list .facet-checkbox {
+  padding: 0.55rem 0.6rem;
+  border-radius: var(--tro-r-sm);
+  transition: background-color var(--tro-dur-fast) var(--tro-ease);
+}
+
+.facets__list .facet-checkbox:hover {
+  background: var(--tro-indigo-tint);
+}
+
 /* Price range inputs */
+.facets__price {
+  padding: 1rem 1.1rem 1.1rem;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.facets__price .field + .field-currency {
+  margin-left: 0.5rem;
+}
+
+.facets__price .field-currency {
+  margin-right: 0;
+  font-family: var(--font-body-family);
+  font-size: 0.8125rem;
+  color: var(--tro-muted);
+}
+
 .facets__price .field__input {
+  min-height: 2.75rem;
+  padding: 0.5rem 0.8rem;
   border-radius: var(--inputs-radius);
+  background: rgba(255, 255, 255, 0.75);
 }
 
 @media screen and (max-width: 749px) {
